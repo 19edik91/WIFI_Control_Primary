@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Pins</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Analog</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Clocks</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Interrupts</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\System</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Directives</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Flash Security</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\cyapicallbacks.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\main.c</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Pins</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Analog</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Clocks</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Interrupts</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\System</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Directives</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Flash Security</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\cyapicallbacks.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\main.c</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.gpdsc</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.rpt</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.gpdsc</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.rpt</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\PSoC 4 Architecture TRM</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides\cy_boot_v6_0</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides\cy_dmac_v1_10</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides\cy_lfclk_v1_20</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\PSoC 4 Architecture TRM</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides\cy_boot_v6_0</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides\cy_dmac_v1_10</v>
+<v>WIFI_Control\WIFI_Control_Master\System Reference Guides\cy_lfclk_v1_20</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs />
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Vertical"><TabbedMdiContainer Size="1628, 1038" SelectedTabbedMdiWindow="25635e1b-334b-4829-ae0e-709dc4b34524"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="25635e1b-334b-4829-ae0e-709dc4b34524" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>
