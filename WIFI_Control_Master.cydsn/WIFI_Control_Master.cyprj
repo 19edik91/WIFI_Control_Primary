@@ -2394,7 +2394,7 @@
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@Assembly@General@Join Data and Text Sections" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@Assembly@General@Suppress Warnings" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@Assembly@Command Line@Command Line" v="" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@General@Additional Include Directories" v=".\Source\BasicOS\BaseTypes; .\Source\BasicOS\OS_Communication; .\Source\BasicOS\OS_CRC; .\Source\BasicOS\OS_ErrorHandling; .\Source\BasicOS\OS_EventManager; .\Source\BasicOS\OS_Flash; .\Source\BasicOS\OS_SelfTest; .\Source\BasicOS\OS_StateManager; .\Source\BasicOS\OS_States; .\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock; .\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer; .\Source\BasicOS\OS_SystemTimers\OS_Watchdog; .\Source\HAL\FW_HAL_Flash; .\Source\HAL\FW_HAL_IO; .\Source\HAL\FW_HAL_Measure; .\Source\HAL\FW_HAL_MemoryInit; .\Source\HAL\FW_HAL_RTC; .\Source\HAL\FW_HAL_SelfTest; .\Source\HAL\FW_HAL_Serial; .\Source\HAL\FW_HAL_Timer; .\Source\HAL\FW_HAL_Watchdog; .\Source\Config; .\Source\Project" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@General@Additional Include Directories" v=".\Source\BasicOS\BaseTypes; .\Source\BasicOS\OS_Communication; .\Source\BasicOS\OS_CRC; .\Source\BasicOS\OS_ErrorHandling; .\Source\BasicOS\OS_EventManager; .\Source\BasicOS\OS_Flash; .\Source\BasicOS\OS_SelfTest; .\Source\BasicOS\OS_StateManager; .\Source\BasicOS\OS_States; .\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock; .\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer; .\Source\BasicOS\OS_SystemTimers\OS_Watchdog; .\Source\HAL\FW_HAL_Flash; .\Source\HAL\FW_HAL_IO; .\Source\HAL\FW_HAL_Measure; .\Source\HAL\FW_HAL_MemoryInit; .\Source\HAL\FW_HAL_RTC; .\Source\HAL\FW_HAL_SelfTest; .\Source\HAL\FW_HAL_Serial; .\Source\HAL\FW_HAL_Timer; .\Source\HAL\FW_HAL_Watchdog; .\Source\Config; .\Source\Project; .\Source" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@General@Create Listing File" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@General@Default Char Unsigned" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@General@Generate Debugging Information" v="True" />
@@ -2408,7 +2408,7 @@
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@Optimization@Fat LTO objects" v="True" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@Optimization@Inline Functions" v="False" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@Optimization@Link Time Optimization" v="False" />
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@Optimization@Optimization Level" v="None" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@Optimization@Optimization Level" v="Debug" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@C/C++@Command Line@Command Line" v="" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@Library Generation@Command Line@Command Line" v="" />
 <name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p@Linker@General@Additional Libraries" v="" />
