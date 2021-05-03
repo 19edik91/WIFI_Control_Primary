@@ -18,7 +18,14 @@
 #include "OS_SoftwareTimer.h"
 #include "OS_ErrorDebouncer.h"
 
+#include "HAL_Timer.h"
+
 static tsEventMsg sEvt = {eEvtNone, eEvtParam_None, eEvtParam_None};
+
+void CyBoot_Start_c_Callback(void)
+{
+    OS_SelfTest_StartCallback();
+}
 
 static void ClearEventStruct(tsEventMsg* psEvt)
 {
@@ -28,7 +35,7 @@ static void ClearEventStruct(tsEventMsg* psEvt)
 }
 
 static void Main_Task(void)
-{
+{   
     /* Check if event was handled */
     if(sEvt.eEventID == eEvtNone)
     {
@@ -66,8 +73,6 @@ static void Main_Task(void)
     OS_WDT_ClearWatchdogCounter();
 }
 
-
-
 /* Main is called after start-up and therefore after the start-up
  * self test.
  */
@@ -78,7 +83,7 @@ int main(void)
 
     /* Initialize state manager */
     OS_StateManager_Init();
-
+    
     /* Initialize the Watchdog with 2 second intervall */
     OS_WDT_InitWatchdog(2000);
 
