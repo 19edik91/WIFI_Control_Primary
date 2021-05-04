@@ -7,12 +7,14 @@
 \brief      Functionality for the regulation
 
 ***********************************************************************************/
+#include "OS_EventManager.h"
+#include "OS_ErrorDebouncer.h"
 
-#include "Regulation.h"
-#include "ErrorDetection.h"
-#include "EventManager.h"
-#include "ErrorDebouncer.h"
-#include "ErrorHandler.h"
+#include "DR_Regulation.h"
+#include "DR_ErrorDetection.h"
+
+#include "HAL_IO.h"
+
 #include "Aom_Regulation.h"
 #include "Aom_Flash.h"
 #include "Aom_Measure.h"
@@ -57,7 +59,7 @@ static void StateEntry(u8 ucOutputIdx)
     bool bSystemVoltageFound = false;
     
     /***** Enable regulation modules *****/      
-    if(Actors_GetPwmStatus(ucOutputIdx) == false)
+    if(HAL_IO_GetPwmStatus(ucOutputIdx) == false)
     {       
         //TODO: Enable voltage output
         
@@ -67,16 +69,16 @@ static void StateEntry(u8 ucOutputIdx)
         if(bSystemVoltageFound)
         {
             /* Start PWM module */
-            sPwmMap[ucOutputIdx].pfnStart();
+            HAL_IO_PWM_Start(ucOutputIdx);
             
             /* Check PWM output for a fault */
-            bErrorFound = ErrorDetection_CheckPwmOutput(ucOutputIdx);
+            bErrorFound = DR_ErrorDetection_CheckPwmOutput(ucOutputIdx);
             
             if(bErrorFound == false)
             {
                 /* Enable PWM module with lowest brightness level */
                 //sPwmMap[ucOutputIdx].pfnWriteCompare(sPwmMap[ucOutputIdx].pfnReadPeriod());
-                sPwmMap[ucOutputIdx].pfnWriteCompare(10);
+                HAL_IO_PWM_WriteCompare(ucOutputIdx, 10);
                 
                 //Enable delay for smoother dimming
                 CyDelay(10);
@@ -158,13 +160,13 @@ static void StateOff(u8 ucOutputIdx)
     psRegHandler[ucOutputIdx]->sRegState.eRegulationState = eStateOff;
     
     /***** Disable regulation module ****/    
-    if(Actors_GetPwmStatus(ucOutputIdx) == true)
+    if(HAL_IO_GetPwmStatus(ucOutputIdx) == true)
     {       
         /* Wait a short time */
         CyDelay(10);
         
         /* Stops PWM Timer and PWM modlue */
-        sPwmMap[ucOutputIdx].pfnStop();
+        HAL_IO_PWM_Stop(ucOutputIdx);
     }
     
     psRegHandler[ucOutputIdx]->sRegState.bStateReached = true;

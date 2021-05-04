@@ -8,10 +8,11 @@
 
 ***********************************************************************************/
 
-#include "Regulation.h"
+#include "DR_Regulation.h"
 #include "DR_ErrorDetection.h"
 #include "OS_EventManager.h"
 #include "OS_ErrorDebouncer.h"
+#include "HAL_IO.h"
 
 #include "Aom_Regulation.h"
 #include "Aom_Flash.h"
@@ -253,10 +254,11 @@ static void RegulatePWM(u8 ucOutputIdx)
     /* Calculate limits */
     s16 siAdcUpperLimit = psRegAdcVal->uiReqValue + ADC_LIMITS;
     s16 siAdcLowerLimit = psRegAdcVal->uiReqValue - ADC_LIMITS;    
+    u16 uiReadPeriod = 0;
     
     /* Read actual compare values */
-    uiLedCompareVal[ucOutputIdx] = sPwmMap[ucOutputIdx].pfnReadCompare();
-    u16 uiReadPeriod = sPwmMap[ucOutputIdx].pfnReadPeriod();
+    HAL_IO_PWM_ReadCompare(ucOutputIdx, (u32*)&uiLedCompareVal[ucOutputIdx]);
+    HAL_IO_PWM_ReadPeriod(ucOutputIdx, (u32*)&uiReadPeriod);
     
     /*************** Check for regulation ******************************************/
     if(psRegAdcVal->uiIsValue < siAdcLowerLimit)
@@ -288,7 +290,7 @@ static void RegulatePWM(u8 ucOutputIdx)
     if(uiOldCompareValue[ucOutputIdx] != uiLedCompareVal[ucOutputIdx])
     {
         /* Write new compare value into compare register */
-        sPwmMap[ucOutputIdx].pfnWriteCompare(uiLedCompareVal[ucOutputIdx]);
+        HAL_IO_PWM_WriteCompare(ucOutputIdx, uiLedCompareVal[ucOutputIdx]);
         
         /* Save actual compare value */
         uiOldCompareValue[ucOutputIdx] = uiLedCompareVal[ucOutputIdx];        
@@ -335,7 +337,7 @@ void Regulation_Init(void)
         //sRegulationHandler[ucOutputIdx].bHardwareEnabled = true;
         
         /* Init PWM module */
-        sPwmMap[ucOutputIdx].pfnStart();
+        HAL_IO_PWM_Start(ucOutputIdx);
     }
 
     #if PWM_ISR_ENABLE
@@ -473,6 +475,6 @@ teRegulationState Regulation_GetRequestedState(u8 ucOutputIdx)
 ***********************************************************************************/
 bool Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx)
 {
-    return Actors_GetPwmStatus(ucOutputIdx);
+    return HAL_IO_GetPwmStatus(ucOutputIdx);
 }
 #endif

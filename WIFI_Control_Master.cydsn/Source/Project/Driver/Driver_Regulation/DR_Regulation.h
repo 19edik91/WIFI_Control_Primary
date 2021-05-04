@@ -29,12 +29,12 @@ extern "C"
 /***************************** global variables ******************************/
 
 /************************ externally visible functions ***********************/
-void Regulation_Init(void);
-void Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx);
-u8 Regulation_Handler(void);
-teRegulationState Regulation_GetActualState(u8 ucOutputIdx);
-teRegulationState Regulation_GetRequestedState(u8 ucOutputIdx);
-bool Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx);
+void    DR_Regulation_Init(void);
+void    DR_Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx);
+u8      DR_Regulation_Handler(void);
+teRegulationState DR_Regulation_GetActualState(u8 ucOutputIdx);
+teRegulationState DR_Regulation_GetRequestedState(u8 ucOutputIdx);
+bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx);
 
 
 
