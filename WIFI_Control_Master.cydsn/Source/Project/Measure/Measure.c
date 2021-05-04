@@ -335,15 +335,7 @@ void Measure_Start(void)
 ***********************************************************************************/
 void Measure_Stop(void)
 {
-    // Set channel mask for no inputs
-    ADC_INPUT_SetChanMask(0x00);
-    
-    /* Stops the ADC module */
-    ADC_INPUT_Stop();
-    //ADC_INPUT_IRQ_Disable();
-    
-    /* Stop Analog multiplexer */
-    AMuxSeq_Stop();
+    HAL_Measure_Stop();
 }
 
 
