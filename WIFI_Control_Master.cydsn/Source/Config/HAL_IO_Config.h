@@ -18,6 +18,7 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
+#include "project.h"
 
 /****************************************** Defines ******************************************************/
 #define HAL_IO_ERRORCALLBACK        //Define a callback routine for errors in the HAL-IO-Module

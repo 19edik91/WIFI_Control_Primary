@@ -9,11 +9,11 @@
 ***********************************************************************************/
 #include "BaseTypes.h"
 #include "MessageHandler.h"
-#include "Messages.h"
-#include "Serial.h"
-#include "Actors.h"
-#include "ErrorDebouncer.h"
-#include "HelperFunctions.h"
+#include "OS_Messages.h"
+#include "OS_Serial_UART.h"
+
+#include "OS_ErrorDebouncer.h"
+#include "OS_Communication.h"
 #include "RequestResponseHandler.h"
 #include "ResponseDeniedHandler.h"
 #include "Aom_System.h"
@@ -85,7 +85,7 @@ static void CheckForCommTimeout(u8 ucElapsedTime)
     }
     else
     {
-        ErrorDebouncer_PutErrorInQueue(eCommunicationTimeoutFault);
+        OS_ErrorDebouncer_PutErrorInQueue(eCommunicationTimeoutFault);
         uiCommTimeout = ACTORS_TIMEOUT;
     }
 }
@@ -121,10 +121,10 @@ static void SendStillAliveMessage(bool bRequest)
     memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgStillAlive, sizeof(tMsgStillAlive));
     
     /* Fill header and checksum */
-    HF_CreateMessageFrame(&sMsgFrame);
+    OS_Communication_CreateMessageFrame(&sMsgFrame);
 
     /* Start to send the packet */
-    HF_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame);
 }
 
 //********************************************************************************
@@ -148,13 +148,13 @@ static void HandleMessage(tsMessageFrame* psMsgFrame)
     static u8 ucInvalidMessageCounter = 0;    
 
     /* Get payload */    
-    const teMessageId eMessageId = HF_GetObject(psMsgFrame);
-    const teMessageType eMsgType = HF_GetMessageType(psMsgFrame);
+    const teMessageId eMessageId = OS_Communication_GetObject(psMsgFrame);
+    const teMessageType eMsgType = OS_Communication_GetMessageType(psMsgFrame);
     
     teMessageType eResponse = eNoType;
     
     /* Check for valid message address */
-    if(HF_ValidateMessageAddresses(psMsgFrame))
+    if(OS_Communication_ValidateMessageAddresses(psMsgFrame))
     {    
         /* Check if the message is a response or a request */
         switch(eMsgType)
@@ -168,7 +168,7 @@ static void HandleMessage(tsMessageFrame* psMsgFrame)
             case eTypeAck:
             {
                 //Clear message from buffer
-                HF_ResponseReceived(psMsgFrame);
+                OS_Communication_ResponseReceived(psMsgFrame);
                 break;
             }
             
@@ -197,7 +197,7 @@ static void HandleMessage(tsMessageFrame* psMsgFrame)
     /* Send response message */
     if(eResponse != eNoType)
     {
-        HF_SendResponseMessage(eMessageId, eResponse);
+        OS_Communication_SendResponseMessage(eMessageId, eResponse);
     }
 
     /* Check for invalid messages */
@@ -211,7 +211,7 @@ static void HandleMessage(tsMessageFrame* psMsgFrame)
         if(++ucInvalidMessageCounter > INVALID_MESSAGES_MAX)
         {
             ucInvalidMessageCounter = INVALID_MESSAGES_MAX;
-            ErrorDebouncer_PutErrorInQueue(eCommunicationFault);
+            OS_ErrorDebouncer_PutErrorInQueue(eCommunicationFault);
         }
     }
     return;
@@ -254,10 +254,10 @@ void MessageHandler_SendFaultMessage(const u16 uiErrorCode)
     memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgFault, sizeof(sMsgFault));
 
     /* Fill header and checksum */
-    HF_CreateMessageFrame(&sMsgFrame);
+    OS_Communication_CreateMessageFrame(&sMsgFrame);
 
     /* Start to send the packet */
-    HF_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame);
 }
 
 
@@ -289,10 +289,10 @@ void MessageHandler_SendSleepOrWakeUpMessage(bool bSleep)
     sMsgFrame.sHeader.ucMsgType = eTypeRequest;
 
     /* Fill header and checksum */
-    HF_CreateMessageFrame(&sMsgFrame);
+    OS_Communication_CreateMessageFrame(&sMsgFrame);
 
     /* Start to send the packet */
-    HF_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame);
 }
 
 //********************************************************************************
@@ -324,58 +324,12 @@ void MessageHandler_SendInitDone(void)
     sMsgFrame.sHeader.ucMsgType = eTypeRequest;
 
     /* Fill header and checksum */
-    HF_CreateMessageFrame(&sMsgFrame);
+    OS_Communication_CreateMessageFrame(&sMsgFrame);
 
     /* Start to send the packet */
-    HF_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame);
 }
 
-//********************************************************************************
-/*!
-\author     Kraemer E
-\date       30.01.2019
-
-\fn         MessageHandler_HandleSerialCommEvent
-
-\brief      Is called whenever an message was received. Used by the Event-Handler
-
-\return     void 
-
-***********************************************************************************/
-void MessageHandler_HandleSerialCommEvent(void)
-{
-    //Buffer is bigger than message frame because a fault could lead to a
-    //bigger message size and with this also to an error.
-//    u8  ucRxBuffer[sizeof(tsMessageFrame)+sizeof(u32)];
-    u8 ucRxBuffer[255];
-    u8  ucRxCount = sizeof(ucRxBuffer);
-    u32 ulCalcCrc32 = INITIAL_CRC_VALUE;    
-    
-    /* Clear buffer first */
-    memset(&ucRxBuffer[0], 0, ucRxCount);
-    
-    /* Get message from the buffer */
-    if(Serial_GetPacket(&ucRxBuffer[0], &ucRxCount))
-    {
-        /* Get the whole message first and cast it into the message frame */
-        tsMessageFrame* psMsgFrame = (tsMessageFrame*)ucRxBuffer;
-                
-        /* Calculate the CRC for this message */
-        ulCalcCrc32 = HF_CreateMessageCrc(&ucRxBuffer[0], HF_GetMessageSizeWithoutCrc(psMsgFrame));
-        
-        /* Check for correct CRC */
-        if(psMsgFrame->ulCrc32 == ulCalcCrc32)
-        {        
-            /* Handle message */
-            HandleMessage(psMsgFrame);
-        }
-        else
-        {           
-            /* Put into error queue */
-            ErrorDebouncer_PutErrorInQueue(eMessageCrcFault);
-        }
-    }
-}
 
 //********************************************************************************
 /*!
@@ -395,7 +349,7 @@ void MessageHandler_HandleSerialCommEvent(void)
 ***********************************************************************************/
 void MessageHandler_Tick(u8 ucElapsedMs)
 {
-    HF_Tick(ucElapsedMs);
+    OS_Communication_Tick(ucElapsedMs);
     
     /* Check for communication faults only in active state;
        because in the standby state the slave is off */
@@ -439,10 +393,10 @@ void MessageHandler_SendOutputState(void)
         memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgResponse, sizeof(sMsgResponse));
 
         /* Fill header and checksum */
-        HF_CreateMessageFrame(&sMsgFrame);
+        OS_Communication_CreateMessageFrame(&sMsgFrame);
         
         /* Start to send the packet */
-        HF_SendMessage(&sMsgFrame);
+        OS_Communication_SendMessage(&sMsgFrame);
     }
 }
 #endif

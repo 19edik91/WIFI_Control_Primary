@@ -21,10 +21,6 @@ extern "C"
 #include "BaseTypes.h"
 #include "Project_Config.h"
 
-
-#define NUMBER_OF_PORTS          7
-
-
 typedef struct
 {
     u16 uiReqVoltageAdc;

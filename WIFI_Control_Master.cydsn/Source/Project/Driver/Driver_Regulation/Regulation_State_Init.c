@@ -7,10 +7,11 @@
 \brief      Functionality for the regulation
 
 ***********************************************************************************/
-#include "Regulation.h"
-#include "ErrorDetection.h"
-#include "EventManager.h"
-#include "ErrorDebouncer.h"
+#include "DR_Regulation.h"
+#include "DR_ErrorDetection.h"
+#include "OS_EventManager.h"
+#include "OS_ErrorDebouncer.h"
+#include "HAL_IO.h"
 #include "ErrorHandler.h"
 #include "Aom_Regulation.h"
 #include "Aom_Flash.h"
@@ -18,6 +19,7 @@
 #include "Regulation_Data.h"
 #include "Regulation_State_Init.h"
 
+#if 0
 /****************************************** Defines ******************************************************/
 /****************************************** Function prototypes ******************************************/
 static void StateEntry(u8 ucOutputIdx);
@@ -59,7 +61,7 @@ static void StateEntry(u8 ucOutputIdx)
     bool bErrorFound = false;
     
     /***** Enable regulation modules *****/      
-    if(Actors_GetPwmStatus(ucOutputIdx) == false)
+    if(HAL_IO_GetPwmStatus(ucOutputIdx) == false)
     {       
         /* Start PWM module */
         sPwmMap[ucOutputIdx].pfnStart();
@@ -283,3 +285,4 @@ tCStateDefinition* Regulation_State_InitLink(tsRegulationHandler* psRegulationHa
         return NULL;
     }
 }
+#endif

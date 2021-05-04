@@ -6,13 +6,12 @@
 */
 
 #include "Aom.h"
-#include "Actors.h"
-#include "Measure.h"
-#include "Flash.h"
-#include "EventManager.h"
-#include "Regulation.h"
+#include "DR_Measure.h"
+#include "OS_Flash.h"
+#include "OS_EventManager.h"
+#include "DR_Regulation.h"
 #include "Standby.h"
-#include "ErrorDetection.h"
+#include "DR_ErrorDetection.h"
 #include "ErrorHandler.h"
 #include "AutomaticMode.h"
 

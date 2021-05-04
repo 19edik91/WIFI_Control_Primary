@@ -6,12 +6,11 @@
 */
 
 #include "Aom.h"
-#include "Actors.h"
-#include "Measure.h"
-#include "EventManager.h"
-#include "Regulation.h"
-#include "ErrorDetection.h"
-#include "ErrorHandler.h"
+#include "DR_Measure.h"
+#include "OS_EventManager.h"
+#include "DR_Regulation.h"
+#include "DR_ErrorDetection.h"
+#include "OS_ErrorHandler.h"
 #include "AutomaticMode.h"
 #include "Aom_Regulation.h"
 /****************************************** Defines ******************************************************/
@@ -75,7 +74,7 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
         tLedValue* psLedVal = Aom_GetOutputsSettingsEntry(ucOutputIdx);
         
         /* Save LED status */
-        if(Regulation_GetHardwareEnabledStatus(ucOutputIdx) != bLedStatus)
+        if(DR_Regulation_GetHardwareEnabledStatus(ucOutputIdx) != bLedStatus)
         {
             psLedVal->bStatus = bLedStatus;
             
@@ -83,7 +82,7 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
             teEventParam eParam = (bLedStatus == OFF) ? eEvtParam_RegulationStop : eEvtParam_RegulationStart;
 
             /* Request a regulation state-change */
-            EVT_PostEvent(eEvtNewRegulationValue, eParam, ucOutputIdx);
+            OS_EVT_PostEvent(eEvtNewRegulationValue, eParam, ucOutputIdx);
         }
     
         /* Check first if values are new values */
@@ -95,13 +94,13 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
                 psLedVal->ucPercentValue = ucBrightnessValue;
                         
                 /* Calculate requested voltage value */
-                u16 uiReqVoltage = Measure_CalculateVoltageFromPercent(ucBrightnessValue, bInitMenuActive, ucOutputIdx);
+                u16 uiReqVoltage = DR_Measure_CalculateVoltageFromPercent(ucBrightnessValue, bInitMenuActive, ucOutputIdx);
                 
                 /* Calculate requested ADC value */
-                psLedVal->uiReqVoltageAdc = Measure_CalculateAdcValue(uiReqVoltage,0);
+                psLedVal->uiReqVoltageAdc = DR_Measure_CalculateAdcValue(uiReqVoltage,0);
                             
                 /* Start with event */
-                EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, ucOutputIdx);
+                OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, ucOutputIdx);
             }
         }
 
@@ -111,7 +110,7 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
             psRegVal->sUserTimerSettings.bAutomaticModeActive = bAutomaticModeStatus;
 
             /* Start with event */
-            EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, ucOutputIdx);
+            OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, ucOutputIdx);
         }
     }
 }
@@ -131,7 +130,7 @@ void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bo
     tRegulationValues* psRegVal = Aom_GetRegulationSettings();
     
     /* Check for over-current */
-    if(ErrorHandler_GetErrorTimeout())
+    if(OS_ErrorHandler_GetErrorTimeout())
     {
         /* Overcurrent was detected. Reduce requested brighntess value by half */
         ucBrightnessValue /= 2;

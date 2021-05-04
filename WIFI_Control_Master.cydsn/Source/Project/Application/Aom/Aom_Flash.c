@@ -47,12 +47,12 @@ void Aom_Flash_WriteSystemSettingsInFlash(void)
     }
     
     /* When writing was successfull, change regulation values */
-    if(Flash_WriteSystemSettings(&ucFlashData[0], ucFlashDataSize))
+    if(OS_Flash_WriteSystemSettings(&ucFlashData[0], ucFlashDataSize))
     {
         u8 ucFlashCompareData[ucFlashDataSize];
         memset(&ucFlashCompareData[0], 0, ucFlashDataSize);
         
-        Flash_GetSystemSettings(&ucFlashCompareData[0], ucFlashDataSize);
+        OS_Flash_GetSystemSettings(&ucFlashCompareData[0], ucFlashDataSize);
         
         /* Check if flash access was successful. Memcmp returns 0 when both buffers contains the same data */
         if(memcmp(&ucFlashData[0], &ucFlashCompareData[0], ucFlashDataSize))
@@ -67,10 +67,10 @@ void Aom_Flash_WriteSystemSettingsInFlash(void)
             tsSystemSettings* psSystemSettings = Aom_GetSystemSettingsEntry(ucOutputIdx);        
         
             /* Set new regulation limits to for voltage calculation */
-            u32 ulMinVoltageLimit = Measure_CalculateVoltageValue(psSystemSettings->uiMinAdcVoltage);
-            u32 ulMaxVoltageLimit = Measure_CalculateVoltageValue(psSystemSettings->uiMaxAdcVoltage);
+            u32 ulMinVoltageLimit = DR_Measure_CalculateVoltageValue(psSystemSettings->uiMinAdcVoltage);
+            u32 ulMaxVoltageLimit = DR_Measure_CalculateVoltageValue(psSystemSettings->uiMaxAdcVoltage);
             
-            Measure_SetNewVoltageLimits(ulMinVoltageLimit, ulMaxVoltageLimit, ucOutputIdx);
+            DR_Measure_SetNewVoltageLimits(ulMinVoltageLimit, ulMaxVoltageLimit, ucOutputIdx);
         }
     }
 }
@@ -97,7 +97,7 @@ u8 Aom_Flash_ReadSystemSettingsFromFlash(void)
     memset(&ucFlashData[0], 0, ucFlashDataSize);
     
     /* Read user settings and if there is nothing saved, wait for answer from ESP */
-    if(Flash_GetSystemSettings(&ucFlashData[0], ucFlashDataSize))
+    if(OS_Flash_GetSystemSettings(&ucFlashData[0], ucFlashDataSize))
     {
         u8 ucOutputIdx;
         u8 ucDataOffset = 0;
@@ -113,9 +113,9 @@ u8 Aom_Flash_ReadSystemSettingsFromFlash(void)
                 ucRead = 0x01 << ucOutputIdx;
                 
                 /* Set new regulation limits to for voltage calculation */
-                u32 ulMinVoltageLimit = Measure_CalculateVoltageValue(psSystemSettings->uiMinAdcVoltage);
-                u32 ulMaxVoltageLimit = Measure_CalculateVoltageValue(psSystemSettings->uiMaxAdcVoltage);
-                Measure_SetNewVoltageLimits(ulMinVoltageLimit, ulMaxVoltageLimit, ucOutputIdx);
+                u32 ulMinVoltageLimit = DR_Measure_CalculateVoltageValue(psSystemSettings->uiMinAdcVoltage);
+                u32 ulMaxVoltageLimit = DR_Measure_CalculateVoltageValue(psSystemSettings->uiMaxAdcVoltage);
+                DR_Measure_SetNewVoltageLimits(ulMinVoltageLimit, ulMaxVoltageLimit, ucOutputIdx);
             }
         }
     }
@@ -135,7 +135,7 @@ u8 Aom_Flash_ReadSystemSettingsFromFlash(void)
 ***********************************************************************************/
 void Aom_Flash_WriteUserSettingsInFlash(void)
 {    
-    Flash_WriteUserSettings(Aom_GetRegulationSettings(), sizeof(tRegulationValues));
+    OS_Flash_WriteUserSettings(Aom_GetRegulationSettings(), sizeof(tRegulationValues));
 }
 
 
@@ -150,7 +150,7 @@ void Aom_Flash_WriteUserSettingsInFlash(void)
 void Aom_Flash_ReadUserSettingsFromFlash(void)
 {   
     /* Read user settings and if there is nothing saved, wait for answer from ESP */
-    if(Flash_GetUserSettings(Aom_GetRegulationSettings(), sizeof(tRegulationValues)) == false)
+    if(OS_Flash_GetUserSettings(Aom_GetRegulationSettings(), sizeof(tRegulationValues)) == false)
     {       
         /* No config found -> Set default values */
         tRegulationValues* psRegulationVal = Aom_GetRegulationSettings();

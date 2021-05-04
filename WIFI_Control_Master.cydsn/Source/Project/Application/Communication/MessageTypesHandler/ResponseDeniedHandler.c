@@ -9,11 +9,9 @@
 ***********************************************************************************/
 #include "BaseTypes.h"
 #include "MessageHandler.h"
-#include "Messages.h"
-#include "Serial.h"
-#include "Actors.h"
-#include "ErrorDebouncer.h"
-#include "HelperFunctions.h"
+#include "OS_Serial_UART.h"
+#include "OS_ErrorDebouncer.h"
+#include "OS_Communication.h"
 #include "ResponseDeniedHandler.h"
 
 //#include "Version\Version.h"
@@ -41,7 +39,7 @@
 teMessageType ResDeniedMsg_Handler(tsMessageFrame* psMsgFrame)
 {
     /* Get payload */    
-    const teMessageId eMessageId = HF_GetObject(psMsgFrame);   
+    const teMessageId eMessageId = OS_Communication_GetObject(psMsgFrame);   
     teMessageType eResponse = eNoType;
     
     //For other handling
@@ -50,7 +48,7 @@ teMessageType ResDeniedMsg_Handler(tsMessageFrame* psMsgFrame)
         /* When sleep request is denied, stop the further handling of the sleep */
         case eMsgSleep:
         {
-            EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
+            OS_EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
             eResponse = eTypeAck;
             break;
         }

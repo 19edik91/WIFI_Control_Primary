@@ -16,7 +16,7 @@ extern "C"
 {
 #endif    
   
-#include "Messages.h"
+#include "OS_Messages.h"
 
 void MessageHandler_HandleSerialCommEvent(void);
 void MessageHandler_SendFaultMessage(const u16 uiErrorCode);

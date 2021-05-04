@@ -11,11 +11,10 @@
 #include <project.h>
 #include "Aom_Regulation.h"
 #include "Aom_System.h"
-#include "Measure.h"
-#include "Watchdog.h"
-#include "EventManager.h"
-#include "Serial.h"
-#include "Actors.h"
+#include "DR_Measure.h"
+
+
+
 
 /***************************** defines / macros ******************************/
 

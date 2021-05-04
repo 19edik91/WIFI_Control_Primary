@@ -11,11 +11,11 @@
 #include "Standby.h"
 #include <project.h>
 #include "Aom_Regulation.h"
-#include "Measure.h"
-#include "Watchdog.h"
-#include "EventManager.h"
-#include "Serial.h"
-#include "Actors.h"
+#include "DR_Measure.h"
+#include "OS_Watchdog.h"
+#include "OS_EventManager.h"
+#include "OS_Serial_UART.h"
+#include "HAL_IO.h"
 
 /***************************** defines / macros ******************************/
 #define STANDBY_DELAY_CALLS     4
@@ -361,7 +361,7 @@ static void StateEntryLowVoltage(void)
     
     /* Disable measurement module */
     //Warning when SelfTest_ADC is enabled. This would leave to an stopped CPU.
-    Measure_Stop();
+    DR_Measure_Stop();
     
     /* Disable the LED */
     #warning todo
@@ -395,8 +395,8 @@ static void StateExecute(void)
 {    
     /* Change actual state */
     sStandbyState.eStandbyState = eStateStandby;
-     
-    if(Serial_TransmitStatus() == true)
+
+    if(OS_Serial_UART_TransmitStatus() == true)
     {
         /* Enable deep sleep watchdog counter */
         //WDT_DeepSleepWdtEnable();
@@ -411,7 +411,7 @@ static void StateExecute(void)
         u8 ucInterruptStatus = CyEnterCriticalSection();
         
         /* Enable wake up sources from deep sleep or set UART in sleep mode */
-        if(Serial_EnableUartWakeupInSleep())
+        if(OS_Serial_UART_EnableUartWakeupInSleep())
         {                
             /* Put modules like Timers, ADC and so on in sleep mode */
             ModulesSleep();
@@ -460,7 +460,7 @@ static void StateExecute(void)
             Pin_PIR_SetInterruptMode(Pin_PIR_0_INTR, Pin_PIR_INTR_NONE);
             
             /* CPU woke up here - Disable wake up sources / Enable UART again */
-            Serial_DisableUartWakeupInSleep();
+            OS_Serial_UART_DisableUartWakeupInSleep();
             
             /* Wake up modules like Timers, ADC and so from sleep mode */
             ModulesWakeup(); 
@@ -473,7 +473,7 @@ static void StateExecute(void)
             else
             {
                 /* Wake-up counter is reached start with a new measurement */
-                EVT_PostEvent(eEvtStandby, eEvtParam_StandbyStateMeasure, 0);
+                OS_EVT_PostEvent(eEvtStandby, eEvtParam_StandbyStateMeasure, 0);
             }
         }
         
@@ -515,7 +515,7 @@ static void StateExitLowVoltage(void)
     sStandbyState.eStandbyState = eStateExitLowVoltage;
     
     /* Enable measurement module */
-    Measure_Start();
+    DR_Measure_Start();
     
     sStandbyState.bStateReached = true;
 }

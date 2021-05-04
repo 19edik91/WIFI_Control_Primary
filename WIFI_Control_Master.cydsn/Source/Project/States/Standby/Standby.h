@@ -14,8 +14,6 @@
     
 /********************************* includes **********************************/    
 #include "BaseTypes.h"
-#include "Measure.h"
-#include "Messages.h"
 
 /***************************** defines / macros ******************************/
 

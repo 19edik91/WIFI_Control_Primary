@@ -6,10 +6,7 @@
 */
 
 #include "Aom_System.h"
-#include "EventManager.h"
 #include "Standby.h"
-#include "ErrorDetection.h"
-#include "ErrorHandler.h"
 #include "AutomaticMode.h"
 #include "Aom_System.h"
 /****************************************** Defines ******************************************************/

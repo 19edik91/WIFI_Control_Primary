@@ -9,18 +9,16 @@
 ***********************************************************************************/
 #include "BaseTypes.h"
 #include "MessageHandler.h"
-#include "Messages.h"
-#include "Serial.h"
-#include "Actors.h"
-#include "ErrorDebouncer.h"
-#include "HelperFunctions.h"
+#include "OS_Serial_UART.h"
+#include "OS_ErrorDebouncer.h"
+#include "OS_Communication.h"
 #include "RequestResponseHandler.h"
 #include "Aom_Regulation.h"
 #include "Aom_System.h"
 #include "Aom_Time.h"
 #include "Aom_Measure.h"
 #include "Aom_Flash.h"
-
+#include "HAL_IO.h"
 //#include "Version\Version.h"
 /****************************************** Defines ******************************************************/
 
@@ -60,10 +58,10 @@ static void SendSoftwareVersion(void)
     memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgVersion, sizeof(sMsgVersion));
 
     /* Fill header and checksum */
-    HF_CreateMessageFrame(&sMsgFrame);
+    OS_Communication_CreateMessageFrame(&sMsgFrame);
     
     /* Start to send the packet */
-    HF_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame);
 }
 
 //********************************************************************************
@@ -115,10 +113,10 @@ static void SendUserTimerSettings(void)
             memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgUserTimer, sizeof(sMsgUserTimer)); 
             
             /* Fill header and checksum */
-            HF_CreateMessageFrame(&sMsgFrame);
+            OS_Communication_CreateMessageFrame(&sMsgFrame);
             
             /* Start to send the packet */
-            HF_SendMessage(&sMsgFrame);  
+            OS_Communication_SendMessage(&sMsgFrame);  
         }
     }
 }
@@ -170,10 +168,10 @@ static void SendUserOutputSettings(void)
         memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgUserOutput, sizeof(sMsgUserOutput));
 
         /* Fill header and checksum */
-        HF_CreateMessageFrame(&sMsgFrame);
+        OS_Communication_CreateMessageFrame(&sMsgFrame);
         
         /* Start to send the packet */
-        HF_SendMessage(&sMsgFrame);
+        OS_Communication_SendMessage(&sMsgFrame);
     }
 }
 
@@ -221,10 +219,10 @@ static void SendUpdateOutputState(void)
         memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgResponse, sizeof(sMsgResponse));
 
         /* Fill header and checksum */
-        HF_CreateMessageFrame(&sMsgFrame);
+        OS_Communication_CreateMessageFrame(&sMsgFrame);
         
         /* Start to send the packet */
-        HF_SendMessage(&sMsgFrame);
+        OS_Communication_SendMessage(&sMsgFrame);
     }
 }
 
@@ -271,8 +269,8 @@ static void HandleUserTimerSettings(tMsgUserTimer* psMsgUserTimer)
 teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
 {
     /* Get payload */    
-    const teMessageId eMessageId = HF_GetObject(psMsgFrame);
-    const teMessageCmd eCommand = HF_GetCommand(psMsgFrame);    
+    const teMessageId eMessageId = OS_Communication_GetObject(psMsgFrame);
+    const teMessageCmd eCommand = OS_Communication_GetCommand(psMsgFrame);    
    
     teMessageType eResponse = eNoType;
     
@@ -280,7 +278,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
     if(Aom_System_IsStandbyActive())
     {
         /* Message should only occur when when standby is left. Therfore request exit standby */
-        EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
+        OS_EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
     }
     
     /* Switch to message ID */
@@ -348,7 +346,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             if(eCommand == eCmdSet)
             {
                 /* Post init event */
-                EVT_PostEvent(eEvtInitRegulationValue, eEvtParam_InitRegulationStart, 0);
+                OS_EVT_PostEvent(eEvtInitRegulationValue, eEvtParam_InitRegulationStart, 0);
                 
                 /* Set message as acknowledged */
                 eResponse = eTypeAck;
@@ -372,7 +370,8 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     /* Read the current values */
                     u16 uiVoltageAdc = Aom_Measure_GetAdcIsValue(eMeasureChVoltage, psMsgManualInit->ucOutputIndex);
                     u16 uiCurrentAdc = Aom_Measure_GetAdcIsValue(eMeasureChCurrent, psMsgManualInit->ucOutputIndex);
-                    u16 uiPwmCompVal = sPwmMap[psMsgManualInit->ucOutputIndex].pfnReadCompare();
+                    u16 uiPwmCompVal = 0; 
+                    HAL_IO_PWM_ReadCompare(psMsgManualInit->ucOutputIndex, (u32*)&uiPwmCompVal);
                     
                     if(psMsgManualInit->bSetMaxValue)
                     {
@@ -441,7 +440,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                 MessageHandler_SendSleepOrWakeUpMessage(false);
                 
                 /* Generate a wake-up-event */
-                EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
+                OS_EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
             }
             
             /* Set message as acknowledged */

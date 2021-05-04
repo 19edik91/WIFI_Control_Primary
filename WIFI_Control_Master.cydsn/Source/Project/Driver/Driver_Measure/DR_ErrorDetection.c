@@ -4,7 +4,7 @@
 #include "HAL_IO.h"
 #include "Project_Config.h"
 
-#include "ErrorDetection.h"
+#include "DR_ErrorDetection.h"
 #include "OS_ErrorDebouncer.h"
 #include "Aom_Regulation.h"
 #include "Aom_Measure.h"
@@ -41,9 +41,9 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
         u16 uiInvalidOutputs = 0;
         
         /* Check if port masks are initialized */
-        if(!Actors_GetPortPinMaskStatus())
+        if(!HAL_IO_GetPortPinMaskStatus())
         {
-            Actors_Init();
+            HAL_IO_Init();
         }
 
         for(ucPortIdx = NUMBER_OF_PORTS; ucPortIdx--;)
@@ -53,8 +53,8 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
             
             /* Get interrupt save port register */
             CyGlobalIntDisable;
-                ucPortOutputDataRegVal = Actors_ReadPortDataRegister(ucPortIdx);
-                ucPortOutputStatusRegVal = Actors_ReadPortPinStateRegister(ucPortIdx);
+                ucPortOutputDataRegVal = HAL_IO_ReadPortDataRegister(ucPortIdx);
+                ucPortOutputStatusRegVal = HAL_IO_ReadPortStateRegister(ucPortIdx);
             CyGlobalIntEnable;
 
             /* Mask both register */
@@ -71,27 +71,28 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
                 psFaultOutputPortValues->ucPinFaults[ucPortIdx] |= ucDiffRegVal;
                 bPinFaultFound = true;                
                 
+                #warning TODO: Improve IO-Check
                 /* Check complete portregister */
-                u8 ucBitIndex;
-                for(ucBitIndex = 8; ucBitIndex--;)
-                {
-                    /* Get the invalid pin */
-                    if((ucDiffRegVal >> ucBitIndex)&0x01)
-                    {
-                        /* Get the invalid relay or triac output */
-                        u8 ucActorIdx;
-                        for(ucActorIdx = COUNT_OF_OUTPUTS; ucActorIdx--;)
-                        {
-                            if(sOutputMap[ucActorIdx].ucPort == ucPortIdx)
-                            {
-                                if(sOutputMap[ucActorIdx].ucBitShift == ucBitIndex)
-                                {
-                                    uiInvalidOutputs |= 0x01 << ucActorIdx;
-                                }
-                            }
-                        }
-                    }
-                }
+                //u8 ucBitIndex;
+                //for(ucBitIndex = 8; ucBitIndex--;)
+                //{
+                //    /* Get the invalid pin */
+                //    if((ucDiffRegVal >> ucBitIndex)&0x01)
+                //    {
+                //        /* Get the invalid relay or triac output */
+                //        u8 ucActorIdx;
+                //        for(ucActorIdx = COUNT_OF_OUTPUTS; ucActorIdx--;)
+                //        {
+                //            if(sOutputMap[ucActorIdx].ucPort == ucPortIdx)
+                //            {
+                //                if(sOutputMap[ucActorIdx].ucBitShift == ucBitIndex)
+                //                {
+                //                    uiInvalidOutputs |= 0x01 << ucActorIdx;
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
             }
         }
         
@@ -168,7 +169,7 @@ void DR_ErrorDetection_CheckOutputPins(void)
     if(sFaultOutputPorts.uiInvalidOutputs)
     {
         /* Put error in queue */
-        ErrorDebouncer_PutErrorInQueue(ePinFault);
+        OS_ErrorDebouncer_PutErrorInQueue(ePinFault);
     }
 }
 
@@ -253,7 +254,7 @@ void DR_ErrorDetection_CheckCurrentValue(void)
         if(uiIsCurrentVal > MAX_MILLI_CURRENT_VALUE)
         {
             //Put over current fault into queue and use fault-0 as base
-            ErrorDebouncer_PutErrorInQueue(eOverCurrentFault_0 + ucOutputIdx);
+            OS_ErrorDebouncer_PutErrorInQueue(eOverCurrentFault_0 + ucOutputIdx);
         }
     }
 }
@@ -277,7 +278,7 @@ void DR_ErrorDetection_CheckAmbientTemperature(void)
     /* Check for overlimit current */
     if(siTempValue > MAX_AMBIENT_TEMPERATURE)
     {
-        ErrorDebouncer_PutErrorInQueue(eOverTemperatureFault);
+        OS_ErrorDebouncer_PutErrorInQueue(eOverTemperatureFault);
     }
 }
 

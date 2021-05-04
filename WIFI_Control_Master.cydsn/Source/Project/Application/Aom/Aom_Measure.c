@@ -6,13 +6,11 @@
 */
 
 #include "Aom.h"
-#include "Actors.h"
-#include "Measure.h"
-#include "Flash.h"
-#include "EventManager.h"
-#include "Regulation.h"
+#include "DR_Measure.h"
+#include "OS_EventManager.h"
+#include "DR_Regulation.h"
 #include "Standby.h"
-#include "ErrorDetection.h"
+#include "DR_ErrorDetection.h"
 #include "ErrorHandler.h"
 #include "AutomaticMode.h"
 #include "Aom_Measure.h"
@@ -161,7 +159,7 @@ u16 Aom_Measure_GetAdcVoltageStepValue(void)
 {
     if(ucDigitsPerVoltageStep == 0)
     {
-        ucDigitsPerVoltageStep = Measure_CalculateAdcValue(VOLTAGE_STEP, 0);
+        ucDigitsPerVoltageStep = DR_Measure_CalculateAdcValue(VOLTAGE_STEP, 0);
     }
     
     return ucDigitsPerVoltageStep;
@@ -181,7 +179,7 @@ u16 Aom_Measure_GetAdcCurrentLimitValue(void)
 {
     if(ucDigitsCurrentLimit == 0)
     {
-        ucDigitsCurrentLimit = Measure_CalculateAdcValue(0, CURRENT_MAX_LIMIT);
+        ucDigitsCurrentLimit = DR_Measure_CalculateAdcValue(0, CURRENT_MAX_LIMIT);
     }        
     
     return ucDigitsCurrentLimit; 
@@ -242,17 +240,17 @@ void Aom_Measure_SetMeasuredValues(bool bVoltage, bool bCurrent, bool bTemperatu
     {
         if(bVoltage)
         {
-            psCvMeasure->sOutput[ucOutputIdx].ulMilliVolt = Measure_CalculateVoltageValue(psRegVal->sLedValue[ucOutputIdx].uiIsVoltageAdc);
+            psCvMeasure->sOutput[ucOutputIdx].ulMilliVolt = DR_Measure_CalculateVoltageValue(psRegVal->sLedValue[ucOutputIdx].uiIsVoltageAdc);
         }
         
         if(bCurrent)
         {
-            psCvMeasure->sOutput[ucOutputIdx].uiMilliAmp = Measure_CalculateCurrentValue(psRegVal->sLedValue[ucOutputIdx].uiIsCurrentAdc);
+            psCvMeasure->sOutput[ucOutputIdx].uiMilliAmp = DR_Measure_CalculateCurrentValue(psRegVal->sLedValue[ucOutputIdx].uiIsCurrentAdc);
         }
         
         if(bTemperature)
         {
-            psCvMeasure->uiTemp = Measure_CalculateTemperatureValue(psRegVal->uiNtcAdcValue);
+            psCvMeasure->uiTemp = DR_Measure_CalculateTemperatureValue(psRegVal->uiNtcAdcValue);
         }
     }
 }
@@ -270,7 +268,7 @@ void Aom_Measure_SetMeasuredValues(bool bVoltage, bool bCurrent, bool bTemperatu
 ***********************************************************************************/
 bool Aom_Measure_SystemVoltageCalculated(void)
 {   
-    return (Measure_GetSystemVoltage() == 0) ? false : true;
+    return (DR_Measure_GetSystemVoltage() == 0) ? false : true;
 }
 
 //********************************************************************************
@@ -319,7 +317,7 @@ u32 Aom_Measure_CalculateSystemVoltage(void)
         ulAvgSystemVoltage = TARGET_SYSTEM_VOLTAGE;
     #endif
     /* Save the new system voltage */
-    Measure_SetSystemVoltage(ulAvgSystemVoltage);
+    DR_Measure_SetSystemVoltage(ulAvgSystemVoltage);
     
     return ulAvgSystemVoltage;
 }
