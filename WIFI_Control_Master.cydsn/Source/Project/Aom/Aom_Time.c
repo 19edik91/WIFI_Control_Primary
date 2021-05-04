@@ -5,9 +5,7 @@
  * ========================================
 */
 #include "Aom_Time.h"
-#include "EventManager.h"
-#include "ErrorDetection.h"
-#include "ErrorHandler.h"
+#include "OS_EventManager.h"
 
 /****************************************** Defines ******************************************************/
 /****************************************** Variables ****************************************************/
@@ -30,7 +28,7 @@ void Aom_Time_SetReceivedTime(u8 ucHour, u8 ucMin, u32 ulTicks)
     psCurrentTime->ucMinutes = ucMin;
     psCurrentTime->ulTicks = ulTicks;
     
-    EVT_PostEvent(eEvtTimeReceived, eEvtParam_TimeFromNtpClient ,0);
+    OS_EVT_PostEvent(eEvtTimeReceived, eEvtParam_TimeFromNtpClient ,0);
 }
 
 //********************************************************************************
@@ -51,7 +49,7 @@ void Aom_Time_SetRealTimeClockTime(u8 ucHour, u8 ucMin, u32 ulTicks)
     psCurrentTime->ucMinutes = ucMin;
     psCurrentTime->ulTicks = ulTicks;
     
-    EVT_PostEvent(eEvtTimeReceived, eEvtParam_TimeFromRtc, 0);
+    OS_EVT_PostEvent(eEvtTimeReceived, eEvtParam_TimeFromRtc, 0);
 }
 
 //********************************************************************************
@@ -116,7 +114,7 @@ void Aom_Time_SetUserTimerSettings(tsTimeFormat* psUserTimerSettings, u8 ucTimer
         psRegulationValues->sUserTimerSettings.ucSetTimerBinary |= 0x01 << ucTimerIdx;
         
         /* Start with event */
-        EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, 0);
+        OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, 0);
     }    
 }
 

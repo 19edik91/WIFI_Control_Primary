@@ -1,8 +1,11 @@
 
 
 /********************************* includes **********************************/
+#include "HAL_IO.h"
+#include "Project_Config.h"
+
 #include "ErrorDetection.h"
-#include "ErrorDebouncer.h"
+#include "OS_ErrorDebouncer.h"
 #include "Aom_Regulation.h"
 #include "Aom_Measure.h"
 #include "Measure_Current.h"
@@ -12,9 +15,7 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
 
 
 /************************* local data (const and var) ************************/
-#define PWM_TEST_RETRY 10
-#define MAX_MILLI_CURRENT_VALUE 2000    //Maximum current value in mA
-#define MAX_AMBIENT_TEMPERATURE 650     //65.0°C
+
 
 /************************ export data (const and var) ************************/
 /****************************** local functions ******************************/

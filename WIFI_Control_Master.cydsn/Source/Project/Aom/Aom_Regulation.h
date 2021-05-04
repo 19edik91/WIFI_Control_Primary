@@ -19,7 +19,7 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
-#include "TargetConfig.h"
+//#include "TargetConfig.h"
 #include "Aom.h"
 
 const tRegulationValues* Aom_Regulation_GetRegulationValuesPointer(void);

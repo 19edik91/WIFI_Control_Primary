@@ -19,28 +19,18 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
-#include "TargetConfig.h"
+#include "Project_Config.h"
 
-#define ADC_MAX_VAL              ADC_INPUT_DEFAULT_HIGH_LIMIT
-#define PERCENT_LOW              5      //5% is lowest value 
-#define PERCENT_HIGH             100    //100% is highest value
-#define SAVE_IN_FLASH_TIMEOUT    30000  //Timeout until the new value is saved in the flash (in ms)
 
-#define TIMEOUT_ENTER_STANDBY    60000  //Timeout in milliseconds until the standby is entered
 #define NUMBER_OF_PORTS          7
 
-//#define CURRENT_LOW_LIMIT        20  //20mA should be the low limit
-#define CURRENT_MAX_LIMIT        2000   //2000mA is the maximum limit
-#define VOLTAGE_STEP             10     //10mV voltage steps
-
-#define USER_TIMER_AMOUNT        4
 
 typedef struct
 {
     u16 uiReqVoltageAdc;
     u16 uiIsVoltageAdc;    
     u16 uiIsCurrentAdc;
-    u8 ucPercentValue;
+    u8  ucPercentValue;
     bool bStatus;
 }tLedValue;
 
