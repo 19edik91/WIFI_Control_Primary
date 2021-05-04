@@ -4,7 +4,7 @@
  *
  * ========================================
 */
-#include "CapSense.h"
+#include "DR_CapSense.h"
 #include "Aom.h"
 
 #ifdef CY_SENSE_CapSense_H

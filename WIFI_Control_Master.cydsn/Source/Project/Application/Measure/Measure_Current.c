@@ -6,6 +6,7 @@
 */
 
 #include "Measure_Current.h"
+#include "HAL_IO_Config.h"
 #include "Aom.h"
 
 /****************************************** Defines ******************************************************/

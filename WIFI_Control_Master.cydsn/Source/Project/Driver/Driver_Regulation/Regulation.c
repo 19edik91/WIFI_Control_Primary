@@ -9,10 +9,10 @@
 ***********************************************************************************/
 
 #include "Regulation.h"
-#include "ErrorDetection.h"
-#include "EventManager.h"
-#include "ErrorDebouncer.h"
-#include "ErrorHandler.h"
+#include "DR_ErrorDetection.h"
+#include "OS_EventManager.h"
+#include "OS_ErrorDebouncer.h"
+
 #include "Aom_Regulation.h"
 #include "Aom_Flash.h"
 #include "Aom_Measure.h"

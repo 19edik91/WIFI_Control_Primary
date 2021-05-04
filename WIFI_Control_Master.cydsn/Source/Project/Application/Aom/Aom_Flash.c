@@ -6,12 +6,10 @@
 */
 
 #include "Aom.h"
-#include "Flash.h"
-#include "EventManager.h"
-#include "ErrorDetection.h"
-#include "ErrorHandler.h"
+#include "OS_Flash.h"
+#include "OS_EventManager.h"
 #include "Aom_Flash.h"
-#include "Measure.h"
+#include "DR_Measure.h"
 /****************************************** Defines ******************************************************/
 /****************************************** Variables ****************************************************/
 /****************************************** Function prototypes ******************************************/
