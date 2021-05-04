@@ -19,37 +19,36 @@ extern "C"
 
 #include "BaseTypes.h"
 
-
+/****************************************** Defines ******************************************************/
 #define HAL_IO_ERRORCALLBACK        //Define a callback routine for errors in the HAL-IO-Module
 
-//Xmacrofor sense lines
-    /*      Connector name  |       Pin mapping   |                       Check Pin   */
-//#define SENSE_MAP\
-//    S_MAP(    eSenseVoltage_0       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__0, false))\
-//    S_MAP(    eSenseVoltage_1       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__1, false))\
-//    S_MAP(    eSenseVoltage_2       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__2, false))\
-//    S_MAP(    eSenseVoltage_3       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__3, false))\
-//    S_MAP(    eSenseCurrent_0       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__0, false))\
-//    S_MAP(    eSenseCurrent_1       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__1, false))\
-//    S_MAP(    eSenseCurrent_2       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__2, false))\
-//    S_MAP(    eSenseCurrent_3       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__3, false))\
-//    S_MAP(    eSenseTemperature_0   ,   CY_PIN_MAPPING(Pin_NTC_IN__0,         false))\
-//    S_MAP(    eSenseTemperature_1   ,   CY_PIN_MAPPING(Pin_NTC_IN__1,         false))\
-//    S_MAP(    eSenseTemperature_2   ,   CY_PIN_MAPPING(Pin_NTC_IN__2,         false))\
-//    S_MAP(    eSenseTemperature_3   ,   CY_PIN_MAPPING(Pin_NTC_IN__3,         false))\
-//    S_MAP(    eSensePIR             ,   CY_PIN_MAPPING(Pin_PIR__0,            false))
+#define ADC_MAX_VAL     ADC_INPUT_DEFAULT_HIGH_LIMIT
 
+//Xmacro for sense lines
+    /*      Connector name  |       Pin mapping   |                       Check Pin   */
+#define SENSE_MAP\
+    S_MAP(    eSenseVoltage_0       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__0, false))\
+    S_MAP(    eSenseVoltage_1       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__1, false))\
+    S_MAP(    eSenseVoltage_2       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__2, false))\
+    S_MAP(    eSenseVoltage_3       ,   CY_PIN_MAPPING(Pin_VoltageMeasure__3, false))\
+    S_MAP(    eSenseCurrent_0       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__0, false))\
+    S_MAP(    eSenseCurrent_1       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__1, false))\
+    S_MAP(    eSenseCurrent_2       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__2, false))\
+    S_MAP(    eSenseCurrent_3       ,   CY_PIN_MAPPING(Pin_CurrentMeasure__3, false))\
+    S_MAP(    eSenseTemperature_0   ,   CY_PIN_MAPPING(Pin_NTC_IN__0,         false))\
+    S_MAP(    eSenseTemperature_1   ,   CY_PIN_MAPPING(Pin_NTC_IN__1,         false))\
+    S_MAP(    eSenseTemperature_2   ,   CY_PIN_MAPPING(Pin_NTC_IN__2,         false))\
+    S_MAP(    eSenseTemperature_3   ,   CY_PIN_MAPPING(Pin_NTC_IN__3,         false))\
+    S_MAP(    eSensePIR             ,   CY_PIN_MAPPING(Pin_PIR__0,            false))
 
 #define OUTPUT_MAP\
-//    O_MAP(    ePwmOut_0         ,   CY_PIN_MAPPING(Pin_PwmOut_0__0,         false))\
-//    O_MAP(    ePwmOut_1         ,   CY_PIN_MAPPING(Pin_PwmOut_1__0,         false))\
-//    O_MAP(    ePwmOut_2         ,   CY_PIN_MAPPING(Pin_PwmOut_2__0,         false))\
-//    O_MAP(    ePwmOut_3         ,   CY_PIN_MAPPING(Pin_PwmOut_3__0,         false))\
-//    O_MAP(    eLedGreen         ,   CY_PIN_MAPPING(Pin_LED_G__0,            true) )\
-//    O_MAP(    eLedRed           ,   CY_PIN_MAPPING(Pin_LED_R__0,            true) )\
-//    O_MAP(    eEspResetPin      ,   CY_PIN_MAPPING(Pin_ESP_Reset__0,        false))
-
-
+    O_MAP(    ePwmOut_0         ,   CY_PIN_MAPPING(Pin_PwmOut_0__0,         false))\
+    O_MAP(    ePwmOut_1         ,   CY_PIN_MAPPING(Pin_PwmOut_1__0,         false))\
+    O_MAP(    ePwmOut_2         ,   CY_PIN_MAPPING(Pin_PwmOut_2__0,         false))\
+    O_MAP(    ePwmOut_3         ,   CY_PIN_MAPPING(Pin_PwmOut_3__0,         false))\
+    O_MAP(    eLedGreen         ,   CY_PIN_MAPPING(Pin_LED_G__0,            true) )\
+    O_MAP(    eLedRed           ,   CY_PIN_MAPPING(Pin_LED_R__0,            true) )\
+    O_MAP(    eEspResetPin      ,   CY_PIN_MAPPING(Pin_ESP_Reset__0,        false))
 
     /* PWM-X-Macro table*/    
 #define PWM_MAP\
@@ -68,53 +67,6 @@ extern "C"
     ISR_MAP(    ePort_5     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_6     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_7     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )
-
-
-typedef enum
-{
-    #ifdef ISR_IO_MAP
-        #define ISR_MAP(ePort, pfPin_0, pfPin_1, pfPin_2, pfPin_3, pfPin_4, pfPin_5, pfPin_6, pfPin_7) ePort,
-            ISR_IO_MAP
-        #undef ISR_MAP
-    #endif
-    eInvalidPort
-}teIoISR;
-
-
-typedef enum
-{
-    #ifdef PWM_MAP
-        #define P_MAP(PwmName, PwmFn) PwmName,
-            PWM_MAP
-        #undef P_MAP
-    #endif
-    eInvalidPWM    
-}tePWM;
-
-
-//Enum for the Senselines
-typedef enum
-{
-    #ifdef SENSE_MAP
-        #define S_MAP( Senseline, PinMapping) Senseline,
-            SENSE_MAP
-        #undef S_MAP
-    #endif
-    eInvalidSense
-}teSenseLine;
-
-
-//Enum for the outputs
-typedef enum
-{
-    #ifdef OUTPUT_MAP
-        #define O_MAP( Senseline, PinMapping) Senseline,
-            OUTPUT_MAP
-        #undef O_MAP
-    #endif
-    eInvalidOutput
-}teOutput;
-
 
 
 #ifdef __cplusplus
