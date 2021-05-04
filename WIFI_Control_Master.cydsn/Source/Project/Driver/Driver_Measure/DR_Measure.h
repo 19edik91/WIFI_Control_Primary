@@ -63,19 +63,19 @@ typedef struct
 }tsAdMuxList;
 
 
-void Measure_Init(void);
-void Measure_Tick(void);
-u32 Measure_CalculateVoltageFromPercent(u8 ucPercentValue, bool bUseDefaultLimit, u8 ucOutputIdx);
-u16 Measure_CalculateAdcValue(u32 ulVoltage, u16 uiCurrent);
-u32 Measure_CalculateVoltageValue(u16 uiAdcValue);
-u16 Measure_CalculateCurrentValue(u16 uiAdcValue);
-u16 Measure_CalculateTemperatureValue(u16 uiAdcValue);
-void Measure_Start(void);
-void Measure_Stop(void);
-void Measure_SetNewVoltageLimits(u32 ulMinLimit, u32 ulMaxLimit, u8 ucOutputIdx);
-u32 Measure_GetSystemVoltage(void);
-void Measure_SetSystemVoltage(u32 ulSystemVoltage);
-u16 Measure_GetAveragedAdcValue(teAdMuxList eAdcChannel);
+void DR_Measure_Init(void);
+void DR_Measure_Tick(void);
+u32  DR_Measure_CalculateVoltageFromPercent(u8 ucPercentValue, bool bUseDefaultLimit, u8 ucOutputIdx);
+u16  DR_Measure_CalculateAdcValue(u32 ulVoltage, u16 uiCurrent);
+u32  DR_Measure_CalculateVoltageValue(u16 uiAdcValue);
+u16  DR_Measure_CalculateCurrentValue(u16 uiAdcValue);
+u16  DR_Measure_CalculateTemperatureValue(u16 uiAdcValue);
+void DR_Measure_Start(void);
+void DR_Measure_Stop(void);
+void DR_Measure_SetNewVoltageLimits(u32 ulMinLimit, u32 ulMaxLimit, u8 ucOutputIdx);
+u32  DR_Measure_GetSystemVoltage(void);
+void DR_Measure_SetSystemVoltage(u32 ulSystemVoltage);
+u16  DR_Measure_GetAveragedAdcValue(teAdMuxList eAdcChannel);
 #ifdef __cplusplus
 }
 #endif    

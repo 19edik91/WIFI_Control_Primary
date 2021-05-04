@@ -119,7 +119,7 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
 \param      ucSetArraySize - Size of the given array
 \return     ucBitfieldFaultPorts - Returns a bitfield with the masked fault ports. 
 ***********************************************************************************/
-u8 ErrorDetection_GetFaultPorts(u8* pucGetPinFaults, u8* pucSetPinFaults, u8 ucGetArraySize, u8 ucSetArraySize)
+u8 DR_ErrorDetection_GetFaultPorts(u8* pucGetPinFaults, u8* pucSetPinFaults, u8 ucGetArraySize, u8 ucSetArraySize)
 {
     u8 ucBitfieldFaultPorts = 0b0000000;
     
@@ -156,7 +156,7 @@ u8 ErrorDetection_GetFaultPorts(u8* pucGetPinFaults, u8* pucSetPinFaults, u8 ucG
             Example: uiInvalidOutputs = 0b0000.0000.0000.1001 => Pin_0 and Pin_3 fault.
 \return     none
 ***********************************************************************************/
-void ErrorDetection_CheckOutputPins(void)
+void DR_ErrorDetection_CheckOutputPins(void)
 {   
     tFaultOutputPortValues sFaultOutputPorts;
     memset(&sFaultOutputPorts, 0, sizeof(sFaultOutputPorts));
@@ -183,7 +183,7 @@ void ErrorDetection_CheckOutputPins(void)
             First check is for HIGH afterwards for LOW output
 \return     bErrorFound - True when an error was found
 ***********************************************************************************/
-bool ErrorDetection_CheckPwmOutput(u8 ucOutputIdx)
+bool DR_ErrorDetection_CheckPwmOutput(u8 ucOutputIdx)
 {
     bool bErrorFound = false;
 #warning PWM-Test disabled. Need a second switch for OFF-State
@@ -240,7 +240,7 @@ bool ErrorDetection_CheckPwmOutput(u8 ucOutputIdx)
 \brief      Checks the current for border violation.
 \return     none
 ***********************************************************************************/
-void ErrorDetection_CheckCurrentValue(void)
+void DR_ErrorDetection_CheckCurrentValue(void)
 {   
     /* Get the current value */
     u8 ucOutputIdx;
@@ -266,7 +266,7 @@ void ErrorDetection_CheckCurrentValue(void)
 \brief      Checks the ambient temperature for border violation.
 \return     none
 ***********************************************************************************/
-void ErrorDetection_CheckAmbientTemperature(void)
+void DR_ErrorDetection_CheckAmbientTemperature(void)
 {
     /* Get the current value */
     s16 siTempValue = 0xFFFF;

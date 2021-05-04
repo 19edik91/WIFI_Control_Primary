@@ -8,8 +8,10 @@
 #include "Measure_Voltage.h"
 #include "Measure_Temperature.h"
 #include "Measure_Current.h"
-#include "Measure.h"
+#include "DR_Measure.h"
 #include "Aom_Measure.h"
+
+#include "HAL_Measure.h"
 
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
@@ -38,43 +40,10 @@ static u32 ulSystemVoltageNew;
 static u16 uiSystemVoltageAdc;
 /****************************************** Function prototypes ******************************************/
 static void MeasureInterrupt(void);
-static void PutInMovingAverage(s16 siAdcValue, teAdMuxList eAMuxChannel);
+static void PutInMovingAverage(teAdMuxList eAMuxChannel, s16 siAdcValue);
 
 
 /****************************************** loacl functiones *********************************************/
-//********************************************************************************
-/*!
-\author     Kraemer E.
-\date       20.01.2019
-\brief      Interrupt function which should be called, whenever a ISR occurs.
-\return     none
-\param      none
-***********************************************************************************/
-static void MeasureInterrupt(void)
-{    
-    /* Clear isr flag */
-    #if Measure_ISR    
-        Measure_ISR_ClearPending();
-    #else
-        ADC_INPUT_IRQ_ClearPending();
-        
-        /* Read interrupt status register */
-        u32 intr_status = ADC_INPUT_SAR_INTR_REG;
-        
-        /* Clear handled interrupt */
-        ADC_INPUT_SAR_INTR_REG = intr_status;
-    #endif
-    
-    /* Get the ADC value and put it in the average buffer */
-    PutInMovingAverage(ADC_INPUT_GetResult16(ADC_INPUT_CHANNEL0), AMuxSeq_GetChannel());
-    
-    /* Switch multiplexer to the next channel */
-    AMuxSeq_Next();
-    
-    /* Trigger the conversion */
-    ADC_INPUT_StartConvert();
-}
-
 
 //********************************************************************************
 /*!
@@ -84,7 +53,7 @@ static void MeasureInterrupt(void)
 \return     none
 \param      siAdcValue - New ADC value which should be saved.
 ***********************************************************************************/
-static void PutInMovingAverage(s16 siAdcValue, teAdMuxList eAMuxChannel)
+static void PutInMovingAverage(teAdMuxList eAMuxChannel, s16 siAdcValue)
 {
     tsMeasureValues* psMeasureVal = &sAdMuxList[eAMuxChannel].sMeasureValue;
     
@@ -138,7 +107,7 @@ static u16 CalculateAveragedAdcValue(const tsMeasureValues* psMeasureValue)
 \return     none
 \param      none
 ***********************************************************************************/
-void Measure_Init(void)
+void DR_Measure_Init(void)
 {
     /* Clear measure values */   
     u8 ucMeasureValIdx = 0;
@@ -150,25 +119,8 @@ void Measure_Init(void)
         }
     }
 
-    #if Measure_ISR
-        /* Set ISR address */
-        Measure_ISR_StartEx(MeasureInterrupt);
-        Measure_ISR_Enable();
-    #else        
-        AMuxSeq_Start();
-        while(AMuxSeq_GetChannel < 0)
-        {
-            AMuxSeq_Next();
-        }
-        
-        ADC_INPUT_Start();
-        ADC_INPUT_StartConvert();        
-        ADC_INPUT_IRQ_StartEx(MeasureInterrupt);
-        //ADC_INPUT_SAR_INTR_MASK_REG |= ADC_INPUT_EOS_MASK;
-    #endif
-    
-    /* Activate ADC module */   
-    Measure_Start();
+    /* Init measure HAL. PutInMovingAverage() shall be used for new AD-Values */
+    HAL_Measure_Init(PutInMovingAverage);
 }
 
 
@@ -180,7 +132,7 @@ void Measure_Init(void)
 \return     uiVoltageValue - Returns a voltage value in double accuracy (= 1500 => 15.00V)
 \param      ucPercentValue - Value in percent
 ***********************************************************************************/
-u32 Measure_CalculateVoltageFromPercent(u8 ucPercentValue, bool bUseDefaultLimit, u8 ucOutputIdx)
+u32 DR_Measure_CalculateVoltageFromPercent(u8 ucPercentValue, bool bUseDefaultLimit, u8 ucOutputIdx)
 {
     return Measure_Voltage_CalculateVoltageFromPercent(ucPercentValue, ucOutputIdx, bUseDefaultLimit);
 }
@@ -194,7 +146,7 @@ u32 Measure_CalculateVoltageFromPercent(u8 ucPercentValue, bool bUseDefaultLimit
 \return     uiAdcValue - Returns the calculated ADC value.
 \param      uiVoltage - Voltage value in double accuracy (2400)
 ***********************************************************************************/
-u16 Measure_CalculateAdcValue(u32 ulVoltage, u16 uiCurrent)
+u16  DR_Measure_CalculateAdcValue(u32 ulVoltage, u16 uiCurrent)
 {
     if(ulVoltage)
     {
@@ -219,7 +171,7 @@ u16 Measure_CalculateAdcValue(u32 ulVoltage, u16 uiCurrent)
 \return     uiVoltage - Voltage value in double accuracy (2400)
 \param      uiAdcValue - Returns the calculated ADC value.
 ***********************************************************************************/
-u32 Measure_CalculateVoltageValue(u16 uiAdcValue)
+u32 DR_Measure_CalculateVoltageValue(u16 uiAdcValue)
 {   
     return Measure_Voltage_CalculateVoltageValue(uiAdcValue);
 }
@@ -232,7 +184,7 @@ u32 Measure_CalculateVoltageValue(u16 uiAdcValue)
 \return     uiCurrent - Current value in milli ampere
 \param      uiAdcValue - Returns the calculated ADC value.
 ***********************************************************************************/
-u16 Measure_CalculateCurrentValue(u16 uiAdcValue)
+u16 DR_Measure_CalculateCurrentValue(u16 uiAdcValue)
 {   
     return Measure_Current_CalculateCurrentValue(uiAdcValue);
 }
@@ -245,7 +197,7 @@ u16 Measure_CalculateCurrentValue(u16 uiAdcValue)
 \return     uiTemperature - Temp. value in double accuracy (2400)
 \param      uiAdcValue - Returns the calculated ADC value.
 ***********************************************************************************/
-u16 Measure_CalculateTemperatureValue(u16 uiAdcValue)
+u16 DR_Measure_CalculateTemperatureValue(u16 uiAdcValue)
 {   
     return Measure_Temperature_CalculateTemperature(uiAdcValue);
 }
@@ -259,7 +211,7 @@ u16 Measure_CalculateTemperatureValue(u16 uiAdcValue)
 \return     none
 \param      none
 ***********************************************************************************/
-void Measure_Tick(void)
+void DR_Measure_Tick(void)
 {
     /* Save actual ADC values in AOM */
     u8 ucAdcChannelIdx;
@@ -302,27 +254,9 @@ void Measure_Tick(void)
 \return     none
 \param      none
 ***********************************************************************************/
-void Measure_Start(void)
+void DR_Measure_Start(void)
 {
-    // Start analog multiplexer. Starts with -1
-    AMuxSeq_Start();
-    while(AMuxSeq_GetChannel() < 0)
-    {
-        AMuxSeq_Next();
-    }    
-    
-    // Set channel mask for no inputs
-    ADC_INPUT_SetChanMask(0xFF);
-    
-    /* Enable ADC-Module */
-    ADC_INPUT_Start();
-    
-    /* Enable the interrupt */
-    //ADC_INPUT_IRQ_Enable();
-    
-    /* Start the first conversion. Every other conversion is
-       started in the interrupt */
-    ADC_INPUT_StartConvert();
+    HAL_Measure_Start();
 }
 
 //********************************************************************************
@@ -333,7 +267,7 @@ void Measure_Start(void)
 \return     none
 \param      none
 ***********************************************************************************/
-void Measure_Stop(void)
+void DR_Measure_Stop(void)
 {
     HAL_Measure_Stop();
 }
@@ -349,7 +283,7 @@ void Measure_Stop(void)
 \param      uiMaxLimit - Sets the max limit
 \param      ucOutputIdx - The desired output which shall get new values
 ***********************************************************************************/
-void Measure_SetNewVoltageLimits(u32 ulMinLimit, u32 ulMaxLimit, u8 ucOutputIdx)
+void DR_Measure_SetNewVoltageLimits(u32 ulMinLimit, u32 ulMaxLimit, u8 ucOutputIdx)
 {
     Measure_Voltage_SetNewLimits(ulMinLimit, ulMaxLimit, ucOutputIdx);
 }
@@ -363,7 +297,7 @@ void Measure_SetNewVoltageLimits(u32 ulMinLimit, u32 ulMaxLimit, u8 ucOutputIdx)
 \return     u32 - SystemVoltage in millivolt
 \param      none
 ***********************************************************************************/
-u32 Measure_GetSystemVoltage(void)
+u32 DR_Measure_GetSystemVoltage(void)
 {
     return Measure_Voltage_GetSystemVoltage();
 }
@@ -377,7 +311,7 @@ u32 Measure_GetSystemVoltage(void)
 \param     u32 - System voltage in millivolt
 \return    none
 ***********************************************************************************/
-void Measure_SetSystemVoltage(u32 ulSystemVoltage)
+void DR_Measure_SetSystemVoltage(u32 ulSystemVoltage)
 {
     Measure_Voltage_SetSystemVoltage(ulSystemVoltage);
 }
@@ -391,7 +325,7 @@ void Measure_SetSystemVoltage(u32 ulSystemVoltage)
 \return     u16 - Averaged ADC value
 \param      eAdcChannel - The ADC channel with the values 
 ***********************************************************************************/
-u16 Measure_GetAveragedAdcValue(teAdMuxList eAdcChannel)
+u16 DR_Measure_GetAveragedAdcValue(teAdMuxList eAdcChannel)
 {
     return CalculateAveragedAdcValue(&sAdMuxList[eAdcChannel].sMeasureValue);
 }
