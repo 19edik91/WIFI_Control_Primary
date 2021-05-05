@@ -308,13 +308,16 @@ static void RegulatePWM(u8 ucOutputIdx)
 \return     none
 \param      none
 ***********************************************************************************/
-void Regulation_Init(void)
+void DR_Regulation_Init(void)
 {
     /* Read system settings from flash */
     u8 ucFlashSettingsRead = Aom_Flash_ReadSystemSettingsFromFlash();
     
     /* Get saved Regulation values from Flash */
     Aom_Flash_ReadUserSettingsFromFlash();    
+    
+    /* Initialize HAL */
+    HAL_IO_Init();
     
     /* Initialize state machine handler */
     u8 ucOutputIdx;
@@ -357,7 +360,7 @@ void Regulation_Init(void)
 \return  ucIsAnyOutputActive - Zero when no output is active otherwise each bit represents
                                an output.
 ***********************************************************************************/
-u8 Regulation_Handler(void)
+u8 DR_Regulation_Handler(void)
 {       
     u8 ucIsAnyOutputActive = 0;
     
@@ -406,7 +409,7 @@ u8 Regulation_Handler(void)
 \param   eRequestedState - The requested state which should be switched to.
 \return  none
 ***********************************************************************************/
-void Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx)
+void DR_Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx)
 {
     //if(eRequestedState == eStateInit)
     //{
@@ -426,7 +429,7 @@ void Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx)
 \param   ucOutputIdx - The output which shall change the state machine 
 \return  none
 ***********************************************************************************/
-void Regulation_ChangeStateMachine(teRegulationStateMachine eStateMachine, u8 ucOutputIdx)
+void DR_Regulation_ChangeStateMachine(teRegulationStateMachine eStateMachine, u8 ucOutputIdx)
 {
     if(eStateMachine == eStateMachine_Init)
     {
@@ -445,7 +448,7 @@ void Regulation_ChangeStateMachine(teRegulationStateMachine eStateMachine, u8 uc
 \param   none
 \return  teRegulationState - The requested state is returned
 ***********************************************************************************/
-teRegulationState Regulation_GetActualState(u8 ucOutputIdx)
+teRegulationState DR_Regulation_GetActualState(u8 ucOutputIdx)
 {
     return sRegulationHandler[ucOutputIdx].sRegState.eRegulationState;
 }
@@ -459,7 +462,7 @@ teRegulationState Regulation_GetActualState(u8 ucOutputIdx)
 \param   none
 \return  teRegulationState - The requested state is returned
 ***********************************************************************************/
-teRegulationState Regulation_GetRequestedState(u8 ucOutputIdx)
+teRegulationState DR_Regulation_GetRequestedState(u8 ucOutputIdx)
 {
     return sRegulationHandler[ucOutputIdx].sRegState.eReqState;
 }
@@ -473,7 +476,7 @@ teRegulationState Regulation_GetRequestedState(u8 ucOutputIdx)
 \param   none
 \return  bHardwareEnabled - Information about the hardware enable status
 ***********************************************************************************/
-bool Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx)
+bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx)
 {
     return HAL_IO_GetPwmStatus(ucOutputIdx);
 }

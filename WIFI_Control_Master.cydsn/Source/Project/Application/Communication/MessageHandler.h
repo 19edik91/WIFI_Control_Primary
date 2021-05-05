@@ -26,6 +26,7 @@ void MessageHandler_SendSleepOrWakeUpMessage(bool bSleep);
 void MessageHandler_SendInitDone(void);
 void MessageHandler_SendOutputState(void);
 void MessageHandler_ClearAllTimeouts(void);
+void MessageHandler_Init(void);
 
 #ifdef __cplusplus
 }

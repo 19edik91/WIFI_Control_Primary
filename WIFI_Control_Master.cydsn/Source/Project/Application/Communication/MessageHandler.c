@@ -33,7 +33,7 @@ static u16 uiCommTimeout = 0;
 static inline void ResetCommTimeout(void);
 static void CheckForCommTimeout(u8 ucElapsedTime);
 static void SendStillAliveMessage(bool bRequest);
-static void HandleMessage(tsMessageFrame* psMsgFrame);
+static void HandleMessage(void* pvMsg);
 
 /****************************************** local functions *********************************************/
 //********************************************************************************
@@ -142,8 +142,10 @@ static void SendStillAliveMessage(bool bRequest)
 \param      ucSize   - sizeof whole message
 
 ***********************************************************************************/
-static void HandleMessage(tsMessageFrame* psMsgFrame)
+static void HandleMessage(void* pvMsg)
 {
+    tsMessageFrame* psMsgFrame = (tsMessageFrame*)pvMsg;
+    
     bool bValidMessage = true;
     static u8 ucInvalidMessageCounter = 0;    
 
@@ -413,4 +415,17 @@ void MessageHandler_SendOutputState(void)
 void MessageHandler_ClearAllTimeouts(void)
 {
     ResetCommTimeout();
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E
+\date       05.05.2021
+\fn         MessageHandler_Init
+\brief      Links the message handler function with the OS-Communication module
+\return     void 
+***********************************************************************************/
+void MessageHandler_Init(void)
+{    
+    OS_Communication_Init(HandleMessage);
 }
