@@ -14,6 +14,7 @@
  //Use of X-Macros for defining User-relevant states
 /*              State name           |       State-Entry-Fn      |           State-Root-Fn          |         State-Exit-Fn          */
 #define USER_STATE_LIST \
-   STATE(   eSM_State_Active         ,    State_Active_Entry      ,       State_Active_Root          ,      State_Active_Exit          )
+   STATE(   eSM_State_Active         ,    State_Active_Entry      ,       State_Active_Root          ,      State_Active_Exit          )\
+   STATE(   eSM_State_Standby        ,    NULL                     ,       NULL                      ,      NULL          )
  
 #endif /* STATE_LIST_H_ */
