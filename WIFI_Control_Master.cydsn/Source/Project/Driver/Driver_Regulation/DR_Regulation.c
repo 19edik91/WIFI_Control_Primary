@@ -12,6 +12,7 @@
 #include "DR_ErrorDetection.h"
 #include "OS_EventManager.h"
 #include "OS_ErrorDebouncer.h"
+#include "OS_ErrorHandler.h"
 #include "HAL_IO.h"
 
 #include "Aom_Regulation.h"
@@ -479,5 +480,114 @@ teRegulationState DR_Regulation_GetRequestedState(u8 ucOutputIdx)
 bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx)
 {
     return HAL_IO_GetPwmStatus(ucOutputIdx);
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    06.05.2021
+\brief   Toggles the heart-beat LED.
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_ToggleHeartBeatLED(void)
+{
+    bool bActualStatus = HAL_IO_ReadOutputStatus(eLedGreen);
+    bActualStatus ^= 0x01;
+    HAL_IO_SetOutputStatus(eLedGreen, bActualStatus);
+    
+    #ifdef Pin_DEBUG_0
+    Pin_DEBUG_Write(~Pin_DEBUG_Read());
+    #endif
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    06.05.2021
+\brief   Toggles the error LED.
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_ToggleErrorLED(void)
+{
+    bool bActualStatus = HAL_IO_ReadOutputStatus(eLedRed);
+    
+    /* Check if error timeout is running */
+    if(OS_ErrorHandler_GetErrorTimeout() > 0)
+    {   
+        bActualStatus ^= 0x01;
+    }
+    else
+    {
+        //LED inputs are inverted
+        bActualStatus = !OFF;
+    }
+    HAL_IO_SetOutputStatus(eLedRed, bActualStatus);
+    
+    #ifdef Pin_DEBUG_0
+    Pin_DEBUG_Write(~Pin_DEBUG_Read());
+    #endif
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    06.05.2021
+\brief   Returns the ESP Reset status. When false than the ESP is in running mode.
+         otherwise the ESP is in HARDWARE-RESET Mode.
+\param   none
+\return  bool - True for active reset mode and false for normal mode.
+***********************************************************************************/
+bool DR_Regulation_GetEspResetStatus(void)
+{
+    bool bResetState = !HAL_IO_ReadOutputStatus(eEspResetPin);
+    return bResetState;
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    06.05.2021
+\brief   Sets the ESP into either a reset mode or into a normal mode.
+\param   bReset - True to set the ESP into reset state. False to leash the reset pin.
+\return  bool - True for High-State and false for LOW-State
+***********************************************************************************/
+void DR_Regulation_SetEspResetStatus(bool bReset)
+{
+    //Invert request because a HIGH-State is normal mode and a LOW-State is Reset mode.
+    HAL_IO_SetOutputStatus(eEspResetPin, !bReset);
+}
+
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    06.05.2021
+\brief   Checks first if a motion sensor is used. Afterwards the input pin of the
+         sensor is read. When a HIGH level was detected the an event for reseting
+         the burning time is created.
+\param   none
+\return  bMotionDetected - True for High-State and false for LOW-State
+***********************************************************************************/
+bool DR_Regulation_CheckSensorForMotion(void)
+{
+    bool bMotionDetected = false;
+    
+    /* Read PIR out for possible motion detection */                        
+    const tRegulationValues* psReg = Aom_Regulation_GetRegulationValuesPointer();                        
+    if(psReg->sUserTimerSettings.bMotionDetectOnOff)
+    {                            
+        /* Check if PIR has detected a change */
+        bMotionDetected = HAL_IO_ReadDigitalSense(eSensePIR);
+        
+        if(bMotionDetected)
+        {
+            /* Reset "ON" timeout */
+            OS_EVT_PostEvent(eEvtAutomaticMode_ResetBurningTimeout,0 ,0);
+        }
+    }
+    
+    return bMotionDetected;
 }
 #endif

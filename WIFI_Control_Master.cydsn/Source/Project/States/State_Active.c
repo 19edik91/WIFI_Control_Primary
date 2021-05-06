@@ -23,7 +23,6 @@
 #include "Aom_Time.h"
 
 #warning Includes pruefen!
-#include "HAL_IO.h"
 #include "AutomaticMode.h"
 #include "Standby.h"
 
@@ -45,6 +44,7 @@ static u8 ucSW_Timer_2ms = 0;
 static u8 ucSW_Timer_10ms = 0;
 static u8 ucSW_Timer_FlashWrite = 0;
 static u8 ucSW_Timer_EnterStandby = 0;
+static u8 ucSW_Timer_EspReset = 0;
 
 /* Communication timeout variables */
 static u16 uiResetCtrlTimeout = 0;
@@ -82,25 +82,6 @@ void RequestStandbyState(void)
     OS_EVT_PostEvent(eEvtState_Request, eSM_State_Standby, 0);
 }
 
-
-//********************************************************************************
-/*!
-\author     KraemerE   
-\date       12.02.2019  
-\brief      Just toggles the LED
-\return     none
-\param      none
-***********************************************************************************/
-void ToggleLed(void)
-{
-    bool bActualStatus = HAL_IO_ReadOutputStatus(eLedGreen);
-    bActualStatus ^= 0x01;
-    HAL_IO_SetOutputStatus(eLedGreen, bActualStatus);
-    
-    #ifdef Pin_DEBUG_0
-    Pin_DEBUG_Write(~Pin_DEBUG_Read());
-    #endif
-}
 //********************************************************************************
 /*!
 \author     Kraemer E
@@ -187,53 +168,37 @@ bool IsCurrentTimeInNightModeTimeSlot(u8 ucHours)
 /*!
 \author     Kraemer E.
 \date       26.10.2020
-\fn         ResetSlaveByTimeout()
 \brief      Resets slave after a communication fault.
 \param      bReset - true for activating reset otherwise false
 \return     none
 ***********************************************************************************/
 static void ResetSlaveByTimeout(bool bReset)
 {
-    /* Allow changes only when reset ctrl timeout is 0 */
-    if(uiResetCtrlTimeout == 0)
+    if(bReset == true)
     {
-        HAL_IO_SetOutputStatus(eEspResetPin, !bReset);
-        uiResetCtrlTimeout = RESET_CTRL_TIMEOUT;
-        MessageHandler_ClearAllTimeouts();
-        Aom_System_SetSlaveResetState(bReset);
+        //Start timeout
+        OS_SW_Timer_SetTimerState(ucSW_Timer_EspReset, TM_RUNNING);
     }
+    
+    DR_Regulation_SetEspResetStatus(bReset);
+    MessageHandler_ClearAllTimeouts();
+    Aom_System_SetSlaveResetState(bReset);
 }
 
 //********************************************************************************
 /*!
 \author     Kraemer E.
-\date       26.10.2020
-\fn         CheckResetTimeout
-\brief      Checks if the reset ctrl timeout is running and decrements it
-            until zero. When the timeout is zero the reset pin is set to default
-\param      ucElapsedTime - The elapsed time since the last call
+\date       06.05.2021
+\brief      Timeout callback function which enables the slave again.
+\param      none
 \return     none
 ***********************************************************************************/
-static inline void CheckResetTimeout(u16 uiElapsedTime)
+static void EnableSlaveTimeout(void)
 {
-    /* Decrement Timeout */
-    s16 siDiff = uiResetCtrlTimeout - uiElapsedTime;
-    
-    if(siDiff > 0)
-    {
-        uiResetCtrlTimeout -= uiElapsedTime;
-    }
-    else
-    {
-        uiResetCtrlTimeout = 0;    
-    
-        /* When reset pin is in "Reset set" state, put it back */
-        if(HAL_IO_ReadOutputStatus(eEspResetPin) == OFF)
-        {
-            ResetSlaveByTimeout(false);
-        }
-    }
+    ResetSlaveByTimeout(false);
 }
+
+
 /************************ externally visible functions ***********************/
 //***************************************************************************
 /*!
@@ -268,7 +233,8 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
     /* Create async timer */
     ucSW_Timer_EnterStandby = OS_SW_Timer_CreateAsyncTimer(TIMEOUT_ENTER_STANDBY, TMF_CREATESUSPENDED, RequestStandbyState);
     ucSW_Timer_FlashWrite = OS_SW_Timer_CreateAsyncTimer(SAVE_IN_FLASH_TIMEOUT, TMF_CREATESUSPENDED, TimeoutFlashUserSettings);
-        
+    ucSW_Timer_EspReset = OS_SW_Timer_CreateAsyncTimer(RESET_CTRL_TIMEOUT, TMF_CREATESUSPENDED, EnableSlaveTimeout);
+    
     if(bModulesInit == false)
     {
         MessageHandler_Init();
@@ -318,7 +284,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
                 /* Start the timeout for the standby when all regulation states are off */
                 if(ucActiveOutputs == 0)
                 {
-                    if(TM_SUSPENDED == ucTimerState && (Aom_System_IsStandbyActive() == false) && Aom_System_StandbyAllowed())
+                    if(TM_SUSPENDED == ucTimerState && Aom_System_StandbyAllowed())
                     {
                         /* Start the timeout for the standby timeout */
                         OS_SW_Timer_SetTimerState(ucSW_Timer_EnterStandby, TM_RUNNING);
@@ -344,29 +310,19 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             /******* 251ms-Tick **********/
             else if(ulParam2 == EVT_SW_TIMER_251MS)
             {
-                /* Read PIR out for possible motion detection */                        
-                const tRegulationValues* psReg = Aom_Regulation_GetRegulationValuesPointer();                        
-                if(psReg->sUserTimerSettings.bMotionDetectOnOff)
-                {                            
-                    /* Check if PIR has detected a change */
-                    if(HAL_IO_ReadDigitalSense(eSensePIR))
-                    {
-                        /* Reset "ON" timeout */
-                        AutomaticMode_ResetBurningTimeout();
-                    }
-                }                
+                DR_Regulation_CheckSensorForMotion();
             }
             
             /******* 1001ms-Tick **********/
             else if(ulParam2 == EVT_SW_TIMER_1001MS)
             {                        
-                AutomaticMode_Tick(1001);
-                
-                /* Set ESP-reset pin to open drain state */
-                CheckResetTimeout(1001);
-                
+                AutomaticMode_Tick(SW_TIMER_1001MS);
+                                
                 /* Toggle LED to show a living CPU */
-                ToggleLed();                
+                DR_Regulation_ToggleHeartBeatLED();
+                
+                /* Toggle error LED when an error is in timeout */
+                DR_Regulation_ToggleErrorLED();
 
                 /* Calculate voltage, current and temperature and send them afterwards to the slave */
                 Aom_Measure_SetMeasuredValues(true, true, true);
@@ -436,11 +392,18 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
         case eEvtCommTimeout:
         {
             /* When the reset pin is in high state, put it to low and reset the slave */
-            if(HAL_IO_ReadOutputStatus(eEspResetPin) == ON)
+            if(DR_Regulation_GetEspResetStatus() == false)
             {
                 ResetSlaveByTimeout(true);
                 Aom_System_SetSystemStarted(false);
             }
+            break;
+        }
+        
+        
+        case eEvtAutomaticMode_ResetBurningTimeout:
+        {
+            AutomaticMode_ResetBurningTimeout();
             break;
         }
         
@@ -474,11 +437,12 @@ u8 State_Active_Exit(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
     (void)uiParam1;
     (void)ulParam2;
     
-    /* Delete software timer which are related to this state */            
-    OS_EVT_PostEvent(eEvtSoftwareTimerDelete, 0, SW_TIMER_2MS);
-    OS_EVT_PostEvent(eEvtSoftwareTimerDelete, 0, SW_TIMER_10MS);
-    OS_EVT_PostEvent(eEvtSoftwareTimerDelete, 0, SAVE_IN_FLASH_TIMEOUT);
-    OS_EVT_PostEvent(eEvtSoftwareTimerDelete, 0, TIMEOUT_ENTER_STANDBY);
+    /* Delete software timer which are related to this state */   
+    OS_SW_Timer_DeleteTimer(ucSW_Timer_2ms);
+    OS_SW_Timer_DeleteTimer(ucSW_Timer_10ms);
+    OS_SW_Timer_DeleteTimer(ucSW_Timer_FlashWrite);
+    OS_SW_Timer_DeleteTimer(ucSW_Timer_EnterStandby);
+    OS_SW_Timer_DeleteTimer(ucSW_Timer_EspReset);
     
     /* Switch state to root state */
     OS_StateManager_CurrentStateReached();
