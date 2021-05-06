@@ -62,6 +62,7 @@
    ERROR(   eOverTemperatureFault_2                  ,    0xA012      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )\
    ERROR(   eOverTemperatureFault_3                  ,    0xA013      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )
 
-
+#define USER_EVENT_LIST \
+   EVT( eEvtAutomaticMode_ResetBurningTimeout )
     
 #endif /* PROJECT_CONFIG_H_ */
