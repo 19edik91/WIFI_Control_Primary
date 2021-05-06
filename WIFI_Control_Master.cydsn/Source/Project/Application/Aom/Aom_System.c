@@ -5,7 +5,7 @@
  * ========================================
 */
 
-#include "Aom_System.h"
+
 #include "Standby.h"
 #include "AutomaticMode.h"
 #include "Aom_System.h"

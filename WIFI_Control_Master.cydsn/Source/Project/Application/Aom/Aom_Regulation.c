@@ -5,14 +5,18 @@
  * ========================================
 */
 
-#include "Aom.h"
-#include "DR_Measure.h"
+
+
 #include "OS_EventManager.h"
+#include "OS_ErrorHandler.h"
+
 #include "DR_Regulation.h"
 #include "DR_ErrorDetection.h"
-#include "OS_ErrorHandler.h"
-#include "AutomaticMode.h"
+#include "DR_Measure.h"
+
 #include "Aom_Regulation.h"
+#include "AutomaticMode.h"
+
 /****************************************** Defines ******************************************************/
 /****************************************** Variables ****************************************************/
 static u8* pucPortMask = NULL;  //Static pointer because it's easier than re-reference another pointer in Aom

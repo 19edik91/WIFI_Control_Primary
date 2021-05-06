@@ -35,7 +35,6 @@ void Aom_Time_SetReceivedTime(u8 ucHour, u8 ucMin, u32 ulTicks)
 /*!
 \author     Kraemer E.
 \date       07.10.2020
-\fn         Aom_Time_SetRealTimeClockTime()
 \brief      Saves the time from the RTC
 \return     none
 \param      ucHour - The time value in hours
@@ -56,7 +55,6 @@ void Aom_Time_SetRealTimeClockTime(u8 ucHour, u8 ucMin, u32 ulTicks)
 /*!
 \author     Kraemer E.
 \date       27.05.2020
-\fn         Aom_Time_GetCurrentTime()
 \brief      Gets the saved time structure as a pointer
 \return     tsCurrentTime* - Address to the structure
 ***********************************************************************************/
@@ -69,7 +67,6 @@ const tsCurrentTime* Aom_Time_GetCurrentTime(void)
 /*!
 \author     Kraemer E.
 \date       08.12.2019
-\fn         Aom_Time_SetUserTimerSettings
 \brief      Saves the new received timer settings into structure
 \return     none
 \param      psUserTimerSettings - Pointer to the time setting structure

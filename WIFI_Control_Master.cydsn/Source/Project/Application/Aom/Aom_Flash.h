@@ -19,13 +19,12 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
-//#include "TargetConfig.h"
 #include "Aom.h"
 
 void Aom_Flash_WriteUserSettingsInFlash(void);
 void Aom_Flash_ReadUserSettingsFromFlash(void);
 void Aom_Flash_WriteSystemSettingsInFlash(void);
-u8 Aom_Flash_ReadSystemSettingsFromFlash(void);
+u8   Aom_Flash_ReadSystemSettingsFromFlash(void);
 
 #ifdef __cplusplus
 }

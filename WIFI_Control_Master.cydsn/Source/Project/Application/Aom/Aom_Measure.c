@@ -5,15 +5,14 @@
  * ========================================
 */
 
-#include "Aom.h"
-#include "DR_Measure.h"
 #include "OS_EventManager.h"
+
 #include "DR_Regulation.h"
-#include "Standby.h"
+#include "DR_Measure.h"
 #include "DR_ErrorDetection.h"
-#include "ErrorHandler.h"
-#include "AutomaticMode.h"
+
 #include "Aom_Measure.h"
+
 
 /****************************************** Defines ******************************************************/
 /****************************************** Variables ****************************************************/
@@ -22,8 +21,6 @@ static u8 ucDigitsPerVoltageStep = 0;
 static u8 ucDigitsCurrentLimit = 0;
 #endif
 
-// Use the uiError array for the listing
-extern const tsFaults sErrorArray[];
 
 /****************************************** Function prototypes ******************************************/
 /****************************************** loacl functiones *********************************************/

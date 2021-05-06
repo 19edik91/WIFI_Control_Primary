@@ -19,7 +19,6 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
-//#include "TargetConfig.h"
 #include "Aom.h"
 
 tsAutomaticModeValues* Aom_System_GetAutomaticModeValuesStruct(void);

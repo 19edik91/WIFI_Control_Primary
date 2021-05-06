@@ -19,7 +19,6 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
-//#include "TargetConfig.h"
 #include "Aom.h"
 
 u32 Aom_Measure_CalculateSystemVoltage(void);

@@ -19,7 +19,6 @@ extern "C"
 #endif   
 
 #include "BaseTypes.h"
-//#include "TargetConfig.h"
 #include "Aom.h"
 
 const tsCurrentTime* Aom_Time_GetCurrentTime(void);
