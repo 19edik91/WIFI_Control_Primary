@@ -44,9 +44,11 @@ teRegulationState DR_Regulation_GetActualState(u8 ucOutputIdx);
 teRegulationState DR_Regulation_GetRequestedState(u8 ucOutputIdx);
 bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx);
 
-
-
-
+void DR_Regulation_ModulesSleep(void);
+void DR_Regulation_ModulesWakeup(void);
+void DR_Regulation_SetWakeupInterrupts(void);
+void DR_Regulation_DeleteWakeupInterrupts(void);
+void DR_Regulation_EnterDeepSleepMode(void);
 
 
 #ifdef __cplusplus

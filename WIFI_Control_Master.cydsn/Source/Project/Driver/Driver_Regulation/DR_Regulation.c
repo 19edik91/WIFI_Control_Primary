@@ -590,4 +590,122 @@ bool DR_Regulation_CheckSensorForMotion(void)
     
     return bMotionDetected;
 }
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    08.05.2021
+\brief   Puts modules into sleep mode
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_ModulesSleep(void)
+{
+    /* Put into sleep mode */
+    ADC_INPUT_Sleep();
+    
+    //System clock
+    System_Timer_Sleep();
+    Clock_1_Stop();
+    Millisecond_ISR_Disable();
+    
+    //PWM clock
+    //PWM_Sleep();
+    PWM_Clock_Stop();
+        
+    //UART is set to sleep in
+    //"Serial_EnableUartWakeupInSleep()"    
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    08.05.2021
+\brief   Puts modules into sleep mode
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_ModulesWakeup(void)
+{
+    /* Wake up from sleep mode */
+    ADC_INPUT_Wakeup();
+    
+    //System clock
+    System_Timer_Wakeup();
+    Clock_1_Start();
+    Millisecond_ISR_Enable();
+    
+    //PWM clock
+    //PWM_Wakeup();
+    PWM_Clock_Start();
+       
+    //UART is set to wakeup in
+    //"Serial_DisableUartWakeupInSleep()"
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    08.05.2021
+\brief   Set specific IOs into interrupt mode. They will create an interrupt which
+         is catched by the AllPortIsr.
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_SetWakeupInterrupts(void)
+{
+    /* Enable AllPortIsr */
+    if(AllPortIsr_GetState() == OFF)
+    {
+        AllPortIsr_Enable();
+    }
+    
+    /* Set interrupt mode for UART-Rx-pin to falling edge */
+    UART_rx_SetInterruptMode(UART_rx_0_INTR, UART_rx_INTR_FALLING);
+    
+    /* Set interrupt mode for PIR-pin to rising edge */
+    Pin_PIR_SetInterruptMode(Pin_PIR_0_INTR, Pin_PIR_INTR_RISING);
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    08.05.2021
+\brief   Set specific IOs into interrupt mode. They will create an interrupt which
+         is catched by the AllPortIsr.
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_DeleteWakeupInterrupts(void)
+{
+    /* Enable AllPortIsr */
+    if(AllPortIsr_GetState() == ON)
+    {
+        AllPortIsr_Disable();
+    }
+    
+    /* disable interrupts on the UART RX pin. Interrupt request is cleared in the GPIO-Handler in Actors */
+    UART_rx_SetInterruptMode(UART_rx_0_INTR, UART_rx_INTR_NONE);
+                    
+    /* Disable interrupts on PIR pin. Interrupt request is cleared in the GPIO Handler in Actors */
+    Pin_PIR_SetInterruptMode(Pin_PIR_0_INTR, Pin_PIR_INTR_NONE);
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    08.05.2021
+\brief   Enters the deep sleep mode of this controller.
+         Sleep is leaved with the next interrupt from a 
+         wake up source (Watchdog-Timer or UART changes) 
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_EnterDeepSleepMode(void)
+{
+    //Enter deep sleep mode
+    CySysPmDeepSleep();
+}
+
+
 #endif
