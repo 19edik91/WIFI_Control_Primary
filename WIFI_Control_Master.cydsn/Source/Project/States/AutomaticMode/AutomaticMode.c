@@ -12,28 +12,17 @@
 #include "Aom_Regulation.h"
 #include "Aom_System.h"
 #include "DR_Measure.h"
-
-
-
+#include "OS_Config.h"
 
 /***************************** defines / macros ******************************/
 
 /************************ local data type definitions ************************/
 typedef bool (*pbFunction)(void);
 
-typedef struct _tCStateDefinition
-{
-    pbFunction   pFctAutomaticMode1;   /**< Pointer to the Entry function. This function will be called if the state is entered */
-    pbFunction   pFctAutomaticMode2;   /**< Pointer to the Entry function. This function will be called if the state is entered */
-    pbFunction   pFctAutomaticMode3;   /**< Pointer to the Execution function. This function will be called for every message if the state is active or a child of this state is active. */
-}tCStateDefinition;
-
 typedef struct
 {
-    teAutomaticState eCurrentState;
-    teAutomaticState eReqState;
     pbFunction pFctState;
-    bool bStateReached;
+    teAutomaticState eCurrentState;    
 }tsAutomaticState;
 
 
@@ -47,89 +36,19 @@ static bool StateAutomaticMode_3(void);
 tsAutomaticState sAutomaticState = 
 {
     .eCurrentState = eStateDisabled,
-    .eReqState = eStateDisabled,
     .pFctState = NULL,
-    .bStateReached = false
 };
 
-const tCStateDefinition sAutomaticStateFn = 
-{
-    .pFctAutomaticMode1 = StateAutomaticMode_1, 
-    .pFctAutomaticMode2 = StateAutomaticMode_2,
-    .pFctAutomaticMode3 = StateAutomaticMode_3
-};
 
 /****************************** local functions ******************************/
-//********************************************************************************
-/*!
-\author  KraemerE
-\date    19.02.2019
-
-\fn      CheckForNextState
-
-\brief   Checks the next available state according to the requested state. 
-
-\param   none
-
-\return  none
-***********************************************************************************/
-static void CheckForNextState(void)
-{    
-    /* When the requested state wasn't reached yet swtich the function pointer according the next state */
-    if(sAutomaticState.eReqState != sAutomaticState.eCurrentState
-        && sAutomaticState.bStateReached == true)
-    {
-        /* Change callback for dependent state */
-        switch(sAutomaticState.eReqState)
-        {
-            case eStateDisabled:
-            {
-                sAutomaticState.pFctState = NULL;
-                break;
-            }
-            
-            case eStateAutomaticMode_1:
-            {
-                sAutomaticState.pFctState = sAutomaticStateFn.pFctAutomaticMode1;
-                break;
-            }
-            
-            case eStateAutomaticMode_2:
-            {
-                sAutomaticState.pFctState = sAutomaticStateFn.pFctAutomaticMode2;
-                break;
-            }
-            
-            case eStateAutomaticMode_3:
-            {
-                sAutomaticState.pFctState = sAutomaticStateFn.pFctAutomaticMode3;
-                break;
-            }
-            
-            
-            default:
-                break;
-        } 
-        
-        /* Clear bit for next state */
-        sAutomaticState.bStateReached = false;
-    }
-}
-
-
 
 //********************************************************************************
 /*!
 \author  KraemerE
 \date    21.08.2020
-
-\fn      StateAutomaticMode_1
-
 \brief   Automatic mode 1 - Simply switching the light on and off during the
                             user defined time slots.
-
 \param   none
-
 \return  none
 ***********************************************************************************/
 static bool StateAutomaticMode_1(void)
@@ -142,8 +61,6 @@ static bool StateAutomaticMode_1(void)
     const tsAutomaticModeValues* psAutoValues = Aom_System_GetAutomaticModeValuesStruct();    
     bEnableLight = psAutoValues->bInUserTimerSlot;
     
-    sAutomaticState.bStateReached = true;
-    
     return bEnableLight;
 }
 
@@ -154,16 +71,12 @@ static bool StateAutomaticMode_1(void)
 /*!
 \author  KraemerE
 \date    21.08.2020
-
-\fn      StateAutomaticMode_2
-
 \brief   Automatic mode 2 - Light is only switched on during the given time slots
                             and when a motion was detected during these slots.
                             Light will burn for the set burning period after the last
                             motion was detected. A new detected motion restarts the
                             burning timeout.
 \param   none
-
 \return  none
 ***********************************************************************************/
 static bool StateAutomaticMode_2(void)
@@ -180,8 +93,6 @@ static bool StateAutomaticMode_2(void)
         bEnableLight = true;
     }
     
-    sAutomaticState.bStateReached = true;
-    
     return bEnableLight;
 }
 
@@ -190,13 +101,9 @@ static bool StateAutomaticMode_2(void)
 /*!
 \author  KraemerE
 \date    21.08.2020
-
-\fn      StateAutomaticMode_3
-
 \brief   Automatic mode 3 - Light is only switched when a motion was detected.
                             Timeslots are disabled. 
 \param   none
-
 \return  none
 ***********************************************************************************/
 static bool StateAutomaticMode_3(void)
@@ -208,12 +115,9 @@ static bool StateAutomaticMode_3(void)
 
     const tsAutomaticModeValues* psAutoValues = Aom_System_GetAutomaticModeValuesStruct();    
     bEnableLight = psAutoValues->bMotionDetected;
-    
-    sAutomaticState.bStateReached = true;
-    
+
     return bEnableLight;
 }
-
 
 
 
@@ -223,13 +127,8 @@ static bool StateAutomaticMode_3(void)
 /*!
 \author  KraemerE
 \date    21.08.2020
-
-\fn      AutomaticMode_Handler
-
 \brief   Calls the linked automatic-function. Checks afterwards for the next state.
-
 \param   none
-
 \return  bLightEnabled - Returns the light on/off state
 ***********************************************************************************/
 bool AutomaticMode_Handler(void)
@@ -245,12 +144,7 @@ bool AutomaticMode_Handler(void)
     else
     {
         sAutomaticState.eCurrentState = eStateDisabled;        
-        sAutomaticState.bStateReached = true;
     }
-    
-    /* Get the next state */
-    CheckForNextState();
-    
     return bLightEnabled;
 }
 
@@ -259,19 +153,43 @@ bool AutomaticMode_Handler(void)
 /*!
 \author  KraemerE
 \date    21.08.2020
-
-\fn      AutomaticMode_ChangeState
-
 \brief   Set a change request for the new automatic mode
-
 \param   eRequestedState - The requested state which should be switched to.
-
 \return  none
 ***********************************************************************************/
 void AutomaticMode_ChangeState(teAutomaticState eRequestedState)
 {
-    /* Save requested state */
-    sAutomaticState.eReqState = eRequestedState;
+    /* Change callback for dependent state */
+    switch(eRequestedState)
+    {
+        case eStateDisabled:
+        {
+            sAutomaticState.pFctState = NULL;
+            break;
+        }
+        
+        case eStateAutomaticMode_1:
+        {
+            sAutomaticState.pFctState = StateAutomaticMode_1;
+            break;
+        }
+        
+        case eStateAutomaticMode_2:
+        {
+            sAutomaticState.pFctState = StateAutomaticMode_2;
+            break;
+        }
+        
+        case eStateAutomaticMode_3:
+        {
+            sAutomaticState.pFctState = StateAutomaticMode_3;
+            break;
+        }
+        
+        
+        default:
+            break;
+    } 
 }
 
 
@@ -279,13 +197,8 @@ void AutomaticMode_ChangeState(teAutomaticState eRequestedState)
 /*!
 \author  KraemerE
 \date    21.08.2020
-
-\fn      AutomaticMode_GetStandbyState
-
 \brief   Returns the acutal automatic mode state
-
 \param   none
-
 \return  teAutomaticState - Returns the current state 
 ***********************************************************************************/
 teAutomaticState AutomaticMode_GetAutomaticState(void)
@@ -325,12 +238,12 @@ void AutomaticMode_Tick(u16 uiMsTick)
         }        
         
         /* Enter critical section and overwrite the burning time value */
-        const u8 ucCriticalSection = CyEnterCriticalSection();
+        const u8 ucCriticalSection = EnterCritical();
      
         psAutomaticModeValues->slBurningTimeMs = slBurningTimeCopy;        
         psAutomaticModeValues->bMotionDetected = slBurningTimeCopy ? true : false;
         
-        CyExitCriticalSection(ucCriticalSection);
+        LeaveCritical(ucCriticalSection);
     }
 }
 
@@ -353,8 +266,33 @@ void AutomaticMode_ResetBurningTimeout(void)
     slBurningTimeMs -= 5536;
     
     /* Enter critical section and overwrite burning time variable */
-    const u8 ucCriticalSection = CyEnterCriticalSection();
+    const u8 ucCriticalSection = EnterCritical();
     psAutomaticModeValues->slBurningTimeMs = slBurningTimeMs;
     
-    CyExitCriticalSection(ucCriticalSection);    
+    LeaveCritical(ucCriticalSection);    
+}
+
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    09.05.2021
+\fn      AutomaticMode_LeaveStandbyMode
+\brief   Checks if the standby mode can be left according to the currently used 
+         automatic mode
+\param   none
+\return  bLeaveStandbyMode - True when automatic mode requests to leave the standby
+                             mode.
+***********************************************************************************/
+bool AutomaticMode_LeaveStandbyMode(void)
+{
+    bool bLeaveStandbyMode = false;
+
+    if((sAutomaticState.eCurrentState == eStateAutomaticMode_2)
+        || (sAutomaticState.eCurrentState == eStateAutomaticMode_3))
+    {
+        bLeaveStandbyMode = true;    
+    }
+    
+    return bLeaveStandbyMode;    
 }

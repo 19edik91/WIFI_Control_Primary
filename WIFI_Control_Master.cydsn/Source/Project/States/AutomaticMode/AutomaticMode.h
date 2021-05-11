@@ -34,5 +34,6 @@ bool AutomaticMode_Handler(void);
 teAutomaticState AutomaticMode_GetAutomaticState(void);
 void AutomaticMode_Tick(u16 uiMsTick);
 void AutomaticMode_ResetBurningTimeout(void);
+bool AutomaticMode_LeaveStandbyMode(void);
 
 #endif // _AUTOMATICMODE_H_
