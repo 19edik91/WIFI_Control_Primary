@@ -14,9 +14,10 @@
 #include "DR_ErrorDetection.h"
 #include "DR_Measure.h"
 #include "DR_Regulation.h"
-#include "Aom_Flash.h"
+
 #include "MessageHandler.h"
 
+#include "Aom_Flash.h"
 #include "Aom_System.h"
 #include "Aom_Regulation.h"
 #include "Aom_Measure.h"
@@ -24,7 +25,7 @@
 
 #warning Includes pruefen!
 #include "AutomaticMode.h"
-#include "Standby.h"
+#include "State_Standby.h"
 
 /***************************** defines / macros ******************************/
 #define NIGHT_MODE_START        22
@@ -101,7 +102,7 @@ static void EnterSleepMode(void)
         DR_Regulation_SetWakeupInterrupts();
         
         /* Enter critical section */
-        u8 ucInterruptStatus = CyEnterCriticalSection();
+        u8 ucInterruptStatus = EnterCritical();
         
         /* Enable wake up sources from deep sleep or set UART in sleep mode */
         if(OS_Serial_UART_EnableUartWakeupInSleep())
@@ -119,7 +120,7 @@ static void EnterSleepMode(void)
         }
         
         /* Enter critical section */
-        CyExitCriticalSection(ucInterruptStatus);
+        LeaveCritical(ucInterruptStatus);
     }
 }
 
@@ -186,7 +187,7 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
     
     switch(eEventID)
     {       
-        case eEvtSerialMsgReceived:
+        case eEvtStandby_RxToggled:
         {
             //Message in standby state received. Set timeout until standby can be re-entered again.
             bStandbyAllowed = false;
@@ -196,7 +197,21 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
                                         
         case eEvtAutomaticMode_ResetBurningTimeout:
         {
+            /* Motion sensor has detected motion */
             AutomaticMode_ResetBurningTimeout();
+            
+            /* Check if standby mode can be left */
+            if(AutomaticMode_LeaveStandbyMode())
+            {
+                OS_EVT_PostEvent(eEvtState_Request, eSM_State_Active, 0);
+            }
+            break;
+        }
+        
+        case eEvtStandby_WakeUpReceived:
+        {
+            /* Request state change */
+            OS_EVT_PostEvent(eEvtState_Request, eSM_State_Active, 0);
             break;
         }
         
@@ -204,6 +219,12 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
             break;
     }
     
+    
+    /* Check if deep sleep mode can be entered */
+    if(bStandbyAllowed)
+    {
+        EnterSleepMode();
+    }    
     
     OS_StateManager_CurrentStateReached();
 

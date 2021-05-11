@@ -440,7 +440,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                 MessageHandler_SendSleepOrWakeUpMessage(false);
                 
                 /* Generate a wake-up-event */
-                OS_EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
+                OS_EVT_PostEvent(eEvtStandby_WakeUpReceived, 0, 0);
             }
             
             /* Set message as acknowledged */

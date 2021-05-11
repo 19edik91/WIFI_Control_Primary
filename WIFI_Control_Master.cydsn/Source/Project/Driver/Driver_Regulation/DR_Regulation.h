@@ -49,7 +49,7 @@ void DR_Regulation_ModulesWakeup(void);
 void DR_Regulation_SetWakeupInterrupts(void);
 void DR_Regulation_DeleteWakeupInterrupts(void);
 void DR_Regulation_EnterDeepSleepMode(void);
-
+void DR_Regulation_RxInterruptOnSleep(void);
 
 #ifdef __cplusplus
 }

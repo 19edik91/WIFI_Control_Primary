@@ -24,7 +24,7 @@
 
 #warning Includes pruefen!
 #include "AutomaticMode.h"
-#include "Standby.h"
+
 
 /***************************** defines / macros ******************************/
 #define NIGHT_MODE_START        22

@@ -18,6 +18,8 @@
 #include "Aom_Regulation.h"
 #include "Aom_Flash.h"
 #include "Aom_Measure.h"
+#include "Aom_System.h"
+
 #include "Regulation_Data.h"
 #include "Regulation_State_Init.h"
 #include "Regulation_State_Root.h"
@@ -568,27 +570,26 @@ void DR_Regulation_SetEspResetStatus(bool bReset)
          sensor is read. When a HIGH level was detected the an event for reseting
          the burning time is created.
 \param   none
-\return  bMotionDetected - True for High-State and false for LOW-State
+\return  psAutoVal->bMotionDetected - True for High-State and false for LOW-State
 ***********************************************************************************/
 bool DR_Regulation_CheckSensorForMotion(void)
 {
-    bool bMotionDetected = false;
-    
     /* Read PIR out for possible motion detection */                        
     const tRegulationValues* psReg = Aom_Regulation_GetRegulationValuesPointer();                        
-    if(psReg->sUserTimerSettings.bMotionDetectOnOff)
-    {                            
-        /* Check if PIR has detected a change */
-        bMotionDetected = HAL_IO_ReadDigitalSense(eSensePIR);
+    tsAutomaticModeValues* psAutoVal = Aom_System_GetAutomaticModeValuesStruct();
         
-        if(bMotionDetected)
+    if(psReg->sUserTimerSettings.bMotionDetectOnOff)
+    {
+        /* Check if PIR has detected a change */
+        psAutoVal->bMotionDetected = HAL_IO_ReadDigitalSense(eSensePIR);
+
+        if(psAutoVal->bMotionDetected)
         {
             /* Reset "ON" timeout */
             OS_EVT_PostEvent(eEvtAutomaticMode_ResetBurningTimeout,0 ,0);
         }
-    }
-    
-    return bMotionDetected;
+    }    
+    return psAutoVal->bMotionDetected;
 }
 
 //********************************************************************************
@@ -705,6 +706,20 @@ void DR_Regulation_EnterDeepSleepMode(void)
 {
     //Enter deep sleep mode
     CySysPmDeepSleep();
+}
+
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    08.05.2021
+\brief   RX pin has been toggled during standby state
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_RxInterruptOnSleep(void)
+{
+    OS_EVT_PostEvent(eEvtStandby_RxToggled, 0, 0);
 }
 
 

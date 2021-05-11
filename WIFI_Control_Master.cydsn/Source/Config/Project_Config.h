@@ -69,6 +69,7 @@
     EVT( eEvtStandby )\
     EVT( eEvtNewRegulationValue )\
     EVT( eEvtInitRegulationValue )\
-
+    EVT( eEvtStandby_WakeUpReceived )\
+    EVT( eEvtStandby_RxToggled )
     
 #endif /* PROJECT_CONFIG_H_ */

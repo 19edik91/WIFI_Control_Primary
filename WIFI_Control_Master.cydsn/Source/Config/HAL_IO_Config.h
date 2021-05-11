@@ -20,6 +20,8 @@ extern "C"
 #include "BaseTypes.h"
 #include "project.h"
 
+#include "DR_Regulation.h"
+
 /****************************************** Defines ******************************************************/
 #define HAL_IO_ERRORCALLBACK        //Define a callback routine for errors in the HAL-IO-Module
 
@@ -64,7 +66,7 @@ extern "C"
     ISR_MAP(    ePort_1     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_2     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_3     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
-    ISR_MAP(    ePort_4     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
+    ISR_MAP(    ePort_4     ,       DR_Regulation_RxInterruptOnSleep        ,       NULL        ,       NULL        , DR_Regulation_CheckSensorForMotion  ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_5     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_6     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_7     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )

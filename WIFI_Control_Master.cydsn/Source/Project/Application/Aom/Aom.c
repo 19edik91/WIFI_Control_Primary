@@ -10,7 +10,6 @@
 #include "OS_Flash.h"
 #include "OS_EventManager.h"
 #include "DR_Regulation.h"
-#include "Standby.h"
 #include "DR_ErrorDetection.h"
 #include "ErrorHandler.h"
 #include "AutomaticMode.h"
