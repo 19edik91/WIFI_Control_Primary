@@ -11,10 +11,14 @@
 #include <project.h>
 #include "Aom_Regulation.h"
 #include "Aom_System.h"
+#include "Aom_Time.h"
 #include "DR_Measure.h"
 #include "OS_Config.h"
 
 /***************************** defines / macros ******************************/
+#define NIGHT_MODE_START        22
+#define NIGHT_MODE_STOP         5
+
 
 /************************ local data type definitions ************************/
 typedef bool (*pbFunction)(void);
@@ -41,6 +45,88 @@ tsAutomaticState sAutomaticState =
 
 
 /****************************** local functions ******************************/
+//********************************************************************************
+/*!
+\author     Kraemer E
+\date       01.12.2019
+\fn         IsCurrentTimeInActiveTimeSlot
+\brief      Checks if the current time is in the specific automatic on time
+\return     bInSlot - Returns true when in time slot
+\param      ucHours - The current hour
+\param      ucMin - The current minutes
+***********************************************************************************/
+static bool IsCurrentTimeInActiveTimeSlot(u8 ucHours, u8 ucMin)
+{
+    bool bInSlot = false;
+    u8 ucSlotsFound = 0;
+    
+    tRegulationValues sRegulationValues;       
+    Aom_Regulation_GetRegulationValues(&sRegulationValues);
+
+    for(u8 ucTimerIdx = 0; ucTimerIdx < USER_TIMER_AMOUNT; ucTimerIdx++)
+    {
+        if(sRegulationValues.sUserTimerSettings.ucSetTimerBinary  & (0x01 << ucTimerIdx))
+        {       
+            if((ucHours == sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourSet) && (ucMin >= sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinSet))
+            {
+                ucSlotsFound++;
+            }
+            else if(ucHours > sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourSet)
+            {
+                ucSlotsFound++;
+            }
+        
+            if(ucHours == sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourClear && ucMin >= sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinClear)
+            {
+                ucSlotsFound--;
+            }
+            else if(ucHours > sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourClear)
+            {
+                ucSlotsFound--;
+            }
+        }
+    }
+
+    if(ucSlotsFound > 0)
+    {
+        bInSlot = true;
+    }
+      
+    return bInSlot;
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E
+\date       21.08.2020
+\fn         IsCurrentTimeInNightModeTimeSlot
+\brief      Checks if the current time is in the specific night mode time slot
+\return     bInSlot - Returns true when in time slot
+\param      ucHours - The current hour
+***********************************************************************************/
+static bool IsCurrentTimeInNightModeTimeSlot(u8 ucHours)
+{
+    bool bInSlot = false;
+    u8 ucSlotsFound = 0;
+      
+    if(ucHours >= NIGHT_MODE_START)
+    {
+        ucSlotsFound++;
+    }
+
+    if(ucHours >= NIGHT_MODE_STOP)
+    {
+        ucSlotsFound--;
+    }
+
+    if(ucSlotsFound > 0)
+    {
+        bInSlot = true;
+    }
+      
+    return bInSlot;
+}
+
 
 //********************************************************************************
 /*!
@@ -63,9 +149,6 @@ static bool StateAutomaticMode_1(void)
     
     return bEnableLight;
 }
-
-
-
 
 //********************************************************************************
 /*!
@@ -295,4 +378,34 @@ bool AutomaticMode_LeaveStandbyMode(void)
     }
     
     return bLeaveStandbyMode;    
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    11.05.2021
+\brief   Checks if an automatic mode is active and checks if the current time
+         is in the user defined time slot. Also checks if the night mode shall be
+         switched on.
+\param   none
+\return  none
+***********************************************************************************/
+void AutomaticMode_TimeUpdated(void)
+{
+    /* Get pointer to the regulation structure (read-only) */
+    const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
+    tsAutomaticModeValues* psAutoMode = Aom_System_GetAutomaticModeValuesStruct();
+    const tsCurrentTime* psTime = Aom_Time_GetCurrentTime();
+    
+    /* Check if automatic mode is enabled. Otherwise handling isn't relevant */
+    if(psRegVal->sUserTimerSettings.bAutomaticModeActive)
+    {
+        psAutoMode->bInUserTimerSlot = IsCurrentTimeInActiveTimeSlot(psTime->ucHours, psTime->ucMinutes);
+        
+        /* Check if night mode is active and in night mode time slot */
+        if(psRegVal->bNightModeOnOff)
+        {
+            psAutoMode->bInNightModeTimeSlot = IsCurrentTimeInNightModeTimeSlot(psTime->ucHours);
+        }                  
+    }
 }
