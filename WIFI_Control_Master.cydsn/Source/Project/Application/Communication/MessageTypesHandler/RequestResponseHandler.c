@@ -273,14 +273,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
     const teMessageCmd eCommand = OS_Communication_GetCommand(psMsgFrame);    
    
     teMessageType eResponse = eNoType;
-    
-    /* Check if standby is active */
-    if(Aom_System_IsStandbyActive())
-    {
-        /* Message should only occur when when standby is left. Therfore request exit standby */
-        OS_EVT_PostEvent(eEvtStandby, eEvtParam_ExitStandby, 0);
-    }
-    
+       
     /* Switch to message ID */
     switch(eMessageId)
     {
@@ -434,11 +427,8 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         
         case eMsgWakeUp:
         {
-            if(eCommand == eCmdSet && Aom_System_IsStandbyActive())
-            {
-                /* Send a wake-up-message */
-                MessageHandler_SendSleepOrWakeUpMessage(false);
-                
+            if(eCommand == eCmdSet)
+            {                
                 /* Generate a wake-up-event */
                 OS_EVT_PostEvent(eEvtStandby_WakeUpReceived, 0, 0);
             }

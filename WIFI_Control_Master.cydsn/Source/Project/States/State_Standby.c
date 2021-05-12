@@ -23,7 +23,6 @@
 #include "Aom_Measure.h"
 #include "Aom_Time.h"
 
-#warning Includes pruefen!
 #include "AutomaticMode.h"
 #include "State_Standby.h"
 
@@ -39,12 +38,8 @@
 /************************* local function prototypes *************************/
 
 /************************* local data (const and var) ************************/
-static u8 ucActiveOutputs = 0;
 static bool bStandbyAllowed = true;
 static bool bSlaveReseted = false;
-
-/* Communication timeout variables */
-static u16 uiResetCtrlTimeout = 0;
 
 static u8 ucSW_Timer_MsgRxTimeout = 0;
 static u8 ucSW_Timer_EspResetTimeout = 0;
@@ -209,6 +204,11 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
         }
         
         case eEvtStandby_WakeUpReceived:
+        {
+            /* Send a wake-up-message */
+            MessageHandler_SendSleepOrWakeUpMessage(false);
+        }
+        case eEvtSerialMsgReceived:
         {
             /* Request state change */
             OS_EVT_PostEvent(eEvtState_Request, eSM_State_Active, 0);

@@ -355,7 +355,7 @@ void MessageHandler_Tick(u8 ucElapsedMs)
     
     /* Check for communication faults only in active state;
        because in the standby state the slave is off */
-    if(Aom_System_IsStandbyActive() == false && Aom_System_GetSlaveResetState() == false)
+    if(Aom_System_GetSlaveResetState() == false)
     {
         CheckForCommTimeout(ucElapsedMs);
     }

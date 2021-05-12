@@ -39,7 +39,6 @@ static u32 ulSystemVoltageOld;
 static u32 ulSystemVoltageNew;
 static u16 uiSystemVoltageAdc;
 /****************************************** Function prototypes ******************************************/
-static void MeasureInterrupt(void);
 static void PutInMovingAverage(teAdMuxList eAMuxChannel, s16 siAdcValue);
 
 

@@ -25,7 +25,6 @@ tsAutomaticModeValues* Aom_System_GetAutomaticModeValuesStruct(void);
 
 bool Aom_System_GetSystemStarted(void);
 bool Aom_System_StandbyAllowed(void);
-bool Aom_System_IsStandbyActive(void);
 bool Aom_System_GetSlaveResetState(void);
 
 void Aom_System_SetSystemStarted(bool bStarted);

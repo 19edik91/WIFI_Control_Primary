@@ -24,19 +24,6 @@ static bool bSlaveInResetState = false;     //Bool to get the current "Reset pin
 //********************************************************************************
 /*!
 \author     Kraemer E.
-\date       03.05.2020
-\brief      Return a boolean in dependancy of the standby state
-\return     True when standby state is different than active
-\param      none
-***********************************************************************************/
-bool Aom_System_IsStandbyActive(void)
-{   
-    return (OS_StateManager_GetCurrentState() == eSM_State_Standby);
-}
-
-//********************************************************************************
-/*!
-\author     Kraemer E.
 \date       21.08.2020
 \fn         Aom_GetAutomaticModeValuesStruct
 \brief      Returns the pointer reference to the automatic mode values structure.
