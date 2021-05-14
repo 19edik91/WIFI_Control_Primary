@@ -1,17 +1,21 @@
 
 
 /********************************* includes **********************************/
-#include "HAL_IO.h"
 #include "Project_Config.h"
 
-#include "DR_ErrorDetection.h"
 #include "OS_ErrorDebouncer.h"
+
+#include "DR_ErrorDetection.h"
+
+#include "HAL_System.h"
+#include "HAL_IO.h"
+
 #include "Aom_Regulation.h"
 #include "Aom_Measure.h"
 #include "Measure_Current.h"
 
 /************************* local function prototypes *************************/
-static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues);
+static bool ValidateOutputPorts(tsFaultOutputPortValues* psFaultOutputPortValues);
 
 
 /************************* local data (const and var) ************************/
@@ -28,7 +32,7 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
 \return     none
 \param      psFaultOutputPortValues - Invalid bit information about the triacs. Bitnumber is equal to the triac number
 ***********************************************************************************/
-static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
+static bool ValidateOutputPorts(tsFaultOutputPortValues* psFaultOutputPortValues)
 {
     bool bPinFaultFound = false;
     
@@ -37,8 +41,6 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
         u8 ucPortOutputStatusRegVal = 0;
         u8 ucPortOutputDataRegVal = 0;
         u8 ucPortIdx = 0;
-        
-        u16 uiInvalidOutputs = 0;
         
         /* Check if port masks are initialized */
         if(!HAL_IO_GetPortPinMaskStatus())
@@ -49,7 +51,7 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
         for(ucPortIdx = NUMBER_OF_PORTS; ucPortIdx--;)
         {    
             /* Get the port mask */
-            const u8* pucOutputPortMask = Aom_Regulation_GetActorsPortMask();
+            const u8* pucOutputPortMask = HAL_IO_GetOutputPinMask();
             
             /* Get interrupt save port register */
             CyGlobalIntDisable;
@@ -71,33 +73,31 @@ static bool ValidateOutputPorts(tFaultOutputPortValues* psFaultOutputPortValues)
                 psFaultOutputPortValues->ucPinFaults[ucPortIdx] |= ucDiffRegVal;
                 bPinFaultFound = true;                
                 
-                #warning TODO: Improve IO-Check
                 /* Check complete portregister */
-                //u8 ucBitIndex;
-                //for(ucBitIndex = 8; ucBitIndex--;)
-                //{
-                //    /* Get the invalid pin */
-                //    if((ucDiffRegVal >> ucBitIndex)&0x01)
-                //    {
-                //        /* Get the invalid relay or triac output */
-                //        u8 ucActorIdx;
-                //        for(ucActorIdx = COUNT_OF_OUTPUTS; ucActorIdx--;)
-                //        {
-                //            if(sOutputMap[ucActorIdx].ucPort == ucPortIdx)
-                //            {
-                //                if(sOutputMap[ucActorIdx].ucBitShift == ucBitIndex)
-                //                {
-                //                    uiInvalidOutputs |= 0x01 << ucActorIdx;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
+                u8 ucBitIndex;
+                for(ucBitIndex = 8; ucBitIndex--;)
+                {
+                    /* Get the invalid pin */
+                    if((ucDiffRegVal >> ucBitIndex)&0x01)
+                    {
+                        /* Get the invalid output */
+                        u8 ucActorIdx;
+                        for(ucActorIdx = COUNT_OF_OUTPUTS; ucActorIdx--;)
+                        {
+                            u8 ucOutputPort = 0xFF;
+                            u8 ucOutputBit = 0xFF;                            
+                            HAL_IO_GetPortAndBitshiftIndex(ucActorIdx, &ucOutputPort,&ucOutputBit);
+                            
+                            if(ucOutputPort == ucPortIdx && ucOutputBit == ucBitIndex)
+                            {
+                                psFaultOutputPortValues->eOutputFaultList[psFaultOutputPortValues->ucFaultCnt] = (teOutput)ucActorIdx;
+                                psFaultOutputPortValues->ucFaultCnt++;
+                            }
+                        }
+                    }
+                }
             }
         }
-        
-        /* Save pin validations */
-        psFaultOutputPortValues->uiInvalidOutputs = uiInvalidOutputs;    
     }
     
     return bPinFaultFound;
@@ -159,14 +159,16 @@ u8 DR_ErrorDetection_GetFaultPorts(u8* pucGetPinFaults, u8* pucSetPinFaults, u8 
 ***********************************************************************************/
 void DR_ErrorDetection_CheckOutputPins(void)
 {   
-    tFaultOutputPortValues sFaultOutputPorts;
-    memset(&sFaultOutputPorts, 0, sizeof(sFaultOutputPorts));
+    tsFaultOutputPortValues sFaultOutputPorts;
+    memset(&sFaultOutputPorts.ucPinFaults[0], 0, sizeof(sFaultOutputPorts.ucPinFaults));
+    memset(&sFaultOutputPorts.eOutputFaultList[0], eInvalidOutput, sizeof(sFaultOutputPorts.eOutputFaultList));
+    sFaultOutputPorts.ucFaultCnt = 0;
     
     //Returns the invalid sorted bitinformation of the output pins
     ValidateOutputPorts(&sFaultOutputPorts);
     
     //Check if there are any faults on the ports
-    if(sFaultOutputPorts.uiInvalidOutputs)
+    if(sFaultOutputPorts.ucFaultCnt)
     {
         /* Put error in queue */
         OS_ErrorDebouncer_PutErrorInQueue(ePinFault);
@@ -187,8 +189,7 @@ void DR_ErrorDetection_CheckOutputPins(void)
 bool DR_ErrorDetection_CheckPwmOutput(u8 ucOutputIdx)
 {
     bool bErrorFound = false;
-#warning PWM-Test disabled. Need a second switch for OFF-State
-#if 0
+
     /* Variables for testing */
     bool bLowCheck = false;
     bool bHighCheck = false;
@@ -201,35 +202,46 @@ bool DR_ErrorDetection_CheckPwmOutput(u8 ucOutputIdx)
     //}
     
     /* Change compare value of the PWM module. First check against HIGH */
-    sPwmMap[ucOutputIdx].pfnWriteCompare(sPwmMap[ucOutputIdx].pfnReadPeriod());    
-    CyDelay(10);
-    for(ucPwmRetry = PWM_TEST_RETRY; ucPwmRetry--;)
-    {
-        if(Actors_ReadOutputStatus(ePwmOut_0 + ucOutputIdx) == ON)
+    u32 ulPeriodVal = 0;    
+    teIO_Return eReadRet = HAL_IO_PWM_ReadPeriod((tePWM)ucOutputIdx, &ulPeriodVal);
+    teIO_Return eWriteRet = HAL_IO_PWM_WriteCompare((tePWM)ucOutputIdx, ulPeriodVal);
+    
+    if(eReadRet == eIO_Success && eWriteRet == eIO_Success)
+    {    
+        //HAL_System_Delay(10);
+        for(ucPwmRetry = PWM_TEST_RETRY; ucPwmRetry--;)
         {
-            bHighCheck = true;
-            break;
+            if(HAL_IO_ReadOutputStatus((ePin_PwmOut_0 + ucOutputIdx)) == ON)
+            {
+                bHighCheck = true;
+                break;
+            }
+        }
+        
+        /* Set compare value to LOW to check for LOW level */
+        eWriteRet = HAL_IO_PWM_WriteCompare((tePWM)ucOutputIdx, 0);
+        
+        if(eWriteRet == eIO_Success)
+        {
+            //HAL_System_Delay(10);
+            for(ucPwmRetry = PWM_TEST_RETRY; ucPwmRetry--;)
+            {
+                if(HAL_IO_ReadOutputStatus((ePin_PwmOut_0 + ucOutputIdx)) == OFF)
+                {
+                    bLowCheck = true;
+                    break;
+                }
+            }
+        }
+        
+        /* If an error was detected put it into the error queue */
+        if(!(bLowCheck && bHighCheck))
+        {
+            OS_ErrorDebouncer_PutErrorInQueue(ePmwFault);
+            bErrorFound = true;
         }
     }
-    
-    sPwmMap[ucOutputIdx].pfnWriteCompare(0);
-    CyDelay(10);
-    for(ucPwmRetry = PWM_TEST_RETRY; ucPwmRetry--;)
-    {
-        if(Actors_ReadOutputStatus(ePwmOut_0 + ucOutputIdx) == OFF)
-        {
-            bLowCheck = true;
-            break;
-        }
-    }
-    
-    /* If an error was detected put it into the error queue */
-    if(!(bLowCheck && bHighCheck))
-    {
-        ErrorDebouncer_PutErrorInQueue(ePinFault);
-        bErrorFound = true;
-    }
-#endif
+
     return bErrorFound;
 }
 

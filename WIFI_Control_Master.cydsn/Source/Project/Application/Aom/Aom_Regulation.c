@@ -19,7 +19,6 @@
 
 /****************************************** Defines ******************************************************/
 /****************************************** Variables ****************************************************/
-static u8* pucPortMask = NULL;  //Static pointer because it's easier than re-reference another pointer in Aom
 
 /****************************************** Function prototypes ******************************************/
 bool ValidatePercentValue(u8* pucValue);
@@ -260,29 +259,3 @@ void Aom_Regulation_SetMaxSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16
 
 #endif
 
-//********************************************************************************
-/*!
-\author     Kraemer E.
-\date       13.02.2019
-\brief      Save the link to the port mask
-\return     none
-\param      pucPortMask - Pointer to the port mask
-***********************************************************************************/
-void Aom_Regulation_SetActorsPortMask(u8* pucOrgPortMask)
-{
-    if(pucOrgPortMask)
-        pucPortMask = pucOrgPortMask;
-}
-
-//********************************************************************************
-/*!
-\author     Kraemer E.
-\date       20.01.2019
-\brief      Return the link to the port mask
-\return     pucPortMask - Pointer to the port mask
-\param      none
-***********************************************************************************/
-u8* Aom_Regulation_GetActorsPortMask(void)
-{   
-    return pucPortMask;
-}

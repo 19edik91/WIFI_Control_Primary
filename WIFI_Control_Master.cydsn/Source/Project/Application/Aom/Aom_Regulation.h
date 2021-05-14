@@ -32,9 +32,6 @@ void Aom_Regulation_GetRegulationValues(tRegulationValues* psRegulationValues);
 void Aom_Regulation_SetMinSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16 uiCompVal, u8 ucOutputIdx);
 void Aom_Regulation_SetMaxSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16 uiCompVal, u8 ucOutputIdx);
               
-void Aom_Regulation_SetActorsPortMask(u8* pucOrgPortMask);
-u8*  Aom_Regulation_GetActorsPortMask(void);
-
 
 #ifdef __cplusplus
 }
