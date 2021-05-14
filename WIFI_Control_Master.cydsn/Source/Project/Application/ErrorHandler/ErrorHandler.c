@@ -47,7 +47,6 @@ bool ErrorHandler_HandleActualError(teErrorList eFaultCode, bool bSetError)
             }
             
             /* Currently all faults are handled with the same handling */   
-            #warning TODO: Create real error handling
             //case eOutputVoltageFault_0:         
             //case eOutputVoltageFault_1:         
             //case eOutputVoltageFault_2:          
