@@ -45,8 +45,8 @@ static tCStateDefinition sRegulationStateFn =
 /*!
 \author  KraemerE
 \date    06.11.2020
-\brief   Enter function of the standby process. In this module all necessary
-         system related peripherals should be switched off.
+\brief   In this state the PWM module, the PWM-driver and the supply voltage is 
+         switched on. Also the PWM output is checked for a pin fault.
 \param   none
 \return  none
 ***********************************************************************************/
@@ -60,9 +60,7 @@ static void StateEntry(u8 ucOutputIdx)
     
     /***** Enable regulation modules *****/      
     if(HAL_IO_GetPwmStatus(ucOutputIdx) == false)
-    {       
-        //TODO: Enable voltage output
-        
+    {               
         /* Check if system voltage was already calculated. Only valid when PWM is disabled */
         bSystemVoltageFound = Aom_Measure_SystemVoltageCalculated();
         
@@ -76,12 +74,15 @@ static void StateEntry(u8 ucOutputIdx)
             
             if(bErrorFound == false)
             {
+                /* Enable PWM-Driver */
+                HAL_IO_SetOutputStatus((ePin_PwmEn_0 + ucOutputIdx), ON);
+                
+                /* Enable Supply voltage of this output */
+                HAL_IO_SetOutputStatus((ePin_VoltEn_0 + ucOutputIdx), ON);
+                
                 /* Enable PWM module with lowest brightness level */
                 //sPwmMap[ucOutputIdx].pfnWriteCompare(sPwmMap[ucOutputIdx].pfnReadPeriod());
                 HAL_IO_PWM_WriteCompare(ucOutputIdx, 10);
-                
-                //Enable delay for smoother dimming
-                CyDelay(10);
             }
         }
     }
@@ -149,9 +150,9 @@ static void StateExit(u8 ucOutputIdx)
 /*!
 \author  KraemerE
 \date    18.02.2019
-\brief   This state is called when the PCM temperature is above the set limit or
-         the UIM requested to leave the stand by mode.
-\param   none
+\brief   In this state the supply voltage, the PWM-Driver and the PWM modules
+         are switched off.
+\param   ucOutputIdx - The output which shall be disabled.
 \return  none
 ***********************************************************************************/
 static void StateOff(u8 ucOutputIdx)
@@ -163,7 +164,13 @@ static void StateOff(u8 ucOutputIdx)
     if(HAL_IO_GetPwmStatus(ucOutputIdx) == true)
     {       
         /* Wait a short time */
-        CyDelay(10);
+        //CyDelay(10);
+        
+        /* Disable Supply voltage of this output */
+        HAL_IO_SetOutputStatus((ePin_VoltEn_0 + ucOutputIdx), OFF);
+        
+        /* Disable PWM-Driver */
+        HAL_IO_SetOutputStatus((ePin_PwmEn_0 + ucOutputIdx), OFF);
         
         /* Stops PWM Timer and PWM modlue */
         HAL_IO_PWM_Stop(ucOutputIdx);
