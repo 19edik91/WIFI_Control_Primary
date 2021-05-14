@@ -37,7 +37,7 @@ void    DR_Regulation_ToggleHeartBeatLED(void);
 bool    DR_Regulation_GetEspResetStatus(void);
 void    DR_Regulation_SetEspResetStatus(bool bReset);
 
-bool    DR_Regulation_CheckSensorForMotion(void);
+void    DR_Regulation_CheckSensorForMotion(void);
 
 u8      DR_Regulation_Handler(void);
 teRegulationState DR_Regulation_GetActualState(u8 ucOutputIdx);

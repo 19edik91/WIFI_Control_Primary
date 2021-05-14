@@ -494,9 +494,9 @@ bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx)
 ***********************************************************************************/
 void DR_Regulation_ToggleHeartBeatLED(void)
 {
-    bool bActualStatus = HAL_IO_ReadOutputStatus(eLedGreen);
+    bool bActualStatus = HAL_IO_ReadOutputStatus(ePin_LedGreen);
     bActualStatus ^= 0x01;
-    HAL_IO_SetOutputStatus(eLedGreen, bActualStatus);
+    HAL_IO_SetOutputStatus(ePin_LedGreen, bActualStatus);
     
     #ifdef Pin_DEBUG_0
     Pin_DEBUG_Write(~Pin_DEBUG_Read());
@@ -513,7 +513,7 @@ void DR_Regulation_ToggleHeartBeatLED(void)
 ***********************************************************************************/
 void DR_Regulation_ToggleErrorLED(void)
 {
-    bool bActualStatus = HAL_IO_ReadOutputStatus(eLedRed);
+    bool bActualStatus = HAL_IO_ReadOutputStatus(ePin_LedRed);
     
     /* Check if error timeout is running */
     if(OS_ErrorHandler_GetErrorTimeout() > 0)
@@ -525,7 +525,7 @@ void DR_Regulation_ToggleErrorLED(void)
         //LED inputs are inverted
         bActualStatus = !OFF;
     }
-    HAL_IO_SetOutputStatus(eLedRed, bActualStatus);
+    HAL_IO_SetOutputStatus(ePin_LedRed, bActualStatus);
     
     #ifdef Pin_DEBUG_0
     Pin_DEBUG_Write(~Pin_DEBUG_Read());
@@ -543,7 +543,7 @@ void DR_Regulation_ToggleErrorLED(void)
 ***********************************************************************************/
 bool DR_Regulation_GetEspResetStatus(void)
 {
-    bool bResetState = !HAL_IO_ReadOutputStatus(eEspResetPin);
+    bool bResetState = !HAL_IO_ReadOutputStatus(ePin_EspResetPin);
     return bResetState;
 }
 
@@ -558,7 +558,7 @@ bool DR_Regulation_GetEspResetStatus(void)
 void DR_Regulation_SetEspResetStatus(bool bReset)
 {
     //Invert request because a HIGH-State is normal mode and a LOW-State is Reset mode.
-    HAL_IO_SetOutputStatus(eEspResetPin, !bReset);
+    HAL_IO_SetOutputStatus(ePin_EspResetPin, !bReset);
 }
 
 
@@ -572,7 +572,7 @@ void DR_Regulation_SetEspResetStatus(bool bReset)
 \param   none
 \return  psAutoVal->bMotionDetected - True for High-State and false for LOW-State
 ***********************************************************************************/
-bool DR_Regulation_CheckSensorForMotion(void)
+void DR_Regulation_CheckSensorForMotion(void)
 {
     /* Read PIR out for possible motion detection */                        
     const tRegulationValues* psReg = Aom_Regulation_GetRegulationValuesPointer();                        
@@ -589,7 +589,6 @@ bool DR_Regulation_CheckSensorForMotion(void)
             OS_EVT_PostEvent(eEvtAutomaticMode_ResetBurningTimeout,0 ,0);
         }
     }    
-    return psAutoVal->bMotionDetected;
 }
 
 //********************************************************************************
