@@ -906,6 +906,7 @@
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.h" />
+<dep name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.h" />
 <dep name=".\Source\Project\States\State_Active.h" />
 <dep name=".\Source\Project\States\State_Standby.h" />
 <dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
@@ -926,6 +927,7 @@
 <file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.h" />
 <file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.h" />
 <file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.h" />
+<file name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.h" />
 <file name=".\Source\Project\States\State_Active.h" />
 <file name=".\Source\Project\States\State_Standby.h" />
 <file name=".\Source\BasicOS\OS_SelfTest\OS_SelfTest.c" />
@@ -1175,7 +1177,6 @@
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
 <dep name=".\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer\OS_SoftwareTimer.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.h" />
 <file name=".\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer\OS_SoftwareTimer.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\OS_Watchdog.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
@@ -2524,6 +2525,7 @@
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_System\HAL_System.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
@@ -4095,7 +4097,7 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\cy_psoc3_inc.v</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 </warp_dep>
-<deps_time v="132652711438686727" />
+<deps_time v="132654776941459606" />
 <top_block v="TopDesign" />
 <last_generation v="0" />
 <pdl_path v="" />
@@ -4105,7 +4107,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132652711727353893" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132654777209050972" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
