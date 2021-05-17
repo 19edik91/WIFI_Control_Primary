@@ -202,9 +202,9 @@ bool DR_ErrorDetection_CheckPwmOutput(u8 ucOutputIdx)
     //}
     
     /* Change compare value of the PWM module. First check against HIGH */
-    u32 ulPeriodVal = 0;    
-    teIO_Return eReadRet = HAL_IO_PWM_ReadPeriod((tePWM)ucOutputIdx, &ulPeriodVal);
-    teIO_Return eWriteRet = HAL_IO_PWM_WriteCompare((tePWM)ucOutputIdx, ulPeriodVal);
+    u16 uiPeriodVal = 0;    
+    teIO_Return eReadRet = HAL_IO_PWM_ReadPeriod((tePWM)ucOutputIdx, &uiPeriodVal);
+    teIO_Return eWriteRet = HAL_IO_PWM_WriteCompare((tePWM)ucOutputIdx, uiPeriodVal);
     
     if(eReadRet == eIO_Success && eWriteRet == eIO_Success)
     {    

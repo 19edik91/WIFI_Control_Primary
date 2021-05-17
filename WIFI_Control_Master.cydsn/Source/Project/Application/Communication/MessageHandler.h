@@ -27,6 +27,7 @@ void MessageHandler_SendInitDone(void);
 void MessageHandler_SendOutputState(void);
 void MessageHandler_ClearAllTimeouts(void);
 void MessageHandler_Init(void);
+extern void MessageHandler_HandleMessage(void* pvMsg);
 
 #ifdef __cplusplus
 }

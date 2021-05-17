@@ -33,7 +33,7 @@ static u16 uiCommTimeout = 0;
 static inline void ResetCommTimeout(void);
 static void CheckForCommTimeout(u8 ucElapsedTime);
 static void SendStillAliveMessage(bool bRequest);
-static void HandleMessage(void* pvMsg);
+//static void HandleMessage(void* pvMsg);
 
 /****************************************** local functions *********************************************/
 //********************************************************************************
@@ -142,7 +142,7 @@ static void SendStillAliveMessage(bool bRequest)
 \param      ucSize   - sizeof whole message
 
 ***********************************************************************************/
-static void HandleMessage(void* pvMsg)
+void MessageHandler_HandleMessage(void* pvMsg)
 {
     tsMessageFrame* psMsgFrame = (tsMessageFrame*)pvMsg;
     
@@ -427,5 +427,5 @@ void MessageHandler_ClearAllTimeouts(void)
 ***********************************************************************************/
 void MessageHandler_Init(void)
 {    
-    OS_Communication_Init(HandleMessage);
+    OS_Communication_Init(MessageHandler_HandleMessage);
 }

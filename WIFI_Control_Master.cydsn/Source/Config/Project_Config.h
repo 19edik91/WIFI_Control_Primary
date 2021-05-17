@@ -60,7 +60,8 @@
    ERROR(   eOverTemperatureFault_0                  ,    0xA010      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )\
    ERROR(   eOverTemperatureFault_1                  ,    0xA011      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )\
    ERROR(   eOverTemperatureFault_2                  ,    0xA012      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )\
-   ERROR(   eOverTemperatureFault_3                  ,    0xA013      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )
+   ERROR(   eOverTemperatureFault_3                  ,    0xA013      ,       2     ,      FAULTS_DEBOUNCE_CNT_DEFAULT )\
+   ERROR(   eCommunicationTimeoutFault               ,    0xA014      ,       2     ,      1                           )
 
 #define USER_EVENT_LIST \
     EVT( eEvtAutomaticMode_ResetBurningTimeout )\

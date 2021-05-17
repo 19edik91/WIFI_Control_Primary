@@ -364,7 +364,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     u16 uiVoltageAdc = Aom_Measure_GetAdcIsValue(eMeasureChVoltage, psMsgManualInit->ucOutputIndex);
                     u16 uiCurrentAdc = Aom_Measure_GetAdcIsValue(eMeasureChCurrent, psMsgManualInit->ucOutputIndex);
                     u16 uiPwmCompVal = 0; 
-                    HAL_IO_PWM_ReadCompare(psMsgManualInit->ucOutputIndex, (u32*)&uiPwmCompVal);
+                    HAL_IO_PWM_ReadCompare(psMsgManualInit->ucOutputIndex, &uiPwmCompVal);
                     
                     if(psMsgManualInit->bSetMaxValue)
                     {

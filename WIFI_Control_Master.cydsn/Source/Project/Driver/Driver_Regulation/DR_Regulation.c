@@ -260,8 +260,8 @@ static void RegulatePWM(u8 ucOutputIdx)
     u16 uiReadPeriod = 0;
     
     /* Read actual compare values */
-    HAL_IO_PWM_ReadCompare(ucOutputIdx, (u32*)&uiLedCompareVal[ucOutputIdx]);
-    HAL_IO_PWM_ReadPeriod(ucOutputIdx, (u32*)&uiReadPeriod);
+    HAL_IO_PWM_ReadCompare(ucOutputIdx, &uiLedCompareVal[ucOutputIdx]);
+    HAL_IO_PWM_ReadPeriod(ucOutputIdx, &uiReadPeriod);
     
     /*************** Check for regulation ******************************************/
     if(psRegAdcVal->uiIsValue < siAdcLowerLimit)

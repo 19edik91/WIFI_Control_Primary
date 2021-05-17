@@ -173,7 +173,7 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
 ******************************************************************************/
 u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 ulParam2)
 {
-    u8 ucReturn = EVT_NOT_PROCESSED;
+    u8 ucReturn = EVT_PROCESSED;
     
     switch(eEventID)
     {
@@ -311,6 +311,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
         }
         
         default:
+            ucReturn = EVT_NOT_PROCESSED;
             break;
     }
     
