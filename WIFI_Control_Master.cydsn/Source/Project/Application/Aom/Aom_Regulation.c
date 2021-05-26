@@ -77,7 +77,9 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
         tLedValue* psLedVal = Aom_GetOutputsSettingsEntry(ucOutputIdx);
         
         /* Save LED status */
-        if(DR_Regulation_GetHardwareEnabledStatus(ucOutputIdx) != bLedStatus)
+        //teRegulationState eActualState = DR_Regulation_GetActualState(ucOutputIdx);
+        
+        //if(DR_Regulation_GetHardwareEnabledStatus(ucOutputIdx) != bLedStatus)
         {
             psLedVal->bStatus = bLedStatus;
             

@@ -148,9 +148,15 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
     
     if(bModulesInit == false)
     {
+        if(Aom_Measure_SystemVoltageCalculated() == false)
+        {
+            Aom_Measure_CalculateSystemVoltage();
+        }
+        
         MessageHandler_Init();
         DR_Measure_Init();
         DR_Regulation_Init();
+                
         bModulesInit = true;
     }
     
