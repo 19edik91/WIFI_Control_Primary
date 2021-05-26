@@ -30,10 +30,15 @@ extern "C"
    A_CH(   eA_CH_0     ,    {0}         ,    eMeasureChVoltage  ,       0x00   )\
    A_CH(   eA_CH_1     ,    {0}         ,    eMeasureChVoltage  ,       0x01   )\
    A_CH(   eA_CH_2     ,    {0}         ,    eMeasureChVoltage  ,       0x02   )\
-   A_CH(   eA_CH_3     ,    {0}         ,    eMeasureChCurrent  ,       0x00   )\
-   A_CH(   eA_CH_4     ,    {0}         ,    eMeasureChCurrent  ,       0x01   )\
-   A_CH(   eA_CH_5     ,    {0}         ,    eMeasureChCurrent  ,       0x02   )\
-   A_CH(   eA_CH_6     ,    {0}         ,    eMeasureChTemp     ,       0x03   )\
+   A_CH(   eA_CH_3     ,    {0}         ,    eMeasureChVoltage  ,       0x03   )\
+   A_CH(   eA_CH_4     ,    {0}         ,    eMeasureChCurrent  ,       0x00   )\
+   A_CH(   eA_CH_5     ,    {0}         ,    eMeasureChCurrent  ,       0x01   )\
+   A_CH(   eA_CH_6     ,    {0}         ,    eMeasureChCurrent  ,       0x02   )\
+   A_CH(   eA_CH_7     ,    {0}         ,    eMeasureChCurrent  ,       0x03   )\
+   A_CH(   eA_CH_8     ,    {0}         ,    eMeasureChTemp     ,       0x00   )\
+   A_CH(   eA_CH_9     ,    {0}         ,    eMeasureChTemp     ,       0x01   )\
+   A_CH(   eA_CH_10    ,    {0}         ,    eMeasureChTemp     ,       0x02   )\
+   A_CH(   eA_CH_11    ,    {0}         ,    eMeasureChTemp     ,       0x03   )\
    A_CH(   eA_CH_INV   ,    {0}         ,    eMeasureChInvalid  ,       0xFF   )
 
 
@@ -44,6 +49,7 @@ typedef enum
         AD_MUX_LIST
     #undef A_CH
 }teAdMuxList;
+
 
 typedef struct
 {

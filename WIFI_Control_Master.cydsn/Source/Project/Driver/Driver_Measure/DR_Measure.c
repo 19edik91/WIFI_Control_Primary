@@ -8,10 +8,14 @@
 #include "Measure_Voltage.h"
 #include "Measure_Temperature.h"
 #include "Measure_Current.h"
+
+#include "OS_ErrorDebouncer.h"
+
 #include "DR_Measure.h"
 #include "Aom_Measure.h"
 
 #include "HAL_Measure.h"
+
 
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
@@ -54,21 +58,28 @@ static void PutInMovingAverage(teAdMuxList eAMuxChannel, s16 siAdcValue);
 ***********************************************************************************/
 static void PutInMovingAverage(teAdMuxList eAMuxChannel, s16 siAdcValue)
 {
-    tsMeasureValues* psMeasureVal = &sAdMuxList[eAMuxChannel].sMeasureValue;
-    
-    /* Subtract the oldest entry from the sum */   
-    psMeasureVal->siAdcSum  -= psMeasureVal->siAdcBuffer[psMeasureVal->ucBufferIndex];
-      
-    /* Save new value in buffer */
-    psMeasureVal->siAdcBuffer[psMeasureVal->ucBufferIndex] = siAdcValue;
-    
-    /* Add new value to summation */
-    psMeasureVal->siAdcSum += siAdcValue;
-    
-    /* Increment buffer index and set back to zero, when limit is reached */
-    if(++psMeasureVal->ucBufferIndex == BUFFER_LENGTH)
+    if(eAMuxChannel < eA_CH_INV)
+    {    
+        tsMeasureValues* psMeasureVal = &sAdMuxList[eAMuxChannel].sMeasureValue;
+        
+        /* Subtract the oldest entry from the sum */   
+        psMeasureVal->siAdcSum  -= psMeasureVal->siAdcBuffer[psMeasureVal->ucBufferIndex];
+          
+        /* Save new value in buffer */
+        psMeasureVal->siAdcBuffer[psMeasureVal->ucBufferIndex] = siAdcValue;
+        
+        /* Add new value to summation */
+        psMeasureVal->siAdcSum += siAdcValue;
+        
+        /* Increment buffer index and set back to zero, when limit is reached */
+        if(++psMeasureVal->ucBufferIndex == BUFFER_LENGTH)
+        {
+            psMeasureVal->ucBufferIndex = 0;
+        }
+    }
+    else
     {
-        psMeasureVal->ucBufferIndex = 0;
+        OS_ErrorDebouncer_PutErrorInQueue(eMuxInvalid);
     }
 }
 

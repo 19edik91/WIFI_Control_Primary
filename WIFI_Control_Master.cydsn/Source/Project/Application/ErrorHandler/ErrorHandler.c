@@ -46,6 +46,12 @@ bool ErrorHandler_HandleActualError(teErrorList eFaultCode, bool bSetError)
                 break;
             }
             
+            case eMuxInvalid:
+            {
+                while(1);
+                break;
+            }
+            
             /* Currently all faults are handled with the same handling */   
             //case eOutputVoltageFault_0:         
             //case eOutputVoltageFault_1:         
