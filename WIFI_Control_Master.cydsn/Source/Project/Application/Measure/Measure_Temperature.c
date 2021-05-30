@@ -23,6 +23,7 @@ typedef struct
     Note - Temperature is given with additional decimal (-50 = -5.0°C)
 */
 
+#if SERIES_RESISTOR_
 static const tsThermoTable sThermoTableNTC[] =
 {
     {-50	, 1765	},
@@ -45,7 +46,31 @@ static const tsThermoTable sThermoTableNTC[] =
     {800	, 67	},
     {850	, 57	}
 };
-
+#else
+    //Values are based on 12V Supply voltage
+static const tsThermoTable sThermoTableNTC[] =
+{
+    {-50	,716},
+    {0		,571},
+    {50		,458},
+    {100	,370},
+    {150	,300},
+    {200	,246},
+    {250	,202},
+    {300	,167},
+    {350	,139},
+    {400	,117},
+    {450	,98	},
+    {500	,83	},
+    {550	,71	},
+    {600	,60	},
+    {650	,52	},
+    {700	,45	},
+    {750	,39	},
+    {800	,33	},
+    {850	,29	}
+};
+#endif
 /****************************************** Function prototypes ******************************************/
 /****************************************** loacl functiones *********************************************/
 /****************************************** External visible functiones **********************************/

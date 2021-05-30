@@ -58,7 +58,7 @@ typedef struct
 {
     tLedValue sLedValue[DRIVE_OUTPUTS];
     tsUserTimeSettings sUserTimerSettings;
-    u16  uiNtcAdcValue;
+    u16  uiNtcAdcValue[DRIVE_OUTPUTS];
     bool bNightModeOnOff;
 }tRegulationValues;
 
@@ -86,8 +86,8 @@ typedef struct
     {
         u32 ulMilliVolt;
         u16 uiMilliAmp;
-    }sOutput[DRIVE_OUTPUTS];
-    u16 uiTemp;
+        u16 uiTemp;
+    }sOutput[DRIVE_OUTPUTS];    
 }tsConvertedMeasurement;
 
 typedef enum

@@ -13,7 +13,7 @@
 #define SHUNT_RESISTOR_DIVISION   10        // 1/(0,1Ohm)
 #define ADC_REF_MILLIVOLT        ADC_INPUT_DEFAULT_VREF_MV_VALUE
 #define BITSHIFT_10              1024       //Bitshift in value
-#define OP_AMP_GAIN                 4       //Gain of the Op-AMP
+#define OP_AMP_GAIN                31       //Gain of the Op-AMP
 
 /********* Current calc *********/
 #define ADC2AMP_ADC_STEP    ((ADC_REF_MILLIVOLT * BITSHIFT_10)/(ADC_MAX_VAL))

@@ -60,8 +60,8 @@ void Aom_Measure_SetActualAdcValues(u16 uiAdcVal, teMeasureType eChannel, u8 ucC
         
         case eMeasureChTemp:
         {
-            if(ucChannelIdx == DRIVE_OUTPUTS)
-                psRegVal->uiNtcAdcValue = uiAdcVal;        
+            if(ucChannelIdx < DRIVE_OUTPUTS)
+                psRegVal->uiNtcAdcValue[ucChannelIdx] = uiAdcVal;        
             break;
         }
             
@@ -211,7 +211,7 @@ void Aom_Measure_GetMeasuredValues(u32* pulVoltage, u16* puiCurrent, s16* psiTem
     
     if(psiTemperature)
     {
-        *psiTemperature = psCvMeasure->uiTemp;
+        *psiTemperature = psCvMeasure->sOutput[ucOutputIdx].uiTemp;
     }
 }
 
@@ -247,7 +247,7 @@ void Aom_Measure_SetMeasuredValues(bool bVoltage, bool bCurrent, bool bTemperatu
         
         if(bTemperature)
         {
-            psCvMeasure->uiTemp = DR_Measure_CalculateTemperatureValue(psRegVal->uiNtcAdcValue);
+            psCvMeasure->sOutput[ucOutputIdx].uiTemp = DR_Measure_CalculateTemperatureValue(psRegVal->uiNtcAdcValue[ucOutputIdx]);
         }
     }
 }
