@@ -101,7 +101,7 @@ u16 Aom_Measure_GetAdcIsValue(teMeasureType eChan, u8 ucOutputIdx)
                 break;
             
             case eMeasureChTemp:
-                uiAdcValue = psRegVal->uiNtcAdcValue;
+                uiAdcValue = psRegVal->uiNtcAdcValue[ucOutputIdx];
                 break;
                 
             case eMeasureChInvalid:
