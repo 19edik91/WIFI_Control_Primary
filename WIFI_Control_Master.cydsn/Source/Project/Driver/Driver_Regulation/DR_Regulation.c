@@ -506,6 +506,19 @@ void DR_Regulation_ToggleHeartBeatLED(void)
 //********************************************************************************
 /*!
 \author  KraemerE
+\date    09.06.2021
+\brief   Switches off the heart-beat LED.
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_SwitchOffHeartBeatLED(void)
+{
+    HAL_IO_SetOutputStatus(ePin_LedGreen, !OFF);
+}
+
+//********************************************************************************
+/*!
+\author  KraemerE
 \date    06.05.2021
 \brief   Toggles the error LED.
 \param   none
@@ -613,6 +626,8 @@ void DR_Regulation_ModulesSleep(void)
     //PWM_Sleep();
     PWM_Clock_Stop();
         
+    DR_Regulation_SwitchOffHeartBeatLED();
+    
     //UART is set to sleep in
     //"Serial_EnableUartWakeupInSleep()"    
 }
