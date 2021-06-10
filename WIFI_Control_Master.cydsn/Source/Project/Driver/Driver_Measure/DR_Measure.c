@@ -42,6 +42,7 @@ static tsAdMuxList sAdMuxList[] =
 static u32 ulSystemVoltageOld;
 static u32 ulSystemVoltageNew;
 static u16 uiSystemVoltageAdc;
+static bool bMeasureStarted = false;
 /****************************************** Function prototypes ******************************************/
 static void PutInMovingAverage(teAdMuxList eAMuxChannel, s16 siAdcValue);
 
@@ -131,6 +132,7 @@ void DR_Measure_Init(void)
 
     /* Init measure HAL. PutInMovingAverage() shall be used for new AD-Values */
     HAL_Measure_Init(PutInMovingAverage);
+    bMeasureStarted = true;
 }
 
 
@@ -266,7 +268,11 @@ void DR_Measure_Tick(void)
 ***********************************************************************************/
 void DR_Measure_Start(void)
 {
-    HAL_Measure_Start();
+    if(bMeasureStarted == false)
+    {
+        HAL_Measure_Start();
+        bMeasureStarted = true;
+    }
 }
 
 //********************************************************************************
@@ -279,7 +285,11 @@ void DR_Measure_Start(void)
 ***********************************************************************************/
 void DR_Measure_Stop(void)
 {
-    HAL_Measure_Stop();
+    if(bMeasureStarted == true)
+    {
+        HAL_Measure_Stop();
+        bMeasureStarted = false;
+    }
 }
 
 
