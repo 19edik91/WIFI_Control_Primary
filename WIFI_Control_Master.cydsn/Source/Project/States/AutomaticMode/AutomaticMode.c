@@ -171,7 +171,7 @@ static bool StateAutomaticMode_2(void)
 
     const tsAutomaticModeValues* psAutoValues = Aom_System_GetAutomaticModeValuesStruct();  
     
-    if(psAutoValues->bMotionDetected && psAutoValues->bInUserTimerSlot)
+    if((psAutoValues->bMotionDetected || psAutoValues->slBurningTimeMs) && psAutoValues->bInUserTimerSlot)
     {
         bEnableLight = true;
     }
@@ -197,7 +197,7 @@ static bool StateAutomaticMode_3(void)
     sAutomaticState.eCurrentState = eStateAutomaticMode_3;
 
     const tsAutomaticModeValues* psAutoValues = Aom_System_GetAutomaticModeValuesStruct();    
-    bEnableLight = psAutoValues->bMotionDetected;
+    bEnableLight = (psAutoValues->bMotionDetected || psAutoValues->slBurningTimeMs);
 
     return bEnableLight;
 }
@@ -321,10 +321,9 @@ void AutomaticMode_Tick(u16 uiMsTick)
         }        
         
         /* Enter critical section and overwrite the burning time value */
-        const u8 ucCriticalSection = EnterCritical();
-     
-        psAutomaticModeValues->slBurningTimeMs = slBurningTimeCopy;        
-        psAutomaticModeValues->bMotionDetected = slBurningTimeCopy ? true : false;
+        const u8 ucCriticalSection = EnterCritical();     
+        
+        psAutomaticModeValues->slBurningTimeMs = slBurningTimeCopy;     
         
         LeaveCritical(ucCriticalSection);
     }
