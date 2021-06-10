@@ -87,8 +87,12 @@ static void ResetSlaveByTimeout(bool bReset)
 {
     if(bReset == true)
     {
-        //Start timeout
-        OS_SW_Timer_SetTimerState(ucSW_Timer_EspReset, TM_RUNNING);
+        /* Check if timer is already running */
+        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) == TM_SUSPENDED)
+        {
+            //Start timeout
+            OS_SW_Timer_SetTimerState(ucSW_Timer_EspReset, TM_RUNNING);
+        }
     }
     
     DR_Regulation_SetEspResetStatus(bReset);
@@ -300,9 +304,10 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
         
         case eEvtCommTimeout:
         {
-            /* When the reset pin is in high state, put it to low and reset the slave */
-            if(DR_Regulation_GetEspResetStatus() == false)
+            if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) == TM_SUSPENDED )
             {
+                /* When the reset pin is in high state, put it to low and reset the slave */
+                bool bEspResetStatus = DR_Regulation_GetEspResetStatus();
                 ResetSlaveByTimeout(true);
                 Aom_System_SetSystemStarted(false);
             }
