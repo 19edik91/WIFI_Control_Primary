@@ -56,14 +56,13 @@ static void StateEntry(u8 ucOutputIdx)
     psRegHandler[ucOutputIdx]->sRegState.eRegulationState = eStateEntry;
 
     bool bErrorFound = false;
-    bool bSystemVoltageFound = false;
+    
+    /* Check if system voltage was already calculated. Only valid when PWM is disabled */
+    bool bSystemVoltageFound = Aom_Measure_SystemVoltageCalculated();   
     
     /***** Enable regulation modules *****/      
     if(HAL_IO_GetPwmStatus(ucOutputIdx) == false)
-    {               
-        /* Check if system voltage was already calculated. Only valid when PWM is disabled */
-        bSystemVoltageFound = Aom_Measure_SystemVoltageCalculated();
-        
+    {                       
         if(bSystemVoltageFound)
         {
             /* Start PWM module */
