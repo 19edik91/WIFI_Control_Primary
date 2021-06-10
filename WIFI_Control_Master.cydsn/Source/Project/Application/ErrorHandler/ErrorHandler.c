@@ -43,6 +43,7 @@ bool ErrorHandler_HandleActualError(teErrorList eFaultCode, bool bSetError)
             case eCommunicationTimeoutFault:
             {
                 OS_EVT_PostEvent(eEvtCommTimeout, 0, 0);
+                bErrorHandled = false;
                 break;
             }
             
