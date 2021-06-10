@@ -20,7 +20,11 @@
 
 #include "HAL_Timer.h"
 
+#define LOG_NOT_PROCESSED_EVTS  true
+
 static tsEventMsg sEvt = {eEvtNone, eEvtParam_None, eEvtParam_None};
+static tsEventMsg sNotProcessedEvents[10];
+static u8 ucNotProcessedEvtIndex = 0;
 
 void CyBoot_Start_c_Callback(void)
 {
@@ -58,8 +62,23 @@ static void Main_Task(void)
         }
         else
         {
-            /* Event has not been processed from main-state nor from other states */
-            OS_ErrorDebouncer_PutErrorInQueue(eEventError_NotProcessed);
+            #if LOG_NOT_PROCESSED_EVTS
+                if(ucNotProcessedEvtIndex < 10)
+                {
+                    ucNotProcessedEvtIndex++;
+                }
+                else
+                {
+                    ucNotProcessedEvtIndex = 0;
+                }
+                
+                memcpy(&sNotProcessedEvents[ucNotProcessedEvtIndex], &sEvt, sizeof(tsEventMsg));
+                
+                ClearEventStruct(&sEvt);
+            #else
+                /* Event has not been processed from main-state nor from other states */
+                OS_ErrorDebouncer_PutErrorInQueue(eEventError_NotProcessed);
+            #endif
         }
 
     }
