@@ -106,7 +106,7 @@ static void EnterSleepMode(void)
             DR_Regulation_ModulesSleep();
             
             DR_Regulation_EnterDeepSleepMode();
-                            
+                           
             /* CPU woke up here - Disable wake up sources / Enable UART again */
             OS_Serial_UART_DisableUartWakeupInSleep();
             
@@ -116,6 +116,9 @@ static void EnterSleepMode(void)
         
         /* Enter critical section */
         LeaveCritical(ucInterruptStatus);
+        
+        /* Disable wake-up sources after critical section is left */
+        DR_Regulation_DeleteWakeupInterrupts();        
     }
 }
 
@@ -159,6 +162,9 @@ u8 State_Standby_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2
     //Warning when SelfTest_ADC is enabled. This would leave to an stopped CPU.
     DR_Measure_Stop();    
     
+    /* Unblock standby state from previous state */
+    UnblockStandbyState();
+    
     /* Switch state to root state */
     OS_StateManager_CurrentStateReached();
 
@@ -178,7 +184,7 @@ u8 State_Standby_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2
 ******************************************************************************/
 u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 ulParam2)
 {
-    u8 ucReturn = EVT_NOT_PROCESSED;
+    u8 ucReturn = EVT_PROCESSED;
     
     switch(eEventID)
     {       
@@ -198,6 +204,7 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
             /* Check if standby mode can be left */
             if(AutomaticMode_LeaveStandbyMode())
             {
+                bStandbyAllowed = false;
                 OS_EVT_PostEvent(eEvtState_Request, eSM_State_Active, 0);
             }
             break;
@@ -207,18 +214,27 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
         {
             /* Send a wake-up-message */
             MessageHandler_SendSleepOrWakeUpMessage(false);
-        }
-        case eEvtSerialMsgReceived:
-        {
-            /* Request state change */
+            bStandbyAllowed = false;
             OS_EVT_PostEvent(eEvtState_Request, eSM_State_Active, 0);
             break;
         }
         
-        default:
+        case eEvtNewRegulationValue:
+        case eEvtTimeReceived:
+        case eEvtSerialMsgReceived:
+        {
+            /* Send sleep message */
+            MessageHandler_SendSleepOrWakeUpMessage(true);
+            
+            /* Request state change*/
+            //OS_EVT_PostEvent(eEvtState_Request, eSM_State_Active, 0);
             break;
-    }
-    
+        }
+        
+        default:
+            ucReturn = EVT_NOT_PROCESSED;
+            break;
+    }    
     
     /* Check if deep sleep mode can be entered */
     if(bStandbyAllowed)
@@ -244,7 +260,7 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
 ******************************************************************************/
 u8 State_Standby_Exit(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 ulParam2)
 {
-    u8 ucReturn = EVT_NOT_PROCESSED;
+    u8 ucReturn = EVT_PROCESSED;
     
     /* Make compiler happy */
     (void)eEventID;
@@ -253,37 +269,43 @@ u8 State_Standby_Exit(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
     
     /* Enable measurement module */
     DR_Measure_Start();
-    
-    /* Switch on system */    
-    const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
-    
-    u8 ucOutputIdx;
-    for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
-    {    
-        Aom_Regulation_CheckRequestValues(psRegVal->sLedValue[ucOutputIdx].ucPercentValue,
-                                            ON,
-                                            psRegVal->bNightModeOnOff,
-                                            psRegVal->sUserTimerSettings.bMotionDetectOnOff,
-                                            psRegVal->sUserTimerSettings.ucBurningTime,
-                                            false,
-                                            psRegVal->sUserTimerSettings.bAutomaticModeActive,
-                                            ucOutputIdx);
-    }
-    
+        
     /* Leave standby state only when the slave was reseted */
     if(bSlaveReseted == false)
     {
         /* Set slave into reset mode */
         DR_Regulation_SetEspResetStatus(true);
         
-        /* Start reset timeout. After this timeout the standby state can be left */
-        OS_SW_Timer_SetTimerState(ucSW_Timer_EspResetTimeout, TM_RUNNING);
+        /* Check if timer is already running */
+        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspResetTimeout) == TM_SUSPENDED)
+        {
+            /* Start reset timeout. After this timeout the standby state can be left */
+            OS_SW_Timer_SetTimerState(ucSW_Timer_EspResetTimeout, TM_RUNNING);
+        }
     }
     else
     {    
         /* Delete software timer which are related to this state */   
         OS_SW_Timer_DeleteTimer(ucSW_Timer_MsgRxTimeout);
+        OS_SW_Timer_DeleteTimer(ucSW_Timer_EspResetTimeout);
 
+        /* Switch on system */    
+        const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
+
+        u8 ucOutputIdx;
+        for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
+        {    
+            Aom_Regulation_CheckRequestValues(psRegVal->sLedValue[ucOutputIdx].ucPercentValue,
+                                                ON,
+                                                psRegVal->bNightModeOnOff,
+                                                psRegVal->sUserTimerSettings.bMotionDetectOnOff,
+                                                psRegVal->sUserTimerSettings.ucBurningTime,
+                                                false,
+                                                psRegVal->sUserTimerSettings.bAutomaticModeActive,
+                                                ucOutputIdx);
+        }
+        
+        
         /* Switch state next state */
         OS_StateManager_CurrentStateReached();
     }
