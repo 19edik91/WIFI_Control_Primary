@@ -22,7 +22,7 @@ extern "C"
 #include "Regulation_Data.h"
 
 /***************************** defines / macros ******************************/
-#define ADC_LIMITS                   2      //Just test it..
+#define ADC_LIMITS                   4      //Just test it..
 #define PWM_ISR_ENABLE               0
 
 /****************************** type definitions *****************************/    

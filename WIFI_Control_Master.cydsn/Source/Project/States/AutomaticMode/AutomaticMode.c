@@ -19,7 +19,7 @@
 #define NIGHT_MODE_START        22
 #define NIGHT_MODE_STOP         5
 
-
+#define ENABLE_FAST_STANDBY     true
 /************************ local data type definitions ************************/
 typedef bool (*pbFunction)(void);
 
@@ -341,12 +341,17 @@ void AutomaticMode_Tick(u16 uiMsTick)
 void AutomaticMode_ResetBurningTimeout(void)
 {
     tsAutomaticModeValues* psAutomaticModeValues = Aom_System_GetAutomaticModeValuesStruct();
-    const tRegulationValues* psRegulationValues = Aom_Regulation_GetRegulationValuesPointer();
     
-    /* Convert minutes value into milliseconds value (x 60.000 or bitshift by 16 (=65.536) */
-    s32 slBurningTimeMs = psRegulationValues->sUserTimerSettings.ucBurningTime << 16;
-    slBurningTimeMs -= 5536;
-    
+    #if ENABLE_FAST_STANDBY
+        s32 slBurningTimeMs = 15000;    //15 seconds as burning intervall
+    #else
+        const tRegulationValues* psRegulationValues = Aom_Regulation_GetRegulationValuesPointer();
+        
+        /* Convert minutes value into milliseconds value (x 60.000 or bitshift by 16 (=65.536) */
+        s32 slBurningTimeMs = psRegulationValues->sUserTimerSettings.ucBurningTime << 16;
+        slBurningTimeMs -= 5536;
+    #endif
+        
     /* Enter critical section and overwrite burning time variable */
     const u8 ucCriticalSection = EnterCritical();
     psAutomaticModeValues->slBurningTimeMs = slBurningTimeMs;

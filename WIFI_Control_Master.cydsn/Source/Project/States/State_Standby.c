@@ -41,8 +41,8 @@
 static bool bStandbyAllowed = true;
 static bool bSlaveReseted = false;
 
-static u8 ucSW_Timer_MsgRxTimeout = 0;
-static u8 ucSW_Timer_EspResetTimeout = 0;
+static u8 ucSW_Timer_MsgRxTimeout = INVALID_TIMER_INDEX;
+static u8 ucSW_Timer_EspResetTimeout = INVALID_TIMER_INDEX;
 /************************ export data (const and var) ************************/
 
 
@@ -155,8 +155,8 @@ u8 State_Standby_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2
     
     /* Creat async timer. When a message was received the standby state shall be blocked for a 
        dependent time. Maybe the standby state shall be left */
-    ucSW_Timer_MsgRxTimeout = OS_SW_Timer_CreateAsyncTimer(STDBY_MSG_TIMEOUT, TMF_CREATESUSPENDED, UnblockStandbyState);
-    ucSW_Timer_EspResetTimeout = OS_SW_Timer_CreateAsyncTimer(RESET_CTRL_TIMEOUT, TMF_CREATESUSPENDED, ResetSlaveByTimeout);
+    OS_SW_Timer_CreateAsyncTimer(&ucSW_Timer_MsgRxTimeout, STDBY_MSG_TIMEOUT, eSwTimer_CreateSuspended, UnblockStandbyState);
+    OS_SW_Timer_CreateAsyncTimer(&ucSW_Timer_EspResetTimeout, RESET_CTRL_TIMEOUT, eSwTimer_CreateSuspended, ResetSlaveByTimeout);
     
     /* Disable measurement module */
     //Warning when SelfTest_ADC is enabled. This would leave to an stopped CPU.
@@ -192,7 +192,7 @@ u8 State_Standby_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
         {
             //Message in standby state received. Set timeout until standby can be re-entered again.
             bStandbyAllowed = false;
-            OS_SW_Timer_SetTimerState(ucSW_Timer_MsgRxTimeout, TM_RUNNING);
+            OS_SW_Timer_SetTimerState(ucSW_Timer_MsgRxTimeout, eSwTimer_StatusRunning);
             break;
         }
                                         
@@ -277,35 +277,21 @@ u8 State_Standby_Exit(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
         DR_Regulation_SetEspResetStatus(true);
         
         /* Check if timer is already running */
-        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspResetTimeout) == TM_SUSPENDED)
+        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspResetTimeout) == eSwTimer_StatusSuspended)
         {
             /* Start reset timeout. After this timeout the standby state can be left */
-            OS_SW_Timer_SetTimerState(ucSW_Timer_EspResetTimeout, TM_RUNNING);
+            OS_SW_Timer_SetTimerState(ucSW_Timer_EspResetTimeout, eSwTimer_StatusRunning);
         }
     }
     else
     {    
         /* Delete software timer which are related to this state */   
-        OS_SW_Timer_DeleteTimer(ucSW_Timer_MsgRxTimeout);
-        OS_SW_Timer_DeleteTimer(ucSW_Timer_EspResetTimeout);
+        if(OS_SW_Timer_GetTimerState(ucSW_Timer_MsgRxTimeout) != eSwTimer_StatusInvalid)
+            OS_SW_Timer_DeleteTimer(&ucSW_Timer_MsgRxTimeout);
+            
+        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspResetTimeout) != eSwTimer_StatusInvalid)
+            OS_SW_Timer_DeleteTimer(&ucSW_Timer_EspResetTimeout);
 
-        /* Switch on system */    
-        const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
-
-        u8 ucOutputIdx;
-        for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
-        {    
-            Aom_Regulation_CheckRequestValues(psRegVal->sLedValue[ucOutputIdx].ucPercentValue,
-                                                ON,
-                                                psRegVal->bNightModeOnOff,
-                                                psRegVal->sUserTimerSettings.bMotionDetectOnOff,
-                                                psRegVal->sUserTimerSettings.ucBurningTime,
-                                                false,
-                                                psRegVal->sUserTimerSettings.bAutomaticModeActive,
-                                                ucOutputIdx);
-        }
-        
-        
         /* Switch state next state */
         OS_StateManager_CurrentStateReached();
     }

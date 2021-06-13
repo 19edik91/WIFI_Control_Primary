@@ -36,11 +36,11 @@
 static u8 ucActiveOutputs = 0;
 static bool bModulesInit = false;
 
-static u8 ucSW_Timer_2ms = 0;
-static u8 ucSW_Timer_10ms = 0;
-static u8 ucSW_Timer_FlashWrite = 0;
-static u8 ucSW_Timer_EnterStandby = 0;
-static u8 ucSW_Timer_EspReset = 0;
+static u8 ucSW_Timer_2ms = INVALID_TIMER_INDEX;
+static u8 ucSW_Timer_10ms = INVALID_TIMER_INDEX;
+static u8 ucSW_Timer_FlashWrite = INVALID_TIMER_INDEX;
+static u8 ucSW_Timer_EnterStandby = INVALID_TIMER_INDEX;
+static u8 ucSW_Timer_EspReset = INVALID_TIMER_INDEX;
 
 /************************ export data (const and var) ************************/
 
@@ -88,10 +88,10 @@ static void ResetSlaveByTimeout(bool bReset)
     if(bReset == true)
     {
         /* Check if timer is already running */
-        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) == TM_SUSPENDED)
+        if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) == eSwTimer_StatusSuspended)
         {
             //Start timeout
-            OS_SW_Timer_SetTimerState(ucSW_Timer_EspReset, TM_RUNNING);
+            OS_SW_Timer_SetTimerState(ucSW_Timer_EspReset, eSwTimer_StatusRunning);
         }
     }
     
@@ -142,13 +142,13 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
     }
 
     /* Create necessary software timer */      
-    ucSW_Timer_2ms = OS_SW_Timer_CreateTimer(SW_TIMER_2MS, TMF_PERIODIC);
-    ucSW_Timer_10ms = OS_SW_Timer_CreateTimer(SW_TIMER_10MS, TMF_PERIODIC);
+    OS_SW_Timer_CreateTimer(&ucSW_Timer_2ms, SW_TIMER_2MS, eSwTimer_CreatePeriodic);
+    OS_SW_Timer_CreateTimer(&ucSW_Timer_10ms, SW_TIMER_10MS, eSwTimer_CreatePeriodic);
     
     /* Create async timer */
-    ucSW_Timer_EnterStandby = OS_SW_Timer_CreateAsyncTimer(TIMEOUT_ENTER_STANDBY, TMF_CREATESUSPENDED, RequestStandbyState);
-    ucSW_Timer_FlashWrite = OS_SW_Timer_CreateAsyncTimer(SAVE_IN_FLASH_TIMEOUT, TMF_CREATESUSPENDED, TimeoutFlashUserSettings);
-    ucSW_Timer_EspReset = OS_SW_Timer_CreateAsyncTimer(RESET_CTRL_TIMEOUT, TMF_CREATESUSPENDED, EnableSlaveTimeout);
+    OS_SW_Timer_CreateAsyncTimer(&ucSW_Timer_EnterStandby, TIMEOUT_ENTER_STANDBY, eSwTimer_CreateSuspended, RequestStandbyState);
+    OS_SW_Timer_CreateAsyncTimer(&ucSW_Timer_FlashWrite, SAVE_IN_FLASH_TIMEOUT, eSwTimer_CreateSuspended, TimeoutFlashUserSettings);
+    OS_SW_Timer_CreateAsyncTimer(&ucSW_Timer_EspReset, RESET_CTRL_TIMEOUT, eSwTimer_CreateSuspended, EnableSlaveTimeout);
     
     if(bModulesInit == false)
     {
@@ -162,6 +162,21 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
         DR_Regulation_Init();
                 
         bModulesInit = true;
+    }
+    
+    /* Switch on system */    
+    const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
+    u8 ucOutputIdx;
+    for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
+    {    
+        Aom_Regulation_CheckRequestValues(psRegVal->sLedValue[ucOutputIdx].ucPercentValue,
+                                            ON,
+                                            psRegVal->bNightModeOnOff,
+                                            psRegVal->sUserTimerSettings.bMotionDetectOnOff,
+                                            psRegVal->sUserTimerSettings.ucBurningTime,
+                                            false,
+                                            psRegVal->sUserTimerSettings.bAutomaticModeActive,
+                                            ucOutputIdx);
     }
     
     /* Switch state to root state */
@@ -200,21 +215,21 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             else if(ulParam2 == EVT_SW_TIMER_10MS)
             {
                 /* Get standby-timer state */
-                u8 ucTimerState = OS_SW_Timer_GetTimerState(ucSW_Timer_EnterStandby);
+                teSW_TimerStatus eTimerState = OS_SW_Timer_GetTimerState(ucSW_Timer_EnterStandby);
                 
                 /* Start the timeout for the standby when all regulation states are off */
                 if(ucActiveOutputs == 0)
                 {
-                    if(TM_SUSPENDED == ucTimerState && Aom_System_StandbyAllowed())
+                    if(eTimerState == eSwTimer_StatusSuspended && Aom_System_StandbyAllowed())
                     {
                         /* Start the timeout for the standby timeout */
-                        OS_SW_Timer_SetTimerState(ucSW_Timer_EnterStandby, TM_RUNNING);
+                        OS_SW_Timer_SetTimerState(ucSW_Timer_EnterStandby, eSwTimer_StatusRunning);
                     }
                 }
-                else if(TM_RUNNING == ucTimerState)
+                else if(eTimerState == eSwTimer_StatusRunning)
                 {
                     /* Stop standby timeout when its counting */
-                    OS_SW_Timer_SetTimerState(ucSW_Timer_EnterStandby, TM_SUSPENDED);
+                    OS_SW_Timer_SetTimerState(ucSW_Timer_EnterStandby, eSwTimer_StatusSuspended);
                 }
             }
             
@@ -266,7 +281,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             if(uiParam1 == eEvtParam_RegulationValueStartTimer)
             {
                 /* Restart the flash timeout */
-                OS_SW_Timer_SetTimerState(ucSW_Timer_FlashWrite, TM_RUNNING);
+                OS_SW_Timer_SetTimerState(ucSW_Timer_FlashWrite, eSwTimer_StatusRunning);
             }
             else if(uiParam1 == eEvtParam_RegulationStart)
             {
@@ -304,11 +319,14 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
         
         case eEvtCommTimeout:
         {
-            if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) == TM_SUSPENDED )
+            /* Check if reset timer is suspended and a communication timout is pending */
+            if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) == eSwTimer_StatusSuspended
+                && MessageHandler_GetCommunicationTimeoutStatus() == true)
             {
                 /* When the reset pin is in high state, put it to low and reset the slave */
                 bool bEspResetStatus = DR_Regulation_GetEspResetStatus();
                 ResetSlaveByTimeout(true);
+                
                 Aom_System_SetSystemStarted(false);
             }
             break;
@@ -352,12 +370,21 @@ u8 State_Active_Exit(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
     (void)uiParam1;
     (void)ulParam2;
     
-    /* Delete software timer which are related to this state */   
-    OS_SW_Timer_DeleteTimer(ucSW_Timer_2ms);
-    OS_SW_Timer_DeleteTimer(ucSW_Timer_10ms);
-    OS_SW_Timer_DeleteTimer(ucSW_Timer_FlashWrite);
-    OS_SW_Timer_DeleteTimer(ucSW_Timer_EnterStandby);
-    OS_SW_Timer_DeleteTimer(ucSW_Timer_EspReset);
+    /* Delete software timer which are related to this state */ 
+    if(OS_SW_Timer_GetTimerState(ucSW_Timer_2ms) != eSwTimer_StatusInvalid)
+        OS_SW_Timer_DeleteTimer(&ucSW_Timer_2ms);
+        
+    if(OS_SW_Timer_GetTimerState(ucSW_Timer_10ms) != eSwTimer_StatusInvalid)
+        OS_SW_Timer_DeleteTimer(&ucSW_Timer_10ms);
+        
+    if(OS_SW_Timer_GetTimerState(ucSW_Timer_FlashWrite) != eSwTimer_StatusInvalid)
+        OS_SW_Timer_DeleteTimer(&ucSW_Timer_FlashWrite);
+        
+    if(OS_SW_Timer_GetTimerState(ucSW_Timer_EnterStandby) != eSwTimer_StatusInvalid)    
+        OS_SW_Timer_DeleteTimer(&ucSW_Timer_EnterStandby);
+        
+    if(OS_SW_Timer_GetTimerState(ucSW_Timer_EspReset) != eSwTimer_StatusInvalid)        
+        OS_SW_Timer_DeleteTimer(&ucSW_Timer_EspReset);
     
     /* Switch state to root state */
     OS_StateManager_CurrentStateReached();

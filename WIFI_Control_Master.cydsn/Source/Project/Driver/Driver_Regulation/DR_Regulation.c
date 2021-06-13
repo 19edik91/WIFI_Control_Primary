@@ -572,6 +572,7 @@ void DR_Regulation_SetEspResetStatus(bool bReset)
 {
     //Invert request because a HIGH-State is normal mode and a LOW-State is Reset mode.
     HAL_IO_SetOutputStatus(ePin_EspResetPin, !bReset);
+    HAL_IO_SetOutputStatus(ePin_EspResetCopy, !bReset);
 }
 
 

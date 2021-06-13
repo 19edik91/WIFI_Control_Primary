@@ -178,6 +178,33 @@ static void SendUserOutputSettings(void)
 //********************************************************************************
 /*!
 \author     Kraemer E
+\date       08.12.2019
+\brief      Sends a settings done message to the slave.
+\return     void 
+***********************************************************************************/
+static void SendUserSettingsDone(void)
+{
+    /* Create structure */
+    tsMessageFrame sMsgFrame;  
+    
+    /* Clear the structures */
+    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
+    
+    /* Fill them */
+    sMsgFrame.sPayload.ucCommand = eCmdSet;
+    sMsgFrame.sPayload.ucMsgId = eMsgInitDone;    
+    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
+
+    /* Fill header and checksum */
+    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    
+    /* Start to send the packet */
+    OS_Communication_SendMessage(&sMsgFrame);
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E
 \date       27.05.2020
 \fn         SendUpdateOutputState
 \brief      Sends the updated output values
@@ -406,6 +433,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             /* Slave started, send values from flash to the slave */
             SendUserTimerSettings();
             SendUserOutputSettings();
+            SendUserSettingsDone();
             eResponse = eTypeAck;
             
             Aom_System_SetSystemStarted(true);

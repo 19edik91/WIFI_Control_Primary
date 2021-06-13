@@ -23,7 +23,7 @@
 /****************************************** Defines ******************************************************/
 #define INVALID_MESSAGES_MAX    10
 #define ACTORS_TIMEOUT          60000   //60 seconds; after an communictaion fault is generated
-#define SEND_ALIVE_TIMEOUT      30000   //30 seconds; After this time a send still alive message is send
+#define SEND_ALIVE_TIMEOUT      35000   //35 seconds; After this time a send still alive message is send
 #define SEND_ALIVE_INTERVAL     2000     //Send only every 2 seconds a message
 
 /****************************************** Variables ****************************************************/
@@ -415,6 +415,20 @@ void MessageHandler_SendOutputState(void)
 void MessageHandler_ClearAllTimeouts(void)
 {
     ResetCommTimeout();
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E
+\date       13.06.2021
+\brief      Returns status of the communication timout
+\return     bCommTimeoutPending - True when timeout is pending otherwise false 
+***********************************************************************************/
+bool MessageHandler_GetCommunicationTimeoutStatus(void)
+{
+    bool bCommTimeoutPending = (uiCommTimeout == ACTORS_TIMEOUT) ? true : false;
+    
+    return bCommTimeoutPending;
 }
 
 //********************************************************************************
