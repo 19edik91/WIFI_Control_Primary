@@ -10,7 +10,7 @@
 
 #include "CyLib.h"
     
-#define MAX_EVENT_TIMER 8
+#define MAX_EVENT_TIMER 10
 
 #define SW_TIMER_2MS        2u
 #define SW_TIMER_10MS       10u

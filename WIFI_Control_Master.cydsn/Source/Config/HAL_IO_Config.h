@@ -59,7 +59,8 @@ extern "C"
     O_MAP(    ePin_PwmEn_3          ,   CY_PIN_MAPPING(Pin_PWM_EN__3,           true) )\
     O_MAP(    ePin_LedGreen         ,   CY_PIN_MAPPING(Pin_LED_G__0,            true) )\
     O_MAP(    ePin_LedRed           ,   CY_PIN_MAPPING(Pin_LED_R__0,            true) )\
-    O_MAP(    ePin_EspResetPin      ,   CY_PIN_MAPPING(Pin_ESP_Reset__0,        false))
+    O_MAP(    ePin_EspResetPin      ,   CY_PIN_MAPPING(Pin_ESP_Reset__0,        false))\
+    O_MAP(    ePin_EspResetCopy     ,   CY_PIN_MAPPING(Pin_ESP_COPY__0,         false))
 
     /* PWM-X-Macro table*/    
 #define PWM_MAP\
