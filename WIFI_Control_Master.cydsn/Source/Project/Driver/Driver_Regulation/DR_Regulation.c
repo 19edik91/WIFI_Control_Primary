@@ -26,12 +26,20 @@
 
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
+#define AVG_BUFFER_SIZE     4
 
-
+typedef struct
+{
+    s16  siBuffer[AVG_BUFFER_SIZE];
+    s16  siSum;
+    s16  siAvg;
+    u8   ucBufferIndex;
+}tsMovingAverageValues;
+    
 /****************************************** Variables ****************************************************/
 static u16 uiLedCompareVal[DRIVE_OUTPUTS];
-static u16 uiOldCompareValue[DRIVE_OUTPUTS];  
     
+static tsMovingAverageValues uiAvgCompVal[DRIVE_OUTPUTS];
 static tsRegulationHandler sRegulationHandler[DRIVE_OUTPUTS];   
 static tCStateDefinition* psStateHandler[DRIVE_OUTPUTS] = {NULL, NULL, NULL};
 
@@ -40,6 +48,45 @@ static void RegulatePWM(u8 ucOutputIdx);
 
 
 /****************************************** loacl functiones *********************************************/
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       20.01.2019
+\brief      Fills a moving average filter with values.
+\return     uiAveragedCompareValue - Averaged value
+\param      ucOutputIdx - The output index which shall be saved
+\param      uiCompareValue - New value which shall be used for the ADC
+***********************************************************************************/
+static u16 PutInMovingAverage(u8 ucOutputIdx, u16 uiCompareValue)
+{
+    u16 uiAveragedCompareValue = 0;
+    
+    if(ucOutputIdx < DRIVE_OUTPUTS)
+    {    
+        tsMovingAverageValues* psAvgCompVal = &uiAvgCompVal[ucOutputIdx];
+        
+        /* Subtract the oldest entry from the sum */   
+        psAvgCompVal->siSum -= psAvgCompVal->siBuffer[psAvgCompVal->ucBufferIndex];
+          
+        /* Save new value in buffer */
+        psAvgCompVal->siBuffer[psAvgCompVal->ucBufferIndex] = uiCompareValue;
+        
+        /* Add new value to summation */
+        psAvgCompVal->siSum += uiCompareValue;
+        
+        /* Increment buffer index and set back to zero, when limit is reached */
+        if(++psAvgCompVal->ucBufferIndex == _countof(psAvgCompVal->siBuffer))
+        {
+            psAvgCompVal->ucBufferIndex = 0;
+        }
+        
+        /* Get the averaged value */
+        uiAveragedCompareValue = psAvgCompVal->siSum / AVG_BUFFER_SIZE;
+    }
+    
+    return uiAveragedCompareValue;
+}
+
 #if PWM_ISR_ENABLE
 //********************************************************************************
 /*!
@@ -289,15 +336,11 @@ static void RegulatePWM(u8 ucOutputIdx)
         psRegAdcVal->bReached = true;
     }
     
-    /* Write new compare value only when changed */
-    if(uiOldCompareValue[ucOutputIdx] != uiLedCompareVal[ucOutputIdx])
-    {
-        /* Write new compare value into compare register */
-        HAL_IO_PWM_WriteCompare(ucOutputIdx, uiLedCompareVal[ucOutputIdx]);
-        
-        /* Save actual compare value */
-        uiOldCompareValue[ucOutputIdx] = uiLedCompareVal[ucOutputIdx];        
-    }
+    /* Average compare value */
+    u16 uiAvgCompValue = PutInMovingAverage(ucOutputIdx, uiLedCompareVal[ucOutputIdx]);
+    
+    /* Write new compare value into compare register */
+    HAL_IO_PWM_WriteCompare(ucOutputIdx, uiAvgCompValue);   
 }
 
 
