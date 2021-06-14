@@ -22,7 +22,7 @@ extern "C"
 #include "BaseTypes.h"
 #include "Aom.h"
 
-#define BUFFER_LENGTH            2
+#define BUFFER_LENGTH            8
 
 //Use of X-Macros for defining AD-MUX-Channels
 /*      Channel name   |  MeasureValues |   Measure_Type        |   Output index    */

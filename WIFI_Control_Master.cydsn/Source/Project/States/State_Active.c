@@ -324,7 +324,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
                 && MessageHandler_GetCommunicationTimeoutStatus() == true)
             {
                 /* When the reset pin is in high state, put it to low and reset the slave */
-                bool bEspResetStatus = DR_Regulation_GetEspResetStatus();
+                //bool bEspResetStatus = DR_Regulation_GetEspResetStatus();
                 ResetSlaveByTimeout(true);
                 
                 Aom_System_SetSystemStarted(false);

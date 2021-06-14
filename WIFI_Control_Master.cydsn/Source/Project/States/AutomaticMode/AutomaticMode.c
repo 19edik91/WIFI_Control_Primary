@@ -19,7 +19,10 @@
 #define NIGHT_MODE_START        22
 #define NIGHT_MODE_STOP         5
 
-#define ENABLE_FAST_STANDBY     true
+#define ENABLE_FAST_STANDBY     false
+#if ENABLE_FAST_STANDBY
+    #warning FAST_STANDBY_ENABLED
+#endif
 /************************ local data type definitions ************************/
 typedef bool (*pbFunction)(void);
 
