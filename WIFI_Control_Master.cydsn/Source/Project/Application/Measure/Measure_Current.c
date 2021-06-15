@@ -10,7 +10,7 @@
 #include "Aom.h"
 
 /****************************************** Defines ******************************************************/
-#define SHUNT_RESISTOR_DIVISION   10        // 1/(0,1Ohm)
+#define SHUNT_RESISTOR_DIVISION   100        // 1/(0,1Ohm)
 #define ADC_REF_MILLIVOLT        ADC_INPUT_DEFAULT_VREF_MV_VALUE
 #define BITSHIFT_10              1024       //Bitshift in value
 #define OP_AMP_GAIN                31       //Gain of the Op-AMP
