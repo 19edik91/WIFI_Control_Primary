@@ -165,19 +165,12 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
     }
     
     /* Switch on system */    
-    const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
-    u8 ucOutputIdx;
-    for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
-    {    
-        Aom_Regulation_CheckRequestValues(psRegVal->sLedValue[ucOutputIdx].ucPercentValue,
-                                            ON,
-                                            psRegVal->bNightModeOnOff,
-                                            psRegVal->sUserTimerSettings.bMotionDetectOnOff,
-                                            psRegVal->sUserTimerSettings.ucBurningTime,
-                                            false,
-                                            psRegVal->sUserTimerSettings.bAutomaticModeActive,
-                                            ucOutputIdx);
-    }
+    //const tRegulationValues* psRegVal = Aom_Regulation_GetRegulationValuesPointer();
+    //u8 ucOutputIdx;
+    //for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
+    //{              
+    //    OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationStart, ucOutputIdx);
+    //}
     
     /* Switch state to root state */
     OS_StateManager_CurrentStateReached();
@@ -250,6 +243,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             else if(ulParam2 == EVT_SW_TIMER_251MS)
             {
                 DR_Regulation_CheckSensorForMotion();
+                AutomaticMode_Handler();
             }
             
             /******* 1001ms-Tick **********/

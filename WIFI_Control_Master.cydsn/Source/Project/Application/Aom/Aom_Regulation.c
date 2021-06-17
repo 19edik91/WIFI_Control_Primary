@@ -135,11 +135,11 @@ void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bo
     tRegulationValues* psRegVal = Aom_GetRegulationSettings();
     
     /* Check for over-current */
-    if(OS_ErrorHandler_GetErrorTimeout())
-    {
-        /* Overcurrent was detected. Reduce requested brighntess value by half */
-        ucBrightnessValue /= 2;
-    }
+    //if(OS_ErrorHandler_GetErrorTimeout())
+    //{
+    //    /* Overcurrent was detected. Reduce requested brighntess value by half */
+    //    ucBrightnessValue /= 2;
+    //}
     
     /* Get new automatic mode state according to the set modes */
     teAutomaticState eAutoState = eStateDisabled;    

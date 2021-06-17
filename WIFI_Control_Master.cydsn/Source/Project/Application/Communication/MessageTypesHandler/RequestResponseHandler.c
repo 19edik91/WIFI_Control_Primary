@@ -316,46 +316,57 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         
         case eMsgRequestOutputStatus:
         {
-            if(eCommand == eCmdSet)
-            {                        
-                /* Cast payload first */
-                tMsgRequestOutputState* psMsgReqOutputState = (tMsgRequestOutputState*)psMsgFrame->sPayload.ucData;
-                
-                bool bInitMenuEnabled = false;
-                
-                /* Check if initialization menu is active */
-                if(psMsgReqOutputState->bInitMenuActive != psMsgReqOutputState->bInitMenuActiveInv)
-                {
-                    bInitMenuEnabled = psMsgReqOutputState->bInitMenuActiveInv;
+            /* Check if system is already active */
+            if(Aom_System_GetSystemStarted() == true)
+            {            
+                if(eCommand == eCmdSet)
+                {                        
+                    /* Cast payload first */
+                    tMsgRequestOutputState* psMsgReqOutputState = (tMsgRequestOutputState*)psMsgFrame->sPayload.ucData;
+                    
+                    bool bInitMenuEnabled = false;
+                    
+                    /* Check if initialization menu is active */
+                    if(psMsgReqOutputState->bInitMenuActive != psMsgReqOutputState->bInitMenuActiveInv)
+                    {
+                        bInitMenuEnabled = psMsgReqOutputState->bInitMenuActiveInv;
+                    }
+                                                                   
+                    /* Set new values in AOM */
+                    Aom_Regulation_CheckRequestValues(psMsgReqOutputState->b7Brightness, 
+                                       psMsgReqOutputState->bLedStatus, 
+                                       psMsgReqOutputState->bNightModeOnOff,
+                                       psMsgReqOutputState->bMotionDetectionOnOff,
+                                       psMsgReqOutputState->ucBurnTime,
+                                       bInitMenuEnabled, 
+                                       psMsgReqOutputState->bAutomaticModeActive,
+                                       psMsgReqOutputState->b3OutputIndex);          
+                    
+                    /* Set message as acknowledged */
+                    eResponse = eTypeAck;
+                    
+                    /* Set system started information */
+                    //Aom_System_SetSystemStarted(true);
+                    
+                    #if (WITHOUT_REGULATION == false)    
+                        /* Send update output status */
+                        SendUpdateOutputState();
+                                            
+                        ///* Send measured output values */
+                        //SendOutputState();    
+                    #endif
                 }
-                                                               
-                /* Set new values in AOM */
-                Aom_Regulation_CheckRequestValues(psMsgReqOutputState->b7Brightness, 
-                                   psMsgReqOutputState->bLedStatus, 
-                                   psMsgReqOutputState->bNightModeOnOff,
-                                   psMsgReqOutputState->bMotionDetectionOnOff,
-                                   psMsgReqOutputState->ucBurnTime,
-                                   bInitMenuEnabled, 
-                                   psMsgReqOutputState->bAutomaticModeActive,
-                                   psMsgReqOutputState->b3OutputIndex);          
-                
-                /* Set message as acknowledged */
-                eResponse = eTypeAck;
-                
-                /* Set system started information */
-                Aom_System_SetSystemStarted(true);
-                
-                #if (WITHOUT_REGULATION == false)    
-                    /* Send update output status */
-                    SendUpdateOutputState();
-                                        
-                    ///* Send measured output values */
-                    //SendOutputState();    
-                #endif
+                else if( eCommand == eCmdGet)
+                {
+                   //TODO: Send actual values back
+                }
             }
-            else if( eCommand == eCmdGet)
+            else
             {
-               //TODO: Send actual values back
+                //Send InitDone message. When an output request is received although
+                //the System settings aren't done means that the slave already received
+                //all user settings. Wait for InitDone message as response
+                SendUserSettingsDone();
             }
             break;
         }
@@ -430,13 +441,26 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         
         case eMsgSystemStarted:
         {
-            /* Slave started, send values from flash to the slave */
-            SendUserTimerSettings();
-            SendUserOutputSettings();
-            SendUserSettingsDone();
-            eResponse = eTypeAck;
-            
+            if(Aom_System_GetSystemStarted() == false)
+            {
+                /* Slave started, send values from flash to the slave */
+                SendUserTimerSettings();
+                SendUserOutputSettings();
+                SendUserSettingsDone();
+                eResponse = eTypeAck;
+            }
+            else
+            {
+                eResponse = eTypeDenied;
+            }
+            break;
+        }
+        
+        case eMsgInitDone:
+        {
+            /* Slave has started system. */
             Aom_System_SetSystemStarted(true);
+            eResponse = eTypeAck;
             break;
         }
         

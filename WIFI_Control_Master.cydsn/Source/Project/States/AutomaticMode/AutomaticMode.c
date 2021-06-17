@@ -14,6 +14,7 @@
 #include "Aom_Time.h"
 #include "DR_Measure.h"
 #include "OS_Config.h"
+#include "OS_EventManager.h"
 
 /***************************** defines / macros ******************************/
 #define NIGHT_MODE_START        22
@@ -48,6 +49,24 @@ tsAutomaticState sAutomaticState =
 
 
 /****************************** local functions ******************************/
+//********************************************************************************
+/*!
+\author     Kraemer E
+\date       17.06.2021
+\brief      Posts an regulation event in dependancy of the given light state.
+\return     none
+\param      bEnableLight - True when regulation shall be started or false when stopped
+***********************************************************************************/
+static inline void PostRegulationEvt(bool bEnableLight)
+{
+    /* Start or stop the regulation in dependancy of the automatic mode */
+    teEventParam eEvtParam = (bEnableLight == true) ? eEvtParam_RegulationStart : eEvtParam_RegulationStop;
+    for(u8 ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
+    {                
+        OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam, ucOutputIdx);
+    }
+}
+
 //********************************************************************************
 /*!
 \author     Kraemer E
@@ -150,6 +169,8 @@ static bool StateAutomaticMode_1(void)
     const tsAutomaticModeValues* psAutoValues = Aom_System_GetAutomaticModeValuesStruct();    
     bEnableLight = psAutoValues->bInUserTimerSlot;
     
+    PostRegulationEvt(bEnableLight); 
+    
     return bEnableLight;
 }
 
@@ -179,6 +200,8 @@ static bool StateAutomaticMode_2(void)
         bEnableLight = true;
     }
     
+    PostRegulationEvt(bEnableLight); 
+    
     return bEnableLight;
 }
 
@@ -201,7 +224,9 @@ static bool StateAutomaticMode_3(void)
 
     const tsAutomaticModeValues* psAutoValues = Aom_System_GetAutomaticModeValuesStruct();    
     bEnableLight = (psAutoValues->bMotionDetected || psAutoValues->slBurningTimeMs);
-
+    
+    PostRegulationEvt(bEnableLight);    
+    
     return bEnableLight;
 }
 
