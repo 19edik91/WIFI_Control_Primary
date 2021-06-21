@@ -26,6 +26,7 @@ const tRegulationValues* Aom_Regulation_GetRegulationValuesPointer(void);
 void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenuActive, bool bAutomaticModeStatus, u8 ucOutputIdx);
 void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bool bNightModeOnOff, bool bMotionDetectionOnOff,
                            u8 ucBurnTime, bool bInitMenuActive, bool bAutomaticModeStatus, u8 ucOutputIdx);
+bool Aom_Regulation_CompareCustomValue(u8 ucBrightnessValue, bool bLedStatus, u8 ucOutputIdx);
 void Aom_Regulation_SetCalculatedVoltageValue(tRegulationValues* psRegulationValues);
 void Aom_Regulation_GetRegulationValues(tRegulationValues* psRegulationValues);
               

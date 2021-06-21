@@ -314,6 +314,26 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             break;
         }        
         
+        case eMsgHeartBeatOutput:
+        {
+            if(Aom_System_GetSystemStarted() == true)
+            {
+                /* Cast payload */
+                tMsgHeartBeatOutput* psHeartBeat = (tMsgHeartBeatOutput*)psMsgFrame->sPayload.ucData;
+                
+                bool bValuesChanged = Aom_Regulation_CompareCustomValue(psHeartBeat->ucBrightness, (bool)psHeartBeat->ucLedStatus, psHeartBeat->ucOutputIndex);
+                
+                if(bValuesChanged == true)
+                {
+                    /* Values changed altough no Request output message was received. Therefore send an update back to
+                       enforce value update of the slaves */
+                    SendUpdateOutputState();
+                }
+            }
+            
+            break;
+        }
+        
         case eMsgRequestOutputStatus:
         {
             /* Check if system is already active */

@@ -124,6 +124,34 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
 /*!
 \author     Kraemer E.
 \date       20.01.2019
+\brief      Compares received values with already saved values
+\return     none
+\param      ucBrightnessValue - Value with the saved brightness percentage
+***********************************************************************************/
+bool Aom_Regulation_CompareCustomValue(u8 ucBrightnessValue, bool bLedStatus, u8 ucOutputIdx)
+{   
+    bool bDifferentValue = false;
+    
+    /* Check first if output index is valid */
+    if(ucOutputIdx < DRIVE_OUTPUTS)
+    {        
+        const tLedValue* psLedVal = Aom_GetOutputsSettingsEntry(ucOutputIdx);
+        
+        /* Compare values between heart beat and saved values */
+        if(ucBrightnessValue != psLedVal->ucPercentValue
+            || bLedStatus != psLedVal->bStatus)
+        {
+            bDifferentValue = true;
+        }
+    }
+    
+    return bDifferentValue;
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       20.01.2019
 \brief      Writes new requested values from customer into AOM.
 \return     none
 \param      ucBrightnessValue - Value with the saved brightness percentage
