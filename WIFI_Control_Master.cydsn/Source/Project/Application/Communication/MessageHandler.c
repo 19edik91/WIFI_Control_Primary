@@ -22,8 +22,8 @@
 //#include "Version\Version.h"
 /****************************************** Defines ******************************************************/
 #define INVALID_MESSAGES_MAX    10
-#define ACTORS_TIMEOUT          60000   //60 seconds; after an communictaion fault is generated
-#define SEND_ALIVE_TIMEOUT      35000   //35 seconds; After this time a send still alive message is send
+#define ACTORS_TIMEOUT          15000   //15 seconds; after an communictaion fault is generated
+#define SEND_ALIVE_TIMEOUT      10000   //10 seconds; After this time a send still alive message is send
 #define SEND_ALIVE_INTERVAL     2000     //Send only every 2 seconds a message
 
 /****************************************** Variables ****************************************************/
