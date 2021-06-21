@@ -31,7 +31,16 @@
 
 #define SAVE_IN_FLASH_TIMEOUT    30000  //Timeout until the new value is saved in the flash (in ms)
 
-#define TIMEOUT_ENTER_STANDBY    60000  //Timeout in milliseconds until the standby is entered
+#define ENABLE_FAST_STANDBY     false
+#if ENABLE_FAST_STANDBY
+    #warning FAST_STANDBY_ENABLED
+#endif
+
+#if ENABLE_FAST_STANDBY
+    #define TIMEOUT_ENTER_STANDBY    10000  //Timeout in milliseconds until the standby is entered
+#else
+    #define TIMEOUT_ENTER_STANDBY    60000  //Timeout in milliseconds until the standby is entered
+#endif
     
 #define USER_TIMER_AMOUNT        4      //Amount of possible user timers
 
