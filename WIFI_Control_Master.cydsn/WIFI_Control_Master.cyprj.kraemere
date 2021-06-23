@@ -1299,9 +1299,9 @@
 <dep name=".\Generated_Source\PSoC4\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_Flash\HAL_Flash.c" />
+<dep name=".\Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_Flash\HAL_Flash.c" />
+<file name=".\Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_IO.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1317,6 +1317,7 @@
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\Regulation_Data.h" />
@@ -1378,15 +1379,14 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.c" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" />
 </file>
 <file name=".\Source\Config\HAL_IO_Config.h" />
+<file name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <file name=".\Source\Project\Application\Aom\Aom.h" />
 <file name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
 <file name=".\Source\Project\Driver\Driver_Regulation\Regulation_Data.h" />
-<file name=".\Source\HAL\FW_HAL_IO\HAL_IO.c" />
-<file name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
+<file name=".\Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Measure.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1400,6 +1400,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_intClock.h" />
@@ -1458,11 +1459,10 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.c" />
-<dep name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
+<dep name=".\Source\HAL\FW_HAL_Measure\Cypress_PSoC4100S_Plus\HAL_Measure.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.c" />
 <file name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
+<file name=".\Source\HAL\FW_HAL_Measure\Cypress_PSoC4100S_Plus\HAL_Measure.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_MemoryInit.o">
 <dep name=".\Source\HAL\FW_HAL_MemoryInit\HAL_MemoryInit.h" />
 <dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
@@ -1471,9 +1471,9 @@
 <dep name=".\Generated_Source\PSoC4\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_MemoryInit\HAL_MemoryInit.c" />
+<dep name=".\Source\HAL\FW_HAL_MemoryInit\Cypress_PSoC4100S_Plus\HAL_MemoryInit.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_MemoryInit\HAL_MemoryInit.c" />
+<file name=".\Source\HAL\FW_HAL_MemoryInit\Cypress_PSoC4100S_Plus\HAL_MemoryInit.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_RTC.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1547,9 +1547,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_RTC\HAL_RTC.c" />
+<dep name=".\Source\HAL\FW_HAL_RTC\Cypress_PSoC4100S_Plus\HAL_RTC.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_RTC\HAL_RTC.c" />
+<file name=".\Source\HAL\FW_HAL_RTC\Cypress_PSoC4100S_Plus\HAL_RTC.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_CPU.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1623,9 +1623,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_CPU.c" />
+<dep name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_CPU.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_CPU.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_CPU.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_Stack.o">
 <dep name=".\Source\Config\SelfTest_Config.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.h" />
@@ -1635,9 +1635,9 @@
 <dep name=".\Generated_Source\PSoC4\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.c" />
+<dep name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_Stack.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_Stack.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_TimeBase.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1713,9 +1713,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.c" />
+<dep name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_TimeBase.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_TimeBase.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_UART.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1789,9 +1789,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.c" />
+<dep name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_UART.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_UART.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Serial_UART.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1864,9 +1864,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_Serial\HAL_Serial_UART.c" />
+<dep name=".\Source\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus\HAL_Serial_UART.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_Serial\HAL_Serial_UART.c" />
+<file name=".\Source\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus\HAL_Serial_UART.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_System.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -1939,9 +1939,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_System\HAL_System.c" />
+<dep name=".\Source\HAL\FW_HAL_System\Cypress_PSoC4100S_Plus\HAL_System.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_System\HAL_System.c" />
+<file name=".\Source\HAL\FW_HAL_System\Cypress_PSoC4100S_Plus\HAL_System.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Timer.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -2014,9 +2014,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.c" />
+<dep name=".\Source\HAL\FW_HAL_Timer\Cypress_PSoC4100S_Plus\HAL_Timer.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.c" />
+<file name=".\Source\HAL\FW_HAL_Timer\Cypress_PSoC4100S_Plus\HAL_Timer.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Watchdog.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\Pin_NTC_IN_aliases.h" />
@@ -2089,9 +2089,9 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_Watchdog\HAL_Watchdog.c" />
+<dep name=".\Source\HAL\FW_HAL_Watchdog\Cypress_PSoC4100S_Plus\HAL_Watchdog.c" />
 </file>
-<file name=".\Source\HAL\FW_HAL_Watchdog\HAL_Watchdog.c" />
+<file name=".\Source\HAL\FW_HAL_Watchdog\Cypress_PSoC4100S_Plus\HAL_Watchdog.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\Aom.o">
 <dep name=".\Source\BasicOS\OS_ErrorHandling\OS_Faults.h" />
 <dep name=".\Source\BasicOS\OS_EventManager\OS_EventManager.h" />
@@ -2262,6 +2262,7 @@
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
@@ -2327,7 +2328,6 @@
 <dep name=".\Source\BasicOS\OS_Communication\OS_Communication.h" />
 <dep name=".\Source\BasicOS\OS_Communication\OS_Messages.h" />
 <dep name=".\Source\BasicOS\OS_Communication\OS_Serial_UART.h" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Flash.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Regulation.h" />
@@ -2581,6 +2581,7 @@
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\HAL\FW_HAL_System\HAL_System.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.h" />
@@ -2644,7 +2645,6 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Regulation.h" />
 <dep name=".\Source\Project\Application\Measure\Measure_Current.h" />
@@ -2669,6 +2669,7 @@
 <dep name=".\Source\BasicOS\OS_EventManager\OS_EventManager.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Measure\DR_Measure.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
@@ -2729,7 +2730,6 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Measure.h" />
 <dep name=".\Source\Project\Application\Measure\Measure_Current.h" />
 <dep name=".\Source\Project\Application\Measure\Measure_Temperature.h" />
@@ -2756,6 +2756,7 @@
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
@@ -2819,7 +2820,6 @@
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
 <dep name=".\Source\BasicOS\OS_ErrorHandling\OS_ErrorHandler.h" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Flash.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Regulation.h" />
@@ -2850,6 +2850,7 @@
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Application\ErrorHandler\ErrorHandler.h" />
 <dep name=".\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.h" />
@@ -2913,7 +2914,6 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Flash.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Regulation.h" />
@@ -2940,6 +2940,7 @@
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\OS_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
@@ -3002,7 +3003,6 @@
 <dep name=".\Generated_Source\PSoC4\cypins.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Flash.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Measure.h" />
 <dep name=".\Source\Project\Application\Aom\Aom_Regulation.h" />
@@ -3394,9 +3394,23 @@
 <file name=".\CortexM0p\ARM_GCC_541\Debug\SelfTest_CPU_Regs_GCC.o">
 <dep name=".\Generated_Source\PSoC4\cydevicegnu_trm.inc" />
 <dep name=".\Generated_Source\PSoC4\cyfittergnu.inc" />
-<dep name=".\Source\HAL\FW_HAL_SelfTest\SelfTest_CPU_Regs_GCC.s" />
+<dep name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\SelfTest_CPU_Regs_GCC.s" />
 </file>
+<file name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\SelfTest_CPU_Regs_GCC.s" />
+<file name=".\Source\HAL\FW_HAL_IO\HAL_IO.c" />
+<file name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.c" />
+<file name=".\Source\HAL\FW_HAL_MemoryInit\HAL_MemoryInit.c" />
+<file name=".\Source\HAL\FW_HAL_RTC\HAL_RTC.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_CPU.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.c" />
+<file name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.c" />
+<file name=".\Source\HAL\FW_HAL_Serial\HAL_Serial_UART.c" />
+<file name=".\Source\HAL\FW_HAL_System\HAL_System.c" />
+<file name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.c" />
+<file name=".\Source\HAL\FW_HAL_Watchdog\HAL_Watchdog.c" />
 <file name=".\Source\HAL\FW_HAL_SelfTest\SelfTest_CPU_Regs_GCC.s" />
+<file name=".\Source\HAL\FW_HAL_Flash\HAL_Flash.c" />
 <file name=".\Source\Project\States\Standby\Standby.h" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\Standby.o">
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
@@ -3513,10 +3527,10 @@
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_MemoryInit.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_RTC.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_CPU.o" />
+<dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_Stack.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_TimeBase.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_UART.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\SelfTest_CPU_Regs_GCC.o" />
-<dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_Stack.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Serial_UART.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Timer.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Watchdog.o" />
@@ -3762,6 +3776,20 @@
 <name_val_pair name="Source\HAL\FW_HAL_System\HAL_System.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC4\Pin_ESP_COPY.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Generated_Source\PSoC4\Pin_ESP_COPY_PM.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_Measure\Cypress_PSoC4100S_Plus\HAL_Measure.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_MemoryInit\Cypress_PSoC4100S_Plus\HAL_MemoryInit.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_RTC\Cypress_PSoC4100S_Plus\HAL_RTC.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_CPU.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_Stack.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_TimeBase.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_UART.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\SelfTest_CPU_Regs_GCC.s" v="-mcpu=cortex-m0plus -mthumb -I. -IGenerated_Source\PSoC4 -alh=${OutputDir}/${CompileFile}.lst -g -W" />
+<name_val_pair name="Source\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus\HAL_Serial_UART.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_Timer\Cypress_PSoC4100S_Plus\HAL_Timer.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_Watchdog\Cypress_PSoC4100S_Plus\HAL_Watchdog.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
+<name_val_pair name="Source\HAL\FW_HAL_System\Cypress_PSoC4100S_Plus\HAL_System.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="-.appdatapath &quot;C:\Users\kraemere\AppData\Local\Cypress Semiconductor\PSoC Creator\4.4&quot; -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\WIFI_Control_Master.cyprj -d CY8C4147AXI-S453 -s C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o1 -v3 -.fftcfgtype=LE" />
@@ -4246,7 +4274,7 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\cy_psoc3_inc.v</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 </warp_dep>
-<deps_time v="132687595724747306" />
+<deps_time v="132688964952331336" />
 <top_block v="TopDesign" />
 <last_generation v="0" />
 <pdl_path v="" />
@@ -4256,7 +4284,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132687595998914746" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132688965230874294" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
