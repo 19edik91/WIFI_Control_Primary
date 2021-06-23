@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO\HAL_IO.h">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="WIFI_Control\WIFI_Control_Master\Header Files\Config\TargetConfig.h">
 <ExpandedNodeIds>
 <v>WIFI_Control</v>
 <v>WIFI_Control\WIFI_Control_Master</v>
@@ -33,6 +33,7 @@
 <v>WIFI_Control\WIFI_Control_Master\Header Files\Config\Project_Config.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Header Files\Config\SelfTest_Config.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Header Files\Config\StateList.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\TargetConfig.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Header Files\cyapicallbacks.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS</v>
@@ -191,6 +192,51 @@
 <v>WIFI_Control\WIFI_Control_Master\Generated_Source\PSoC4\Pin_VOLT_EN</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>WIFI_Control</v>
+<v>WIFI_Control\WIFI_Control_Master</v>
+<v>WIFI_Control\WIFI_Control_Master\TopDesign</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Pins</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Analog</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Clocks</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Interrupts</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\System</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Directives</v>
+<v>WIFI_Control\WIFI_Control_Master\WIFI_Control_Master.cydwr\Flash Security</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\HAL_IO_Config.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\OS_Config.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\Project_Config.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\SelfTest_Config.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\StateList.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\Config\TargetConfig.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Header Files\cyapicallbacks.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\BaseTypes</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\BaseTypes\BaseTypes.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\BaseTypes\OS_FIFO.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\BaseTypes\OS_FIFO.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Communication</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Communication\OS_Communication.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Communication\OS_Communication.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Communication\OS_Messages.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Communication\OS_Serial_UART.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Communication\OS_Serial_UART.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_CRC</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling\OS_ErrorDebouncer.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling\OS_ErrorDebouncer.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling\OS_ErrorHandler.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling\OS_ErrorHandler.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling\OS_Faults.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_ErrorHandling\OS_Faults.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_EventManager</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_EventManager\OS_EventManager.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_EventManager\OS_EventManager.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_Flash</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SelfTest</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_StateManager</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_StateManager\OS_StateManager.c</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_StateManager\OS_StateManager.h</v>
@@ -200,51 +246,6 @@
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_States\OS_State_Reset.c</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_States\OS_State_Reset.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_RealTimeClock</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_RealTimeClock\OS_RealTimeClock.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_RealTimeClock\OS_RealTimeClock.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_SoftwareTimer</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_SoftwareTimer\OS_SoftwareTimer.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_SoftwareTimer\OS_SoftwareTimer.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\SystemTimers</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash\HAL_Flash.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO\HAL_IO.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Measure</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Measure\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Measure\Cypress_PSoC4100S_Plus\HAL_Measure.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Measure\HAL_Measure.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_MemoryInit</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_MemoryInit\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_MemoryInit\Cypress_PSoC4100S_Plus\HAL_MemoryInit.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_MemoryInit\HAL_MemoryInit.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_RTC</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_RTC\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_RTC\Cypress_PSoC4100S_Plus\HAL_RTC.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_RTC\HAL_RTC.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_CPU.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_Stack.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_TimeBase.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_UART.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\SelfTest_CPU_Regs_GCC.s</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\HAL_SelfTest_CPU.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Serial</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus\HAL_Serial_UART.c</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -397,58 +398,6 @@
 <VisibleNodeIds>
 <v>WIFI_Control</v>
 <v>WIFI_Control\WIFI_Control_Master</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INPUT.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INPUT_INT.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INPUT_intClock.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INPUT_IRQ.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ADC_INPUT_PM.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\AllPortIsr.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\AMuxSeq.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Aom.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Aom_Flash.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Aom_Measure.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Aom_Regulation.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Aom_System.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Aom_Time.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\AutomaticMode.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Cm0plusStart.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\CyDMA.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\DR_CapSense.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\DR_ErrorDetection.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\DR_Measure.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\DR_Regulation.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ErrorHandler.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_Flash.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_IO.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_Measure.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_MemoryInit.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_RTC.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_SelfTest_CPU.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_SelfTest_Stack.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_SelfTest_TimeBase.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_SelfTest_UART.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_Serial_UART.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_System.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_Timer.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\HAL_Watchdog.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ISR_WDT.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\ISR_WDT_WCO.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\main.lst</v>
-<v>WIFI_Control\WIFI_Control_Master\CortexM0p\ARM_GCC_541\Debug\Listing Files\Measure_Current.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>

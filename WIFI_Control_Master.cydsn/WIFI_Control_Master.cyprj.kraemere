@@ -1291,6 +1291,7 @@
 <file name=".\Source\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.c" />
 <file name=".\Source\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.h" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_Flash.o">
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_Flash\HAL_Flash.h" />
 <dep name=".\Generated_Source\PSoC4\CyFlash.h" />
 <dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
@@ -1301,6 +1302,7 @@
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
 <dep name=".\Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" />
 </file>
+<file name=".\Source\Config\TargetConfig.h" />
 <file name=".\Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_IO.o">
 <dep name=".\Generated_Source\PSoC4\Pin_CurrentMeasure_aliases.h" />
@@ -1317,6 +1319,7 @@
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Source\Config\HAL_IO_Config.h" />
 <dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 <dep name=".\Source\Project\Application\Aom\Aom.h" />
 <dep name=".\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
@@ -1400,6 +1403,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -1464,6 +1468,7 @@
 <file name=".\Source\HAL\FW_HAL_Measure\HAL_Measure.h" />
 <file name=".\Source\HAL\FW_HAL_Measure\Cypress_PSoC4100S_Plus\HAL_Measure.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_MemoryInit.o">
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_MemoryInit\HAL_MemoryInit.h" />
 <dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
 <dep name=".\Generated_Source\PSoC4\CyLib.h" />
@@ -1487,6 +1492,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_RTC\HAL_RTC.h" />
 <dep name=".\Source\HAL\FW_HAL_Watchdog\HAL_Watchdog.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
@@ -1564,6 +1570,7 @@
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Source\Config\SelfTest_Config.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_CPU.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -1628,6 +1635,7 @@
 <file name=".\Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\HAL_SelfTest_CPU.c" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\HAL_SelfTest_Stack.o">
 <dep name=".\Source\Config\SelfTest_Config.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_Stack.h" />
 <dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
 <dep name=".\Generated_Source\PSoC4\CyLib.h" />
@@ -1652,6 +1660,7 @@
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Source\Config\SelfTest_Config.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_TimeBase.h" />
 <dep name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.h" />
 <dep name=".\Source\HAL\FW_HAL_Watchdog\HAL_Watchdog.h" />
@@ -1730,6 +1739,7 @@
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
 <dep name=".\Source\Config\SelfTest_Config.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_SelfTest\HAL_SelfTest_UART.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -1805,6 +1815,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_Serial\HAL_Serial_UART.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -1880,6 +1891,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_System\HAL_System.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -1955,6 +1967,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_Timer\HAL_Timer.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -2030,6 +2043,7 @@
 <dep name=".\Generated_Source\PSoC4\core_cm0plus_psoc4.h" />
 <dep name=".\Generated_Source\PSoC4\cydisabledsheets.h" />
 <dep name=".\Generated_Source\PSoC4\project.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\HAL\FW_HAL_Watchdog\HAL_Watchdog.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT.h" />
 <dep name=".\Generated_Source\PSoC4\ADC_INPUT_IRQ.h" />
@@ -4274,7 +4288,7 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\cy_psoc3_inc.v</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 </warp_dep>
-<deps_time v="132688964952331336" />
+<deps_time v="132688976502526714" />
 <top_block v="TopDesign" />
 <last_generation v="0" />
 <pdl_path v="" />
@@ -4284,7 +4298,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132688965230874294" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132688976791028373" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>

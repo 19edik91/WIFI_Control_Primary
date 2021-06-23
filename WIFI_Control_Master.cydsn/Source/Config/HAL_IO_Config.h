@@ -27,6 +27,22 @@ extern "C"
 
 #define ADC_MAX_VAL     ADC_INPUT_DEFAULT_HIGH_LIMIT
 
+// Macro derived form PsoC generated source code
+#define CY_PIN_MAPPING(name, check) {name ## __PS, name ## __DR, name ## __PC, name ## __SHIFT, name ## __PORT, check}
+//Definitions: PS - PortPinStatusRegister | DR - PortOutputDataRegister | PC - PortConfigurationRegister
+
+/* PWM_Definition                   Start_Fn          |     Stop_Fn            |       WriteCmp_Fn             |   ReadCmp_Fn                 |     ReadPeriod_Fn eriod value   |   WritePeriod_Fn                  | PWM_PWM_PERIOD_BUF_VALUE              |   PWM_0_PWM_COMPARE_BUF_VALUE */
+#define CY_PWM_MAPPING(index) {PWM_ ## index ## _Start,  PWM_ ## index ## _Stop, PWM_ ## index ## _WriteCompare, PWM_ ## index ## _ReadCompare,     PWM_ ## index ## _ReadPeriod,   PWM_ ## index ## _WritePeriod   , PWM_ ## index ## _PWM_PERIOD_BUF_VALUE,   PWM_ ## index ## _PWM_COMPARE_BUF_VALUE  }
+//    P_MAP(    ePWM_0    ,   PWM_0_Start      ,  PWM_0_Stop      ,       PWM_0_WriteCompare  ,   PWM_0_ReadCompare   ,     PWM_0_Init)
+
+#define COUNT_OF_SENSELINES     eInvalidSense
+#define COUNT_OF_OUTPUTS        eInvalidOutput
+#define COUNT_OF_PWM            eInvalidPWM
+#define COUNT_OF_PORT_ISR       eInvalidPort
+#define NUMBER_OF_PORTS          7u
+#define NUMBER_OF_MAX_PORT_PINS  8u
+#define OUTPUT_FAULT_COUNT       10u
+
 //Xmacro for sense lines
     /*      Connector name  |       Pin mapping   |                       Check Pin   */
 #define SENSE_MAP\
