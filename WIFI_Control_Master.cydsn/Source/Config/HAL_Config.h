@@ -9,8 +9,8 @@
  *
  * ========================================
 */
-#ifndef _HAL_IO_CONFIG_H_
-#define _HAL_IO_CONFIG_H_
+#ifndef _HAL_Config_H_
+#define _HAL_Config_H_
     
 #ifdef __cplusplus
 extern "C"
@@ -37,6 +37,22 @@ extern "C"
     #define ADC_CHANNELS             ADC_INPUT_SEQUENCED_CHANNELS_NUM
 #endif
 
+
+
+/****************************************** Watchdog-Specific defines ******************************************************/
+#define WDT_MAX_INTERVAL        CY_SYS_WDT_MATCH_MASK /* Is 0xFFFF -> 1.638s */
+#define LFCLK_WCO_CYCLES_PER_SECOND (32768u)
+#define LFCLK_ILO_CYCLES_PER_SECOND (CY_SYS_CLK_ILO_DESIRED_FREQ_HZ)
+
+//The maximum time interval which can be used (in milliseconds)
+#define WDT_TIME_LIMIT ((CY_SYS_WDT_MATCH_MASK * 1000)/LFCLK_ILO_CYCLES_PER_SECOND)
+
+//Use of X-Macros for defining system timers
+/*      Systemtimer name   |  SystemTimer Cnt    |   SystemTimer Mask   | SystemTimer Int   | SystemTimer Reset  |  Callback Fctn   */
+#define WDT_LIST \
+   SYST( eSysTimer0         ,    CY_SYS_TIMER0   , CY_SYS_TIMER0_MASK   , CY_SYS_TIMER0_INT , CY_SYS_TIMER0_RESET,  NULL            )\
+   SYST( eSysTimer1         ,    CY_SYS_TIMER1   , CY_SYS_TIMER1_MASK   , CY_SYS_TIMER1_INT , CY_SYS_TIMER1_RESET,  NULL            )\
+   SYST( eSysTimer2         ,    CY_SYS_TIMER2   , CY_SYS_TIMER2_MASK   , CY_SYS_TIMER2_INT , CY_SYS_TIMER2_RESET,  NULL            )
 
 
 /****************************************** GPIO-Specific defines ******************************************************/
@@ -115,6 +131,6 @@ extern "C"
 }
 #endif    
 
-#endif //_HAL_IO_CONFIG_H_
+#endif //_HAL_Config_H_
 
 /* [] END OF FILE */

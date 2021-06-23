@@ -20,9 +20,6 @@
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
 
-#define ADC_REF_MILLIVOLT        ADC_INPUT_DEFAULT_VREF_MV_VALUE
-#define ADC_INPUT_CHANNEL0       0
-
 #if (AMuxSeq_CHANNELS >= ADC_INPUT_SEQUENCED_CHANNELS_NUM)
     #define ADC_CHANNELS             AMuxSeq_CHANNELS
 #else
