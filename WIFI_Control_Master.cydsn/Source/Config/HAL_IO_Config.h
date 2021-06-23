@@ -25,7 +25,21 @@ extern "C"
 /****************************************** Defines ******************************************************/
 #define HAL_IO_ERRORCALLBACK        //Define a callback routine for errors in the HAL-IO-Module
 
-#define ADC_MAX_VAL     ADC_INPUT_DEFAULT_HIGH_LIMIT
+
+/****************************************** ADC-Specific defines ******************************************************/
+#define ADC_MAX_VAL                 ADC_INPUT_DEFAULT_HIGH_LIMIT
+#define ADC_REF_MILLIVOLT           ADC_INPUT_DEFAULT_VREF_MV_VALUE
+#define ADC_INPUT_CHANNEL0          0
+
+#if (AMuxSeq_CHANNELS >= ADC_INPUT_SEQUENCED_CHANNELS_NUM)
+    #define ADC_CHANNELS             AMuxSeq_CHANNELS
+#else
+    #define ADC_CHANNELS             ADC_INPUT_SEQUENCED_CHANNELS_NUM
+#endif
+
+
+
+/****************************************** GPIO-Specific defines ******************************************************/
 
 // Macro derived form PsoC generated source code
 #define CY_PIN_MAPPING(name, check) {name ## __PS, name ## __DR, name ## __PC, name ## __SHIFT, name ## __PORT, check}
