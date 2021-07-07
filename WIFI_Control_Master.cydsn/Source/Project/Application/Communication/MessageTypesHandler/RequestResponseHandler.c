@@ -50,18 +50,15 @@ static void SendSoftwareVersion(void)
     memset(&sMsgVersion, 0, sizeof(sMsgVersion));
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdGet;
-    sMsgFrame.sPayload.ucMsgId = eMsgVersion;
     sMsgVersion.uiVersion = 0x0001;
-    sMsgFrame.sHeader.ucMsgType = eTypeAck;
-
-    memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgVersion, sizeof(sMsgVersion));
-
-    /* Fill header and checksum */
-    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    
+    OS_COMMUNICATION_FILL_CMD(eCmdGet, eMsgVersion, eTypeAck)
+ 
+    /* Fill frame */
+    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame,(u8*)&sMsgVersion, sizeof(tMsgVersion));
     
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
 }
 
 //********************************************************************************
@@ -87,9 +84,7 @@ static void SendUserTimerSettings(void)
     memset(&sMsgUserTimer, 0, sizeof(sMsgUserTimer));
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgUserTimer;    
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgUserTimer, eTypeRequest)
 
     /* Get the regulation values */
     tRegulationValues sRegulationValues;
@@ -109,14 +104,12 @@ static void SendUserTimerSettings(void)
             sMsgUserTimer.ucStartMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinSet;
             sMsgUserTimer.ucStopMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinClear;
             sMsgUserTimer.b7TimerIdx = ucTimerIdx;
-            
-            memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgUserTimer, sizeof(sMsgUserTimer)); 
-            
-            /* Fill header and checksum */
-            OS_Communication_CreateMessageFrame(&sMsgFrame);
+                        
+            /* Fill frame */
+            u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgUserTimer, sizeof(tMsgUserTimer));
             
             /* Start to send the packet */
-            OS_Communication_SendMessage(&sMsgFrame);  
+            OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);  
         }
     }
 }
@@ -144,9 +137,7 @@ static void SendUserOutputSettings(void)
     memset(&sMsgUserOutput, 0, sizeof(sMsgUserOutput));
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgInitOutputStatus;    
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgInitOutputStatus, eTypeRequest)
 
     /* Get the regulation values */
     tRegulationValues sRegulationValues;
@@ -165,13 +156,11 @@ static void SendUserOutputSettings(void)
         sMsgUserOutput.bNightModeOnOff = sRegulationValues.bNightModeOnOff;
         sMsgUserOutput.ucBurnTime = sRegulationValues.sUserTimerSettings.ucBurningTime;
                 
-        memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgUserOutput, sizeof(sMsgUserOutput));
-
         /* Fill header and checksum */
-        OS_Communication_CreateMessageFrame(&sMsgFrame);
+        u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgUserOutput, sizeof(tMsgInitOutputState));
         
         /* Start to send the packet */
-        OS_Communication_SendMessage(&sMsgFrame);
+        OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
     }
 }
 
@@ -191,15 +180,13 @@ static void SendUserSettingsDone(void)
     memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgInitDone;    
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgInitDone, eTypeRequest)
 
     /* Fill header and checksum */
-    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, NULL, 0);
     
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
 }
 
 //********************************************************************************
@@ -221,8 +208,7 @@ static void SendUpdateOutputState(void)
     memset(&sMsgResponse, 0, sizeof(sMsgResponse));
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgUpdateOutputStatus;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgUpdateOutputStatus, eTypeRequest)
  
     /* Get the regulation structure */
     tRegulationValues sRegValues;
@@ -241,15 +227,12 @@ static void SendUpdateOutputState(void)
         sMsgResponse.b7Brightness = sRegValues.sLedValue[ucOutputIdx].ucPercentValue;
         sMsgResponse.bLedStatus = sRegValues.sLedValue[ucOutputIdx].bStatus;
         sMsgResponse.b3OutputIndex = ucOutputIdx;
-        
-        sMsgFrame.sHeader.ucMsgType = eTypeRequest;
-        memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgResponse, sizeof(sMsgResponse));
 
         /* Fill header and checksum */
-        OS_Communication_CreateMessageFrame(&sMsgFrame);
+        u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgResponse, sizeof(tMsgUpdateOutputState));
         
         /* Start to send the packet */
-        OS_Communication_SendMessage(&sMsgFrame);
+        OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
     }
 }
 
@@ -307,7 +290,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         case eMsgCurrentTime:
         {
             /* Cast Payload */
-            tMsgCurrentTime* psMsgCurrentTime = (tMsgCurrentTime*)psMsgFrame->sPayload.ucData;
+            tMsgCurrentTime* psMsgCurrentTime = (tMsgCurrentTime*)psMsgFrame->sPayload.pucData;
 
             /* Save new received time */
             Aom_Time_SetReceivedTime(psMsgCurrentTime->ucHour, psMsgCurrentTime->ucMinutes, psMsgCurrentTime->ulTicks);
@@ -319,7 +302,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             if(Aom_System_GetSystemStarted() == true)
             {
                 /* Cast payload */
-                tMsgHeartBeatOutput* psHeartBeat = (tMsgHeartBeatOutput*)psMsgFrame->sPayload.ucData;
+                tMsgHeartBeatOutput* psHeartBeat = (tMsgHeartBeatOutput*)psMsgFrame->sPayload.pucData;
                 
                 bool bValuesChanged = Aom_Regulation_CompareCustomValue(psHeartBeat->ucBrightness, (bool)psHeartBeat->ucLedStatus, psHeartBeat->ucOutputIndex);
                 
@@ -342,7 +325,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                 if(eCommand == eCmdSet)
                 {                        
                     /* Cast payload first */
-                    tMsgRequestOutputState* psMsgReqOutputState = (tMsgRequestOutputState*)psMsgFrame->sPayload.ucData;
+                    tMsgRequestOutputState* psMsgReqOutputState = (tMsgRequestOutputState*)psMsgFrame->sPayload.pucData;
                     
                     bool bInitMenuEnabled = false;
                     
@@ -413,7 +396,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         {
             if(eCommand == eCmdSet)
             {
-                tMsgManualInit* psMsgManualInit = (tMsgManualInit*)psMsgFrame->sPayload.ucData;
+                tMsgManualInit* psMsgManualInit = (tMsgManualInit*)psMsgFrame->sPayload.pucData;
                 
                 /* Check first for correct data. Exclusive ored !*/
                 if(psMsgManualInit->bSetMaxValue != psMsgManualInit->bSetMinValue)
@@ -488,7 +471,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         {
             if(eCommand == eCmdSet)
             {
-                tMsgUserTimer* psMsgUserTimer = (tMsgUserTimer*)psMsgFrame->sPayload.ucData;
+                tMsgUserTimer* psMsgUserTimer = (tMsgUserTimer*)psMsgFrame->sPayload.pucData;
                 HandleUserTimerSettings(psMsgUserTimer);
                 
                 /* Set message as acknowledged */
@@ -531,7 +514,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         case eMsgStillAlive:
         {
             /* Cast payload */
-            tMsgStillAlive* psStillAlive = (tMsgStillAlive*)psMsgFrame->sPayload.ucData;
+            tMsgStillAlive* psStillAlive = (tMsgStillAlive*)psMsgFrame->sPayload.pucData;
             if(psStillAlive->bRequest == 0x00 && psStillAlive->bResponse == 0xFF)
             {
                 eResponse = eTypeAck;

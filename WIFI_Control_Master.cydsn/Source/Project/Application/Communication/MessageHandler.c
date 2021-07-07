@@ -111,20 +111,16 @@ static void SendStillAliveMessage(bool bRequest)
     memset(&sMsgStillAlive, 0, sizeof(sMsgStillAlive));  
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgStillAlive;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgStillAlive, eTypeRequest)
+
     sMsgStillAlive.bRequest  = (bRequest == true) ? 0xFF : 0;
     sMsgStillAlive.bResponse = (bRequest == false) ? 0xFF : 0;
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
-
-    /* Fill frame payload */
-    memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgStillAlive, sizeof(tMsgStillAlive));
     
-    /* Fill header and checksum */
-    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    /* Fill frame */
+    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame,(u8*)&sMsgStillAlive, sizeof(tMsgStillAlive));
 
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
 }
 
 //********************************************************************************
@@ -247,19 +243,16 @@ void MessageHandler_SendFaultMessage(const u16 uiErrorCode)
     memset(&sMsgFault, 0, sizeof(sMsgFault));
 
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgErrorCode;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgErrorCode, eTypeRequest)
+    
+    //Fill message 
     sMsgFault.uiErrorCode = uiErrorCode;
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
-
-    //    sMsgVersion.uiCrc = (u16)SelfTest_FlashCRCRead(ST_FLASH_SEGIDX_S1);
-    memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgFault, sizeof(sMsgFault));
 
     /* Fill header and checksum */
-    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgFault, sizeof(tMsgFaultMessage));
 
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
 }
 
 
@@ -286,15 +279,13 @@ void MessageHandler_SendSleepOrWakeUpMessage(bool bSleep)
     memset(&sMsgFrame, 0, sizeof(sMsgFrame));
 
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = bSleep ? eMsgSleep : eMsgWakeUp;
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, (bSleep ? eMsgSleep : eMsgWakeUp), eTypeRequest)
 
     /* Fill header and checksum */
-    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, NULL, 0);
 
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
 }
 
 //********************************************************************************
@@ -321,15 +312,13 @@ void MessageHandler_SendInitDone(void)
     memset(&sMsgFrame, 0, sizeof(sMsgFrame));
 
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdSet;
-    sMsgFrame.sPayload.ucMsgId = eMsgAutoInitHardware;
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
+    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgAutoInitHardware, eTypeRequest)
 
     /* Fill header and checksum */
-    OS_Communication_CreateMessageFrame(&sMsgFrame);
+    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, NULL, 0);
 
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame);
+    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
 }
 
 
@@ -381,24 +370,20 @@ void MessageHandler_SendOutputState(void)
     memset(&sMsgResponse, 0, sizeof(sMsgResponse));
     
     /* Fill them */
-    sMsgFrame.sPayload.ucCommand = eCmdGet;
-    sMsgFrame.sPayload.ucMsgId = eMsgOutputState;
-    sMsgFrame.sHeader.ucMsgType = eTypeRequest;
-    
+    OS_COMMUNICATION_FILL_CMD(eCmdGet, eMsgOutputState, eTypeRequest)
+
     /* Get the measured values */
     u8 ucOutputIdx;    
     for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
     {
         Aom_Measure_GetMeasuredValues(&sMsgResponse.ulVoltage, &sMsgResponse.uiCurrent, &sMsgResponse.siTemperature, ucOutputIdx);
         sMsgResponse.ucOutputIndex = ucOutputIdx;        
-        
-        memcpy(&sMsgFrame.sPayload.ucData[0], &sMsgResponse, sizeof(sMsgResponse));
 
         /* Fill header and checksum */
-        OS_Communication_CreateMessageFrame(&sMsgFrame);
+        u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgResponse, sizeof(tMsgOutputState));
         
         /* Start to send the packet */
-        OS_Communication_SendMessage(&sMsgFrame);
+        OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
     }
 }
 #endif
