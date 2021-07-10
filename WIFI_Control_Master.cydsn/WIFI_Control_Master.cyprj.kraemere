@@ -784,6 +784,29 @@
 <file name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
 <file name=".\Source\BasicOS\BaseTypes\OS_FIFO.c" />
 <file name=".\Source\BasicOS\BaseTypes\OS_FIFO.h" />
+<file name=".\CortexM0p\ARM_GCC_541\Debug\OS_Memory.o">
+<dep name=".\Source\BasicOS\OS_ErrorHandling\OS_ErrorDebouncer.h" />
+<dep name=".\Source\BasicOS\OS_ErrorHandling\OS_Faults.h" />
+<dep name=".\Source\BasicOS\OS_EventManager\OS_EventManager.h" />
+<dep name=".\Source\Config\OS_Config.h" />
+<dep name=".\Source\Config\Project_Config.h" />
+<dep name=".\Source\Config\TargetConfig.h" />
+<dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
+<dep name=".\Generated_Source\PSoC4\CyLib.h" />
+<dep name=".\Generated_Source\PSoC4\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC4\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC4\cytypes.h" />
+<dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
+<dep name=".\Source\BasicOS\BaseTypes\OS_Memory.c" />
+<dep name=".\Source\BasicOS\BaseTypes\OS_Memory.h" />
+</file>
+<file name=".\Source\BasicOS\OS_ErrorHandling\OS_ErrorDebouncer.h" />
+<file name=".\Source\BasicOS\OS_ErrorHandling\OS_Faults.h" />
+<file name=".\Source\BasicOS\OS_EventManager\OS_EventManager.h" />
+<file name=".\Source\Config\OS_Config.h" />
+<file name=".\Source\Config\Project_Config.h" />
+<file name=".\Source\BasicOS\BaseTypes\OS_Memory.c" />
+<file name=".\Source\BasicOS\BaseTypes\OS_Memory.h" />
 <file name=".\CortexM0p\ARM_GCC_541\Debug\OS_CRC.o">
 <dep name=".\Source\Config\TargetConfig.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
@@ -805,17 +828,14 @@
 <dep name=".\Generated_Source\PSoC4\cyfitter.h" />
 <dep name=".\Generated_Source\PSoC4\cytypes.h" />
 <dep name=".\Source\BasicOS\BaseTypes\BaseTypes.h" />
+<dep name=".\Source\BasicOS\BaseTypes\OS_FIFO.h" />
+<dep name=".\Source\BasicOS\BaseTypes\OS_Memory.h" />
 <dep name=".\Source\BasicOS\OS_CRC\OS_CRC.h" />
 <dep name=".\Source\BasicOS\OS_Communication\OS_Communication.c" />
 <dep name=".\Source\BasicOS\OS_Communication\OS_Communication.h" />
 <dep name=".\Source\BasicOS\OS_Communication\OS_Messages.h" />
 <dep name=".\Source\BasicOS\OS_Communication\OS_Serial_UART.h" />
 </file>
-<file name=".\Source\BasicOS\OS_ErrorHandling\OS_ErrorDebouncer.h" />
-<file name=".\Source\BasicOS\OS_ErrorHandling\OS_Faults.h" />
-<file name=".\Source\BasicOS\OS_EventManager\OS_EventManager.h" />
-<file name=".\Source\Config\OS_Config.h" />
-<file name=".\Source\Config\Project_Config.h" />
 <file name=".\Source\BasicOS\OS_Communication\OS_Communication.c" />
 <file name=".\Source\BasicOS\OS_Communication\OS_Communication.h" />
 <file name=".\Source\BasicOS\OS_Communication\OS_Messages.h" />
@@ -3469,6 +3489,7 @@
 <CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021 type_name="CyDesigner.Common.Base.CyFileDeps" version="1">
 <file name=".\CortexM0p\ARM_GCC_541\Debug\WIFI_Control_Master.hex">
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\OS_FIFO.o" />
+<dep name=".\CortexM0p\ARM_GCC_541\Debug\OS_Memory.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\OS_Communication.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\OS_Serial_UART.o" />
 <dep name=".\CortexM0p\ARM_GCC_541\Debug\OS_CRC.o" />
@@ -3755,6 +3776,7 @@
 <name_val_pair name="Source\HAL\FW_HAL_System\Cypress_PSoC4100S_Plus\HAL_System.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
 <name_val_pair name="Source\BasicOS\OS_ErrorHandling\OS_ErrorDebouncer.cpp" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0 -x c++" />
 <name_val_pair name="Source\HAL\FW_HAL_SelfTest\Cypress_PSoC4100S_Plus\SelfTest_CPU_Regs_GCC.S" v="-mcpu=cortex-m0plus -mthumb -I. -IGenerated_Source\PSoC4 -alh=${OutputDir}/${CompileFile}.lst -g -W" />
+<name_val_pair name="Source\BasicOS\BaseTypes\OS_Memory.c" v="-mcpu=cortex-m0plus -mthumb -I.\Source\BasicOS\BaseTypes -I.\Source\BasicOS\OS_Communication -I.\Source\BasicOS\OS_CRC -I.\Source\BasicOS\OS_ErrorHandling -I.\Source\BasicOS\OS_EventManager -I.\Source\BasicOS\OS_Flash -I.\Source\BasicOS\OS_SelfTest -I.\Source\BasicOS\OS_StateManager -I.\Source\BasicOS\OS_States -I.\Source\BasicOS\OS_SystemTimers\OS_RealTimeClock -I.\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer -I.\Source\BasicOS\OS_SystemTimers\OS_Watchdog -I.\Source\HAL\FW_HAL_Flash -I.\Source\HAL\FW_HAL_IO -I.\Source\HAL\FW_HAL_Measure -I.\Source\HAL\FW_HAL_MemoryInit -I.\Source\HAL\FW_HAL_RTC -I.\Source\HAL\FW_HAL_SelfTest -I.\Source\HAL\FW_HAL_Serial -I.\Source\HAL\FW_HAL_Timer -I.\Source\HAL\FW_HAL_Watchdog -I.\Source\Config -I.\Source\Project -I.\Source -I.\Source\Project\States -I.\Source\Project\States\AutomaticMode -I.\Source\Project\States\Standby -I.\Source\Project\Application\Aom -I.\Source\Project\Application\Communication\MessageTypesHandler -I.\Source\Project\Application\Communication -I.\Source\Project\Application\ErrorHandler -I.\Source\Project\Application\Measure -I.\Source\Project\Driver\Driver_Measure -I.\Source\Project\Driver\Driver_Regulation -I.\Source\Project\Driver -I.\Source\HAL\FW_HAL_System -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -O0" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="-.appdatapath &quot;C:\Users\kraemere\AppData\Local\Cypress Semiconductor\PSoC Creator\4.4&quot; -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\WIFI_Control_Master.cyprj -d CY8C4147AXI-S453 -s C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o1 -v3 -.fftcfgtype=LE" />
@@ -4239,7 +4261,7 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\cy_psoc3_inc.v</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 </warp_dep>
-<deps_time v="132701120536099712" />
+<deps_time v="132703906286331016" />
 <top_block v="TopDesign" />
 <last_generation v="0" />
 <pdl_path v="" />
@@ -4249,7 +4271,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132701120829887513" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0p" v="132703906585946895" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
