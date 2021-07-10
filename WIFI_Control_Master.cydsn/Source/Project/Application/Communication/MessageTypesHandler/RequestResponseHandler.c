@@ -42,23 +42,16 @@
 static void SendSoftwareVersion(void)
 {
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgVersion sMsgVersion;
     
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgVersion, 0, sizeof(sMsgVersion));
     
     /* Fill them */
     sMsgVersion.uiVersion = 0x0001;
     
-    OS_COMMUNICATION_FILL_CMD(eCmdGet, eMsgVersion, eTypeAck)
- 
-    /* Fill frame */
-    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame,(u8*)&sMsgVersion, sizeof(tMsgVersion));
-    
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+    OS_Communication_SendResponseMessage(eMsgVersion, &sMsgVersion, sizeof(tMsgVersion), eNoCmd);
 }
 
 //********************************************************************************
@@ -76,15 +69,10 @@ static void SendSoftwareVersion(void)
 static void SendUserTimerSettings(void)
 {
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgUserTimer sMsgUserTimer;
     
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgUserTimer, 0, sizeof(sMsgUserTimer));
-    
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgUserTimer, eTypeRequest)
 
     /* Get the regulation values */
     tRegulationValues sRegulationValues;
@@ -104,12 +92,9 @@ static void SendUserTimerSettings(void)
             sMsgUserTimer.ucStartMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinSet;
             sMsgUserTimer.ucStopMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinClear;
             sMsgUserTimer.b7TimerIdx = ucTimerIdx;
-                        
-            /* Fill frame */
-            u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgUserTimer, sizeof(tMsgUserTimer));
             
             /* Start to send the packet */
-            OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);  
+            OS_Communication_SendResponseMessage(eMsgUserTimer, &sMsgUserTimer, sizeof(tMsgUserTimer), eCmdSet);  
         }
     }
 }
@@ -129,15 +114,10 @@ static void SendUserTimerSettings(void)
 static void SendUserOutputSettings(void)
 {
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgInitOutputState sMsgUserOutput;
     
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgUserOutput, 0, sizeof(sMsgUserOutput));
-    
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgInitOutputStatus, eTypeRequest)
 
     /* Get the regulation values */
     tRegulationValues sRegulationValues;
@@ -155,12 +135,9 @@ static void SendUserOutputSettings(void)
         sMsgUserOutput.bMotionDetectionOnOff = sRegulationValues.sUserTimerSettings.bMotionDetectOnOff;
         sMsgUserOutput.bNightModeOnOff = sRegulationValues.bNightModeOnOff;
         sMsgUserOutput.ucBurnTime = sRegulationValues.sUserTimerSettings.ucBurningTime;
-                
-        /* Fill header and checksum */
-        u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgUserOutput, sizeof(tMsgInitOutputState));
-        
+
         /* Start to send the packet */
-        OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+        OS_Communication_SendResponseMessage(eMsgInitOutputStatus, &sMsgUserOutput, sizeof(tMsgInitOutputState), eCmdSet);
     }
 }
 
@@ -172,21 +149,9 @@ static void SendUserOutputSettings(void)
 \return     void 
 ***********************************************************************************/
 static void SendUserSettingsDone(void)
-{
-    /* Create structure */
-    tsMessageFrame sMsgFrame;  
-    
-    /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
-    
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgInitDone, eTypeRequest)
-
-    /* Fill header and checksum */
-    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, NULL, 0);
-    
+{    
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+    OS_Communication_SendRequestMessage(eMsgInitDone, NULL, 0, eNoCmd);
 }
 
 //********************************************************************************
@@ -200,16 +165,11 @@ static void SendUserSettingsDone(void)
 static void SendUpdateOutputState(void)
 {
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgUpdateOutputState sMsgResponse;
     
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgResponse, 0, sizeof(sMsgResponse));
-    
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgUpdateOutputStatus, eTypeRequest)
- 
+     
     /* Get the regulation structure */
     tRegulationValues sRegValues;
     Aom_Regulation_GetRegulationValues(&sRegValues);
@@ -227,12 +187,9 @@ static void SendUpdateOutputState(void)
         sMsgResponse.b7Brightness = sRegValues.sLedValue[ucOutputIdx].ucPercentValue;
         sMsgResponse.bLedStatus = sRegValues.sLedValue[ucOutputIdx].bStatus;
         sMsgResponse.b3OutputIndex = ucOutputIdx;
-
-        /* Fill header and checksum */
-        u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgResponse, sizeof(tMsgUpdateOutputState));
         
         /* Start to send the packet */
-        OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+        OS_Communication_SendRequestMessage(eMsgUpdateOutputStatus, &sMsgResponse, sizeof(tMsgUpdateOutputState), eCmdSet);
     }
 }
 

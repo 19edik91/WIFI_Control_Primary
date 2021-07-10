@@ -103,40 +103,26 @@ static void CheckForCommTimeout(u8 ucElapsedTime)
 static void SendStillAliveMessage(bool bRequest)
 {    
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgStillAlive sMsgStillAlive;
         
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgStillAlive, 0, sizeof(sMsgStillAlive));  
-    
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgStillAlive, eTypeRequest)
 
     sMsgStillAlive.bRequest  = (bRequest == true) ? 0xFF : 0;
     sMsgStillAlive.bResponse = (bRequest == false) ? 0xFF : 0;
-    
-    /* Fill frame */
-    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame,(u8*)&sMsgStillAlive, sizeof(tMsgStillAlive));
 
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+    OS_Communication_SendRequestMessage(eMsgStillAlive, &sMsgStillAlive, sizeof(tMsgStillAlive), eNoCmd);
 }
 
 //********************************************************************************
 /*!
 \author     KraemerE    
 \date       30.01.2019  
-
-\fn         HandleMessage 
-
 \brief      Message handler which handles each message it got.
-
 \return     void 
-
 \param      pMessage - pointer to message
 \param      ucSize   - sizeof whole message
-
 ***********************************************************************************/
 void MessageHandler_HandleMessage(void* pvMsg)
 {
@@ -158,6 +144,7 @@ void MessageHandler_HandleMessage(void* pvMsg)
         switch(eMsgType)
         {
             case eTypeRequest:
+            case eTypeResponse:
             {
                 eResponse = ReqResMsg_Handler(psMsgFrame);
                 break;
@@ -195,7 +182,7 @@ void MessageHandler_HandleMessage(void* pvMsg)
     /* Send response message */
     if(eResponse != eNoType)
     {
-        OS_Communication_SendResponseMessage(eMessageId, eResponse);
+        OS_Communication_SendAcknowledge(eMessageId, psMsgFrame->sPayload.ucQueryID, eResponse);
     }
 
     /* Check for invalid messages */
@@ -222,37 +209,23 @@ void MessageHandler_HandleMessage(void* pvMsg)
 /*!
 \author     KraemerE    
 \date       30.01.2019  
-
-\fn         MessageHandler_SendFaultMessage 
-
 \brief      Creates a message with the fault code and sends it further
-
 \return     none 
-
 \param      uiErrorCode - The error code which should be send
-
 ***********************************************************************************/
 void MessageHandler_SendFaultMessage(const u16 uiErrorCode)
 {
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgFaultMessage sMsgFault;
 
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgFault, 0, sizeof(sMsgFault));
 
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgErrorCode, eTypeRequest)
-    
     //Fill message 
     sMsgFault.uiErrorCode = uiErrorCode;
 
-    /* Fill header and checksum */
-    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgFault, sizeof(tMsgFaultMessage));
-
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+    OS_Communication_SendRequestMessage(eMsgErrorCode, &sMsgFault, sizeof(tMsgFaultMessage), eCmdSet);
 }
 
 
@@ -260,65 +233,30 @@ void MessageHandler_SendFaultMessage(const u16 uiErrorCode)
 /*!
 \author     KraemerE    
 \date       22.05.2019  
-
-\fn         MessageHandler_SendSleepOrWakeUpMessage 
-
 \brief      Creates a message which requests the sleep or wake up mode
-
 \return     none 
-
 \param      bSleep - True to send a sleep request otherwise sends a wake up request
-
 ***********************************************************************************/
 void MessageHandler_SendSleepOrWakeUpMessage(bool bSleep)
 {
-    /* Create structure */
-    tsMessageFrame sMsgFrame;  
-
-    /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
-
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, (bSleep ? eMsgSleep : eMsgWakeUp), eTypeRequest)
-
-    /* Fill header and checksum */
-    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, NULL, 0);
-
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+    teMessageId eMsgID = (bSleep ? eMsgSleep : eMsgWakeUp);
+    OS_Communication_SendRequestMessage(eMsgID, NULL, 0, eCmdSet);
 }
 
 //********************************************************************************
 /*!
 \author     KraemerE    
 \date       08.11.2019  
-
-\fn         MessageHandler_SendInitDone 
-
 \brief      Creates a message which sends just a response that the initialization
             is done
-
 \return     none 
-
 \param      none
-
 ***********************************************************************************/
 void MessageHandler_SendInitDone(void)
 {
-    /* Create structure */
-    tsMessageFrame sMsgFrame;  
-
-    /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
-
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdSet, eMsgAutoInitHardware, eTypeRequest)
-
-    /* Fill header and checksum */
-    u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, NULL, 0);
-
     /* Start to send the packet */
-    OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+    OS_Communication_SendResponseMessage(eMsgAutoInitHardware, NULL, 0, eNoCmd);
 }
 
 
@@ -326,17 +264,11 @@ void MessageHandler_SendInitDone(void)
 /*!
 \author     KraemerE    
 \date       11.04.2019  
-
-\fn         MessageHandler_Tick 
-
 \brief      This function handles the saved frames and resend them when the timeout
             has reached. When the retry counter is counted down to zero the message
             is discarded.
-
 \return     none
-
 \param      ucElapsedMs - The elapsed time in milliseconds since the last call
-
 ***********************************************************************************/
 void MessageHandler_Tick(u8 ucElapsedMs)
 {
@@ -362,15 +294,10 @@ void MessageHandler_Tick(u8 ucElapsedMs)
 void MessageHandler_SendOutputState(void)
 {
     /* Create structure */
-    tsMessageFrame sMsgFrame;  
     tMsgOutputState sMsgResponse;
     
     /* Clear the structures */
-    memset(&sMsgFrame, 0, sizeof(sMsgFrame));
     memset(&sMsgResponse, 0, sizeof(sMsgResponse));
-    
-    /* Fill them */
-    OS_COMMUNICATION_FILL_CMD(eCmdGet, eMsgOutputState, eTypeRequest)
 
     /* Get the measured values */
     u8 ucOutputIdx;    
@@ -379,11 +306,8 @@ void MessageHandler_SendOutputState(void)
         Aom_Measure_GetMeasuredValues(&sMsgResponse.ulVoltage, &sMsgResponse.uiCurrent, &sMsgResponse.siTemperature, ucOutputIdx);
         sMsgResponse.ucOutputIndex = ucOutputIdx;        
 
-        /* Fill header and checksum */
-        u8 ucFrameSize = OS_Communication_CreateMessageFrame(&sMsgFrame, (u8*)&sMsgResponse, sizeof(tMsgOutputState));
-        
         /* Start to send the packet */
-        OS_Communication_SendMessage(&sMsgFrame, ucFrameSize);
+        OS_Communication_SendResponseMessage(eMsgOutputState, &sMsgResponse, sizeof(tMsgOutputState), eCmdSet);
     }
 }
 #endif
