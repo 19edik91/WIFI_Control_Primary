@@ -480,7 +480,15 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             {
                 eResponse = eTypeDenied;
             }
+            break;
         }
+        
+        //case eMsgErrorCode:
+        //{
+        //    /* Cast payload */
+        //    tMsgFaultMessage* psFaultMsg = (tMsgFaultMessage*)psMsgFrame->sPayload.pucData;
+        //    break;
+        //}
         
         default:
             eResponse = eTypeDenied;
