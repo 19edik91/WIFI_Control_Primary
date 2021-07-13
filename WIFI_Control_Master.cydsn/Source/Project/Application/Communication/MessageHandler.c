@@ -256,7 +256,7 @@ void MessageHandler_SendSleepOrWakeUpMessage(bool bSleep)
 void MessageHandler_SendInitDone(void)
 {
     /* Start to send the packet */
-    OS_Communication_SendResponseMessage(eMsgAutoInitHardware, NULL, 0, eNoCmd);
+    OS_Communication_SendResponseMessage(eMsgInitDone, NULL, 0, eNoCmd);
 }
 
 
