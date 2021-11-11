@@ -91,7 +91,7 @@ static void SendUserTimerSettings(void)
             sMsgUserTimer.ucStopHour = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourClear;
             sMsgUserTimer.ucStartMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinSet;
             sMsgUserTimer.ucStopMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinClear;
-            sMsgUserTimer.b7TimerIdx = ucTimerIdx;
+            sMsgUserTimer.ucTimerIdx = ucTimerIdx;
             
             /* Start to send the packet */
             OS_Communication_SendResponseMessage(eMsgUserTimer, &sMsgUserTimer, sizeof(tMsgUserTimer), eCmdSet);  
@@ -127,13 +127,13 @@ static void SendUserOutputSettings(void)
     u8 ucOutputIdx;    
     for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
     {
-        sMsgUserOutput.b7Brightness = sRegulationValues.sLedValue[ucOutputIdx].ucPercentValue;
-        sMsgUserOutput.bLedStatus = sRegulationValues.sLedValue[ucOutputIdx].bStatus;
-        sMsgUserOutput.b3OutputIndex = ucOutputIdx;
+        sMsgUserOutput.ucBrightness = sRegulationValues.sLedValue[ucOutputIdx].ucPercentValue;
+        sMsgUserOutput.ucLedStatus = sRegulationValues.sLedValue[ucOutputIdx].bStatus;
+        sMsgUserOutput.ucOutputIndex = ucOutputIdx;
         
-        sMsgUserOutput.bAutomaticModeActive = sRegulationValues.sUserTimerSettings.bAutomaticModeActive;
-        sMsgUserOutput.bMotionDetectionOnOff = sRegulationValues.sUserTimerSettings.bMotionDetectOnOff;
-        sMsgUserOutput.bNightModeOnOff = sRegulationValues.bNightModeOnOff;
+        sMsgUserOutput.ucAutomaticModeActive = sRegulationValues.sUserTimerSettings.bAutomaticModeActive;
+        sMsgUserOutput.ucMotionDetectionOnOff = sRegulationValues.sUserTimerSettings.bMotionDetectOnOff;
+        sMsgUserOutput.ucNightModeOnOff = sRegulationValues.bNightModeOnOff;
         sMsgUserOutput.ucBurnTime = sRegulationValues.sUserTimerSettings.ucBurningTime;
 
         /* Start to send the packet */
@@ -176,17 +176,17 @@ static void SendUpdateOutputState(void)
     
     tsAutomaticModeValues* psAutomaticVal = Aom_System_GetAutomaticModeValuesStruct();
     sMsgResponse.slRemainingBurnTime = psAutomaticVal->slBurningTimeMs;
-    sMsgResponse.bMotionDetectionOnOff = psAutomaticVal->bMotionDetected;
-    sMsgResponse.bNightModeOnOff = psAutomaticVal->bInNightModeTimeSlot;
-    sMsgResponse.bAutomaticModeOnOff = psAutomaticVal->bInUserTimerSlot;
+    sMsgResponse.ucMotionDetectionOnOff = psAutomaticVal->bMotionDetected;
+    sMsgResponse.ucNightModeOnOff = psAutomaticVal->bInNightModeTimeSlot;
+    sMsgResponse.ucAutomaticModeOnOff = psAutomaticVal->bInUserTimerSlot;
     
     u8 ucOutputIdx;
     for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
     {
         /* Fill the message-payload */
-        sMsgResponse.b7Brightness = sRegValues.sLedValue[ucOutputIdx].ucPercentValue;
-        sMsgResponse.bLedStatus = sRegValues.sLedValue[ucOutputIdx].bStatus;
-        sMsgResponse.b3OutputIndex = ucOutputIdx;
+        sMsgResponse.ucBrightness = sRegValues.sLedValue[ucOutputIdx].ucPercentValue;
+        sMsgResponse.ucLedStatus = sRegValues.sLedValue[ucOutputIdx].bStatus;
+        sMsgResponse.ucOutputIndex = ucOutputIdx;
         
         /* Start to send the packet */
         OS_Communication_SendRequestMessage(eMsgUpdateOutputStatus, &sMsgResponse, sizeof(tMsgUpdateOutputState), eCmdSet);
@@ -214,7 +214,7 @@ static void HandleUserTimerSettings(tMsgUserTimer* psMsgUserTimer)
     sUserTimer.ucMinClear = psMsgUserTimer->ucStopMin;
     sUserTimer.ucMinSet = psMsgUserTimer->ucStartMin;
     
-    Aom_Time_SetUserTimerSettings(&sUserTimer, psMsgUserTimer->b7TimerIdx);
+    Aom_Time_SetUserTimerSettings(&sUserTimer, psMsgUserTimer->ucTimerIdx);
 }
 
 /****************************************** External visible functiones **********************************/
@@ -287,20 +287,20 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     bool bInitMenuEnabled = false;
                     
                     /* Check if initialization menu is active */
-                    if(psMsgReqOutputState->bInitMenuActive != psMsgReqOutputState->bInitMenuActiveInv)
+                    if(psMsgReqOutputState->ucInitMenuActive != psMsgReqOutputState->ucInitMenuActiveInv)
                     {
-                        bInitMenuEnabled = psMsgReqOutputState->bInitMenuActiveInv;
+                        bInitMenuEnabled = psMsgReqOutputState->ucInitMenuActiveInv;
                     }
                                                                    
                     /* Set new values in AOM */
-                    Aom_Regulation_CheckRequestValues(psMsgReqOutputState->b7Brightness, 
-                                       psMsgReqOutputState->bLedStatus, 
-                                       psMsgReqOutputState->bNightModeOnOff,
-                                       psMsgReqOutputState->bMotionDetectionOnOff,
+                    Aom_Regulation_CheckRequestValues(psMsgReqOutputState->ucBrightness, 
+                                       psMsgReqOutputState->ucLedStatus, 
+                                       psMsgReqOutputState->ucNightModeOnOff,
+                                       psMsgReqOutputState->ucMotionDetectionOnOff,
                                        psMsgReqOutputState->ucBurnTime,
                                        bInitMenuEnabled, 
-                                       psMsgReqOutputState->bAutomaticModeActive,
-                                       psMsgReqOutputState->b3OutputIndex);          
+                                       psMsgReqOutputState->ucAutomaticModeActive,
+                                       psMsgReqOutputState->ucOutputIndex);          
                     
                     /* Set message as acknowledged */
                     eResponse = eTypeAck;
@@ -356,7 +356,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                 tMsgManualInit* psMsgManualInit = (tMsgManualInit*)psMsgFrame->sPayload.pucData;
                 
                 /* Check first for correct data. Exclusive ored !*/
-                if(psMsgManualInit->bSetMaxValue != psMsgManualInit->bSetMinValue)
+                if(psMsgManualInit->ucSetMaxValue != psMsgManualInit->ucSetMinValue)
                 {
                     /* Read the current values */
                     u16 uiVoltageAdc = Aom_Measure_GetAdcIsValue(eMeasureChVoltage, psMsgManualInit->ucOutputIndex);
@@ -364,11 +364,11 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     u16 uiPwmCompVal = 0; 
                     HAL_IO_PWM_ReadCompare(psMsgManualInit->ucOutputIndex, &uiPwmCompVal);
                     
-                    if(psMsgManualInit->bSetMaxValue)
+                    if(psMsgManualInit->ucSetMaxValue)
                     {
                         Aom_Regulation_SetMaxSystemSettings(uiCurrentAdc, uiVoltageAdc, uiPwmCompVal, psMsgManualInit->ucOutputIndex);
                     }
-                    else if(psMsgManualInit->bSetMinValue)
+                    else if(psMsgManualInit->ucSetMinValue)
                     {
                         Aom_Regulation_SetMinSystemSettings(uiCurrentAdc, uiVoltageAdc, uiPwmCompVal, psMsgManualInit->ucOutputIndex);
                     }
