@@ -306,7 +306,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
                 
         case eEvtSendError:
         {
-            /* Send error message to the POD controller */ 
+            /* Send error message */ 
             MessageHandler_SendFaultMessage(uiParam1);
             break;
         }        

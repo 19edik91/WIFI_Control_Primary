@@ -82,19 +82,28 @@ static void SendUserTimerSettings(void)
     //Get the amount of saved timers
     u8 ucBinaryTimer = sRegulationValues.sUserTimerSettings.ucSetTimerBinary;
     
-    u8 ucTimerIdx;
-    for(ucTimerIdx = USER_TIMER_AMOUNT; ucTimerIdx--;)
+    //Check if any timer has been set
+    if(ucBinaryTimer == 0)
+    {
+        //No timer has been set. Send empty UserTimer message
+        OS_Communication_SendResponseMessage(eMsgUserTimer, NULL, 0, eCmdSet);
+    }
+    else
     {    
-        if(ucBinaryTimer & (0x01 << ucTimerIdx))
-        {
-            sMsgUserTimer.ucStartHour = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourSet;
-            sMsgUserTimer.ucStopHour = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourClear;
-            sMsgUserTimer.ucStartMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinSet;
-            sMsgUserTimer.ucStopMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinClear;
-            sMsgUserTimer.ucTimerIdx = ucTimerIdx;
-            
-            /* Start to send the packet */
-            OS_Communication_SendResponseMessage(eMsgUserTimer, &sMsgUserTimer, sizeof(tMsgUserTimer), eCmdSet);  
+        u8 ucTimerIdx;
+        for(ucTimerIdx = USER_TIMER_AMOUNT; ucTimerIdx--;)
+        {    
+            if(ucBinaryTimer & (0x01 << ucTimerIdx))
+            {
+                sMsgUserTimer.ucStartHour = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourSet;
+                sMsgUserTimer.ucStopHour = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucHourClear;
+                sMsgUserTimer.ucStartMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinSet;
+                sMsgUserTimer.ucStopMin = sRegulationValues.sUserTimerSettings.sTimer[ucTimerIdx].ucMinClear;
+                sMsgUserTimer.ucTimerIdx = ucTimerIdx;
+                
+                /* Start to send the packet */
+                OS_Communication_SendResponseMessage(eMsgUserTimer, &sMsgUserTimer, sizeof(tMsgUserTimer), eCmdSet);  
+            }
         }
     }
 }
