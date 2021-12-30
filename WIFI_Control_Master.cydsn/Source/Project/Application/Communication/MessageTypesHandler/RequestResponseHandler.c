@@ -248,7 +248,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
     const teMessageId eMessageId = OS_Communication_GetObject(psMsgFrame);
     const teMessageCmd eCommand = OS_Communication_GetCommand(psMsgFrame);    
    
-    teMessageType eResponse = eNoType;
+    teMessageType eResponse = eTypeAck;
        
     /* Switch to message ID */
     switch(eMessageId)
@@ -279,7 +279,13 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     SendUpdateOutputState();
                 }
             }
-            
+            else
+            {
+                //Send InitDone message. When an output request is received although
+                //the System settings aren't done means that the slave already received
+                //all user settings. Wait for InitDone message as response
+                SendUserSettingsDone();
+            }
             break;
         }
         
@@ -310,10 +316,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                                        bInitMenuEnabled, 
                                        psMsgReqOutputState->ucAutomaticModeActive,
                                        psMsgReqOutputState->ucOutputIndex);          
-                    
-                    /* Set message as acknowledged */
-                    eResponse = eTypeAck;
-                    
+                                        
                     /* Set system started information */
                     //Aom_System_SetSystemStarted(true);
                     
@@ -347,9 +350,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             {
                 /* Post init event */
                 OS_EVT_PostEvent(eEvtInitRegulationValue, eEvtParam_InitRegulationStart, 0);
-                
-                /* Set message as acknowledged */
-                eResponse = eTypeAck;
             }
             else
             {
@@ -381,9 +381,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     {
                         Aom_Regulation_SetMinSystemSettings(uiCurrentAdc, uiVoltageAdc, uiPwmCompVal, psMsgManualInit->ucOutputIndex);
                     }
-                    
-                    /* Set message as acknowledged */
-                    eResponse = eTypeAck;
                 }
             }
             else if(eCommand == eCmdGet)
@@ -400,9 +397,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             {
                 /* System settings have changed */
                 Aom_Flash_WriteSystemSettingsInFlash();
-                
-                /* Set message as acknowledged */
-                eResponse = eTypeAck;
             }
             break;
         }
@@ -416,7 +410,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                 SendUserTimerSettings();
                 SendUserOutputSettings();
                 SendUserSettingsDone();
-                eResponse = eTypeAck;
             }
             else
             {
@@ -429,7 +422,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         {
             /* Slave has started system. */
             Aom_System_SetSystemStarted(true);
-            eResponse = eTypeAck;
             break;
         }
         
@@ -439,9 +431,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             {
                 tMsgUserTimer* psMsgUserTimer = (tMsgUserTimer*)psMsgFrame->sPayload.pucData;
                 HandleUserTimerSettings(psMsgUserTimer);
-                
-                /* Set message as acknowledged */
-                eResponse = eTypeAck;
             }
             break;
         }
@@ -453,9 +442,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                 /* Generate a wake-up-event */
                 OS_EVT_PostEvent(eEvtStandby_WakeUpReceived, 0, 0);
             }
-            
-            /* Set message as acknowledged */
-            eResponse = eTypeAck;
             break;
         }
         
@@ -466,9 +452,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
             {
                 /* Send message with data as ACK */
                 SendSoftwareVersion();
-                
-                /* Set message as acknowledged */
-               //Response = eTypeResponseAck;
             }
             else
             {
@@ -496,7 +479,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         {
             /* Cast payload */
             tMsgFaultMessage* psFaultMsg = (tMsgFaultMessage*)psMsgFrame->sPayload.pucData;
-            eResponse = eTypeAck;
             break;
         }
         
