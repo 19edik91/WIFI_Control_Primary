@@ -88,6 +88,8 @@ static void StateEntry(u8 ucOutputIdx)
     
     /* Set the regulation values for this state */
     psRegHandler[ucOutputIdx]->sRegAdcVal.uiReqValue = 0;
+    psRegHandler[ucOutputIdx]->sRegAdcVal.bCantReach = false;
+    psRegHandler[ucOutputIdx]->sRegAdcVal.bReached = false;
 
     psRegHandler[ucOutputIdx]->sRegAdcVal.uiIsValue = Aom_Measure_GetAdcIsValue(eMeasureChVoltage, ucOutputIdx);
     

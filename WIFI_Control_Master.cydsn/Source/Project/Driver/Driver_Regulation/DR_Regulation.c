@@ -26,7 +26,7 @@
 
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
-#define AVG_BUFFER_SIZE     4
+#define AVG_BUFFER_SIZE     2
 
 typedef struct
 {
@@ -338,9 +338,13 @@ static void RegulatePWM(u8 ucOutputIdx)
     
     /* Average compare value */
     u16 uiAvgCompValue = PutInMovingAverage(ucOutputIdx, uiLedCompareVal[ucOutputIdx]);
-    
-    /* Write new compare value into compare register */
-    HAL_IO_PWM_WriteCompare(ucOutputIdx, uiAvgCompValue);   
+
+    /* Don't change avg value when the ADC value has been reached */
+    if(psRegAdcVal->bReached == false && psRegAdcVal->bCantReach == false)
+    {
+        /* Write new compare value into compare register */
+        HAL_IO_PWM_WriteCompare(ucOutputIdx, uiAvgCompValue);   
+    }
 }
 
 
@@ -372,9 +376,11 @@ void DR_Regulation_Init(void)
         /* Get the state machine structure */
         psStateHandler[ucOutputIdx] = Regulation_State_RootLink(&sRegulationHandler[ucOutputIdx], ucOutputIdx);        
         
+        const tLedValue* psLedVal = Aom_GetOutputsSettingsEntry(ucOutputIdx);
+        
         /* Initialize state machine */
         sRegulationHandler[ucOutputIdx].sRegState.eRegulationState = eStateOff;
-        sRegulationHandler[ucOutputIdx].sRegState.eReqState = eStateOff;
+        sRegulationHandler[ucOutputIdx].sRegState.eReqState = psLedVal->bStatus == ON ? eStateActiveR : eStateOff;
         sRegulationHandler[ucOutputIdx].sRegState.pFctState = psStateHandler[ucOutputIdx]->pFctOff;
         sRegulationHandler[ucOutputIdx].sRegState.bStateReached = false;
        
