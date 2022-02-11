@@ -21,6 +21,7 @@ extern "C"
 #include "project.h"
 
 #include "DR_Regulation.h"
+#include "DR_UserInterface.h"
 
 /****************************************** Defines ******************************************************/
 #define HAL_IO_ERRORCALLBACK        //Define a callback routine for errors in the HAL-IO-Module
@@ -88,7 +89,8 @@ extern "C"
     S_MAP(    eSenseTemperature_1   ,   CY_PIN_MAPPING(Pin_NTC_IN__1,         false))\
     S_MAP(    eSenseTemperature_2   ,   CY_PIN_MAPPING(Pin_NTC_IN__2,         false))\
     S_MAP(    eSenseTemperature_3   ,   CY_PIN_MAPPING(Pin_NTC_IN__3,         false))\
-    S_MAP(    eSensePIR             ,   CY_PIN_MAPPING(Pin_PIR__0,            false))
+    S_MAP(    eSensePIR             ,   CY_PIN_MAPPING(Pin_PIR__0,            false))\
+    S_MAP(    eSenseIR              ,   CY_PIN_MAPPING(Pin_IR_IN__0,          false))
 
 #define OUTPUT_MAP\
     O_MAP(    ePin_PwmOut_0         ,   CY_PIN_MAPPING(Pin_PwmOut_0__0,         false))\
@@ -120,8 +122,8 @@ extern "C"
     ISR_MAP(    ePort_0     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_1     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_2     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
-    ISR_MAP(    ePort_3     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
-    ISR_MAP(    ePort_4     ,       DR_Regulation_RxInterruptOnSleep        ,       NULL        ,       NULL        , DR_Regulation_CheckSensorForMotion  ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
+    ISR_MAP(    ePort_3     ,       NULL        ,DR_UI_InfraredInputIRQ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
+    ISR_MAP(    ePort_4     ,       DR_Regulation_RxInterruptOnSleep        ,       NULL        ,       NULL        , DR_UI_CheckSensorForMotion  ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_5     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_6     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )\
     ISR_MAP(    ePort_7     ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        ,       NULL        )

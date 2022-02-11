@@ -23,6 +23,7 @@
 #include "Regulation_Data.h"
 #include "Regulation_State_Init.h"
 #include "Regulation_State_Root.h"
+#include "DR_UserInterface.h"
 
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
@@ -533,66 +534,6 @@ bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx)
     return HAL_IO_GetPwmStatus(ucOutputIdx);
 }
 
-//********************************************************************************
-/*!
-\author  KraemerE
-\date    06.05.2021
-\brief   Toggles the heart-beat LED.
-\param   none
-\return  none
-***********************************************************************************/
-void DR_Regulation_ToggleHeartBeatLED(void)
-{
-    bool bActualStatus = HAL_IO_ReadOutputStatus(ePin_LedGreen);
-    bActualStatus ^= 0x01;
-    HAL_IO_SetOutputStatus(ePin_LedGreen, bActualStatus);
-    
-    #ifdef Pin_DEBUG_0
-    Pin_DEBUG_Write(~Pin_DEBUG_Read());
-    #endif
-}
-
-//********************************************************************************
-/*!
-\author  KraemerE
-\date    09.06.2021
-\brief   Switches off the heart-beat LED.
-\param   none
-\return  none
-***********************************************************************************/
-void DR_Regulation_SwitchOffHeartBeatLED(void)
-{
-    HAL_IO_SetOutputStatus(ePin_LedGreen, !OFF);
-}
-
-//********************************************************************************
-/*!
-\author  KraemerE
-\date    06.05.2021
-\brief   Toggles the error LED.
-\param   none
-\return  none
-***********************************************************************************/
-void DR_Regulation_ToggleErrorLED(void)
-{
-    bool bActualStatus = HAL_IO_ReadOutputStatus(ePin_LedRed);
-    
-    /* Check if error timeout is running */
-    if(OS_ErrorHandler_GetErrorTimeout() > 0)
-    {   
-        bActualStatus ^= 0x01;
-    }
-    else
-    {
-        //LED inputs are inverted
-        bActualStatus = !OFF;
-    }
-    HAL_IO_SetOutputStatus(ePin_LedRed, bActualStatus);
-    
-    #ifdef Pin_DEBUG_0
-    Pin_DEBUG_Write(~Pin_DEBUG_Read());
-    #endif
-}
 
 //********************************************************************************
 /*!
@@ -624,36 +565,6 @@ void DR_Regulation_SetEspResetStatus(bool bReset)
     HAL_IO_SetOutputStatus(ePin_EspResetCopy, !bReset);
 }
 
-
-//********************************************************************************
-/*!
-\author  KraemerE
-\date    06.05.2021
-\brief   Checks first if a motion sensor is used. Afterwards the input pin of the
-         sensor is read. When a HIGH level was detected the an event for reseting
-         the burning time is created.
-\param   none
-\return  psAutoVal->bMotionDetected - True for High-State and false for LOW-State
-***********************************************************************************/
-void DR_Regulation_CheckSensorForMotion(void)
-{
-    /* Read PIR out for possible motion detection */                        
-    const tRegulationValues* psReg = Aom_Regulation_GetRegulationValuesPointer();                        
-    tsAutomaticModeValues* psAutoVal = Aom_System_GetAutomaticModeValuesStruct();
-        
-    if(psReg->sUserTimerSettings.bMotionDetectOnOff)
-    {
-        /* Check if PIR has detected a change */
-        psAutoVal->bMotionDetected = HAL_IO_ReadDigitalSense(eSensePIR);
-
-        if(psAutoVal->bMotionDetected)
-        {
-            /* Reset "ON" timeout */
-            OS_EVT_PostEvent(eEvtAutomaticMode_ResetBurningTimeout,0 ,0);
-        }
-    }    
-}
-
 //********************************************************************************
 /*!
 \author  KraemerE
@@ -676,7 +587,7 @@ void DR_Regulation_ModulesSleep(void)
     //PWM_Sleep();
     PWM_Clock_Stop();
         
-    DR_Regulation_SwitchOffHeartBeatLED();
+    DR_UI_SwitchOffHeartBeatLED();
     
     //UART is set to sleep in
     //"Serial_EnableUartWakeupInSleep()"    
@@ -718,13 +629,7 @@ void DR_Regulation_ModulesWakeup(void)
 \return  none
 ***********************************************************************************/
 void DR_Regulation_SetWakeupInterrupts(void)
-{
-    /* Enable AllPortIsr */
-    if(AllPortIsr_GetState() == OFF)
-    {
-        AllPortIsr_Enable();
-    }
-    
+{    
     /* Set interrupt mode for UART-Rx-pin to falling edge */
     UART_rx_SetInterruptMode(UART_rx_0_INTR, UART_rx_INTR_FALLING);
     
@@ -742,13 +647,7 @@ void DR_Regulation_SetWakeupInterrupts(void)
 \return  none
 ***********************************************************************************/
 void DR_Regulation_DeleteWakeupInterrupts(void)
-{
-    /* Enable AllPortIsr */
-    if(AllPortIsr_GetState() == ON)
-    {
-        AllPortIsr_Disable();
-    }
-    
+{    
     /* disable interrupts on the UART RX pin. Interrupt request is cleared in the GPIO-Handler in Actors */
     UART_rx_SetInterruptMode(UART_rx_0_INTR, UART_rx_INTR_NONE);
                     

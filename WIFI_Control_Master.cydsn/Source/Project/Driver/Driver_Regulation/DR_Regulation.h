@@ -31,14 +31,9 @@ extern "C"
 /************************ externally visible functions ***********************/
 void    DR_Regulation_Init(void);
 void    DR_Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx);
-void    DR_Regulation_ToggleErrorLED(void);
-void    DR_Regulation_ToggleHeartBeatLED(void);
-void    DR_Regulation_SwitchOffHeartBeatLED(void);
 
 bool    DR_Regulation_GetEspResetStatus(void);
 void    DR_Regulation_SetEspResetStatus(bool bReset);
-
-void    DR_Regulation_CheckSensorForMotion(void);
 
 u8      DR_Regulation_Handler(void);
 teRegulationState DR_Regulation_GetActualState(u8 ucOutputIdx);

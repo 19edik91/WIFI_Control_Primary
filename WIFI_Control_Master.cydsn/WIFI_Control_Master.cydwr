@@ -32,7 +32,7 @@
       <Data key="7d4253ba-5032-4d3c-8f8c-3d8a4f3d3fda" value="Pin_2" />
       <Data key="7f03fb72-465f-473e-9599-0d104b968a98" value="Pin_NTC_IN" />
       <Data key="8bad29af-0b0a-4ce7-b0e0-e5795894b097" value="Pin_TriacEnable" />
-      <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="Pin_SmothIn" />
+      <Data key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" value="Pin_IR_IN" />
       <Data key="9ac3e54f-e518-4bec-8bd6-c0a087c8ad02" value="Pin_PwmOut_3" />
       <Data key="9dda39d9-ea7b-4cfd-962b-108d049ed2d7" value="Pin_PwmOut_1" />
       <Data key="41b86c64-dc33-4036-864d-acc66d30fd81" value="Pin_CurrentMeasure" />
@@ -3825,7 +3825,7 @@
     </Group>
     <Group key="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba">
       <Group key="0">
-        <Data key="Port Format" value="1,6" />
+        <Data key="Port Format" value="3,1" />
       </Group>
     </Group>
     <Group key="9ac3e54f-e518-4bec-8bd6-c0a087c8ad02">

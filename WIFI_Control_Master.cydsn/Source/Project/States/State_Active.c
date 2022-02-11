@@ -14,6 +14,7 @@
 #include "DR_ErrorDetection.h"
 #include "DR_Measure.h"
 #include "DR_Regulation.h"
+#include "DR_UserInterface.h"
 #include "Aom_Flash.h"
 #include "MessageHandler.h"
 
@@ -242,7 +243,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             /******* 251ms-Tick **********/
             else if(ulParam2 == EVT_SW_TIMER_251MS)
             {
-                DR_Regulation_CheckSensorForMotion();
+                DR_UI_CheckSensorForMotion();
                 AutomaticMode_Handler();
             }
             
@@ -252,10 +253,10 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
                 AutomaticMode_Tick(SW_TIMER_1001MS);
                                 
                 /* Toggle LED to show a living CPU */
-                DR_Regulation_ToggleHeartBeatLED();
+                DR_UI_ToggleHeartBeatLED();
                 
                 /* Toggle error LED when an error is in timeout */
-                DR_Regulation_ToggleErrorLED();
+                DR_UI_ToggleErrorLED();
 
                 /* Calculate voltage, current and temperature and send them afterwards to the slave */
                 Aom_Measure_SetMeasuredValues(true, true, true);
