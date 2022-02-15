@@ -38,9 +38,12 @@
 
 
 /****************************************** Variables ****************************************************/
-static u32 ulVoltageLowerLimit[DRIVE_OUTPUTS] = {VOLTAGE_DEFAULT_LOWER_LIMIT, VOLTAGE_DEFAULT_LOWER_LIMIT, VOLTAGE_DEFAULT_LOWER_LIMIT};
-static u32 ulVoltageUpperLimit[DRIVE_OUTPUTS] = {VOLTAGE_DEFAULT_UPPER_LIMIT, VOLTAGE_DEFAULT_UPPER_LIMIT, VOLTAGE_DEFAULT_UPPER_LIMIT};
-static u32 ulVoltageRange[DRIVE_OUTPUTS] = {VOLTAGE_RANGE, VOLTAGE_RANGE, VOLTAGE_RANGE};
+static u32 ulVoltageLowerLimit[DRIVE_OUTPUTS] = {VOLTAGE_DEFAULT_LOWER_LIMIT};
+static u32 ulVoltageUpperLimit[DRIVE_OUTPUTS] = {VOLTAGE_DEFAULT_UPPER_LIMIT};
+static u32 ulVoltageRange[DRIVE_OUTPUTS] = {VOLTAGE_RANGE};
+//static u32 ulVoltageLowerLimit[DRIVE_OUTPUTS] = {VOLTAGE_DEFAULT_LOWER_LIMIT, VOLTAGE_DEFAULT_LOWER_LIMIT, VOLTAGE_DEFAULT_LOWER_LIMIT};
+//static u32 ulVoltageUpperLimit[DRIVE_OUTPUTS] = {VOLTAGE_DEFAULT_UPPER_LIMIT, VOLTAGE_DEFAULT_UPPER_LIMIT, VOLTAGE_DEFAULT_UPPER_LIMIT};
+//static u32 ulVoltageRange[DRIVE_OUTPUTS] = {VOLTAGE_RANGE, VOLTAGE_RANGE, VOLTAGE_RANGE};
 static u32 ulMeasure_SystemVoltage = 0;
 static u32 ulMeasure_SystemVoltageRange = 0;
 
