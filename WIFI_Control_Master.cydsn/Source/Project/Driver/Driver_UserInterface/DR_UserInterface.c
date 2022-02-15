@@ -18,10 +18,12 @@
 #include "Aom_Regulation.h"
 #include "Aom_System.h"
 #include "IR_Decoder.h"
+#include "IR_Commands.h"
 
 /****************************************** Defines ******************************************************/
    
 /****************************************** Variables ****************************************************/
+static tsIR_Data sIR_Data;
 
 /****************************************** Function prototypes ******************************************/
 static void IR_Decoder_TimerIRQ(void);
@@ -33,7 +35,9 @@ static void IR_Decoder_Clear(void);
 /*!
 \author     Kraemer E.
 \date       01.02.2022
-\brief      Interrupt service routine for the IR-Timer
+\brief      Interrupt service routine for the IR-Timer.
+            The timer is triggered when a capture or terminal count has been
+            reached.
 \return     none
 \param      none
 ***********************************************************************************/
@@ -61,6 +65,20 @@ static void IR_Decoder_TimerIRQ(void)
         
         //Init decoder after finishing
         IR_Decoder_Clear();
+    }
+    
+        
+    /* Get new IR-Decoder data */
+    if(IR_Decoder_GetCurrentData(&sIR_Data))
+    {
+        //Combine address
+        uint_fast16_t uiAddress = sIR_Data.ucAddress_High << 8;
+        uiAddress |= sIR_Data.ucAddress_Low;
+        
+        teNEC_Commands eCmd = IR_Commands_GetCommand(sIR_Data.ucCommand, uiAddress);
+        
+        /* New data received. Create event to handle the change */
+        OS_EVT_PostEvent(eEvtIR_CmdReceived, eCmd,0);
     }
 }
 
@@ -236,4 +254,82 @@ void DR_UI_CheckSensorForMotion(void)
 void DR_UI_InfraredInputIRQ(void)
 {
     IR_Decoder_InputIRQ();
+}
+
+
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    15.02.2022
+\brief   Handles the infrared command and create a regulation event.
+\param   uiIrCmd - The infrared command which has been already interpeted.
+\return  none
+***********************************************************************************/
+void DR_UI_InfraredCmd(uint8_t uiIrCmd)
+{
+    uiEventParam1 uiParam = eEvtParam_None;
+    
+    switch((teNEC_Commands)uiIrCmd)
+    {        
+        case eNEC_Cmd_ON:
+        {
+            uiParam = eEvtParam_RegulationStart;
+            break;
+        }
+        
+        case eNEC_Cmd_OFF:
+        {
+            uiParam = eEvtParam_RegulationStop;
+            break;
+        }
+        
+        case eNEC_Cmd_Plus:
+        {
+            uint32_t ulCompVal = PWM_ReadCompare();
+            
+            if((ulCompVal + CHANGE_VAL) > PERIOAD_VAL)
+            {
+                ulCompVal = PERIOAD_VAL;
+            }
+            else
+            {
+                ulCompVal += CHANGE_VAL;
+            }
+            
+            PWM_WriteCompare(ulCompVal);                    
+            break;
+        }
+        
+        case eNEC_Cmd_Minus:
+        {
+            uint32_t ulCompVal = PWM_ReadCompare();
+            
+            if((int32_t)(ulCompVal - CHANGE_VAL) < 0)
+            {
+                ulCompVal = 0;
+            }
+            else
+            {
+                ulCompVal -= CHANGE_VAL;
+            }
+            
+            PWM_WriteCompare(ulCompVal);                    
+            break;
+        }
+        
+        case eNEC_Cmd_Full:
+        {
+            PWM_WriteCompare(PERIOAD_VAL);
+            break;
+        }
+        
+        case eNEC_Cmd_Night:
+        {
+            PWM_WriteCompare(CHANGE_VAL);
+            break;
+        }
+        
+        default:
+            break;
+    }
 }

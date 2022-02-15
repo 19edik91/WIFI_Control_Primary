@@ -17,13 +17,14 @@
 #define TARGET_SYSTEM_VOLTAGE   12000   //Voltage in milli volt
     
 #ifndef DRIVE_OUTPUTS
-    #define DRIVE_OUTPUTS           3       //Amount of the outputs used in the system
+    #define DRIVE_OUTPUTS           1       //Amount of the outputs used in the system
 #else 
     #error Drive outputs arent set
 #endif
 
 #define PERCENT_LOW              5      //5% is lowest value 
 #define PERCENT_HIGH             100    //100% is highest value
+#define PERCENT_STEPS            5      //Each step is done in 5%
 
 //#define CURRENT_LOW_LIMIT        20  //20mA should be the low limit
 #define CURRENT_MAX_LIMIT        2000   //2000mA is the maximum limit
@@ -81,6 +82,7 @@
     EVT( eEvtNewRegulationValue )\
     EVT( eEvtInitRegulationValue )\
     EVT( eEvtStandby_WakeUpReceived )\
-    EVT( eEvtStandby_RxToggled )
+    EVT( eEvtStandby_RxToggled )\
+    EVT( eEvtIR_CmdReceived )
     
 #endif /* PROJECT_CONFIG_H_ */

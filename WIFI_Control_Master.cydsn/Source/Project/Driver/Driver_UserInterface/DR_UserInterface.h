@@ -34,7 +34,7 @@ void    DR_UI_SwitchOffHeartBeatLED(void);
 void    DR_UI_CheckSensorForMotion(void);
 
 void    DR_UI_InfraredInputIRQ(void);
-
+void    DR_UI_InfraredCmd(uint8_t uiIrCmd);
 #ifdef __cplusplus
 }
 #endif    

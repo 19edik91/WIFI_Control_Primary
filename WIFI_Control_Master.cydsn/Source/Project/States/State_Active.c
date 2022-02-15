@@ -289,6 +289,13 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             break;
         }
         
+        //Handles new received infrared commands
+        case eEvtIR_CmdReceived:
+        {
+            DR_UI_InfraredCmd(uiParam1);
+            break;
+        }
+        
         case eEvtTimeReceived:
         {
             /* Get pointer to the regulation structure (read-only) */
