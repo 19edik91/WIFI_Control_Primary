@@ -299,13 +299,6 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     /* Cast payload first */
                     tMsgRequestOutputState* psMsgReqOutputState = (tMsgRequestOutputState*)psMsgFrame->sPayload.pucData;
                     
-                    bool bInitMenuEnabled = false;
-                    
-                    /* Check if initialization menu is active */
-                    if(psMsgReqOutputState->ucInitMenuActive != psMsgReqOutputState->ucInitMenuActiveInv)
-                    {
-                        bInitMenuEnabled = psMsgReqOutputState->ucInitMenuActiveInv;
-                    }
                                                                    
                     /* Set new values in AOM */
                     Aom_Regulation_CheckRequestValues(psMsgReqOutputState->ucBrightness, 
@@ -313,7 +306,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                                        psMsgReqOutputState->ucNightModeOnOff,
                                        psMsgReqOutputState->ucMotionDetectionOnOff,
                                        psMsgReqOutputState->ucBurnTime,
-                                       bInitMenuEnabled, 
+                                       psMsgReqOutputState->ucInitMenuActive, 
                                        psMsgReqOutputState->ucAutomaticModeActive,
                                        psMsgReqOutputState->ucOutputIndex);          
                                         
@@ -479,6 +472,24 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         {
             /* Cast payload */
             tMsgFaultMessage* psFaultMsg = (tMsgFaultMessage*)psMsgFrame->sPayload.pucData;
+            break;
+        }
+        
+        case eMsgEnableNightMode:
+        {
+            
+            break;
+        }
+        
+        case eMsgEnableAutomaticMode:
+        {
+            
+            break;
+        }
+        
+        case eMsgEnableMotionDetect:
+        {
+            
             break;
         }
         

@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\FW_Infrared\IR_Commands.h">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.c">
 <ExpandedNodeIds>
 <v>WIFI_Control</v>
 <v>WIFI_Control\WIFI_Control_Master</v>
@@ -87,6 +87,7 @@
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.c</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\SystemTimers</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash\HAL_Flash.h</v>
@@ -195,6 +196,26 @@
 <v>WIFI_Control\WIFI_Control_Master\Generated_Source\PSoC4\Pin_VOLT_EN</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.c</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\BasicOS\SystemTimers</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Flash</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_IO\HAL_IO.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Measure</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_MemoryInit</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_RTC</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_SelfTest</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Serial</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_System</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Timer</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Timer\Cypress_PSoC4100S_Plus</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Timer\HAL_Timer.h</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\HAL\FW_HAL_Watchdog</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\Project</v>
+<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Aom</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Aom\Aom.c</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Aom\Aom.h</v>
@@ -228,26 +249,6 @@
 <v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Measure\Measure_Current.c</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Measure\Measure_Current.h</v>
 <v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Measure\Measure_Temperature.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Measure\Measure_Temperature.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Measure\Measure_Voltage.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Application\Measure\Measure_Voltage.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure\DR_CapSense.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure\DR_CapSense.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure\DR_ErrorDetection.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure\DR_ErrorDetection.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure\DR_Measure.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Measure\DR_Measure.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\DR_Regulation.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\DR_Regulation.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\Regulation_Data.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\Regulation_State_Init.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\Regulation_State_Init.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\Regulation_State_Root.c</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_Regulation\Regulation_State_Root.h</v>
-<v>WIFI_Control\WIFI_Control_Master\Source Files\Project\Driver\Driver_UserInterface</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
@@ -533,79 +534,34 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Communication.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Serial_UART.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageHandler.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.c" />
-<name v=".\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\Cm0plusStart.c" />
-<name v=".\WIFI_Control_Master.cydsn\TopDesign\TopDesign.cysch" />
-<name v=".\WIFI_Control_Master.cydsn\WIFI_Control_Master.cydwr" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Config\SelfTest_Config.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Config\StateList.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Config\TargetConfig.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Config\HAL_Config.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Config\OS_Config.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Config\Project_Config.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Measure\Measure_Voltage.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Measure\Measure_Voltage.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_ErrorHandling\OS_ErrorHandler.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Flash\OS_Flash.c" />
-<name v=".\WIFI_Control_Master.cydsn\main.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Communication.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\OS_FIFO.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_ErrorHandling\OS_Faults.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_ErrorHandling\OS_Faults.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_CRC\OS_CRC.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Timer\Cypress_PSoC4100S_Plus\HAL_Timer.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Messages.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Serial_UART.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\OS_FIFO.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\OS_Memory.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\ErrorHandler\ErrorHandler.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Serial\HAL_Serial_UART.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus\HAL_Serial_UART.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Flash\HAL_Flash.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_System\Cypress_PSoC4100S_Plus\HAL_System.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_System.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\States\State_Active.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\ErrorHandler\ErrorHandler.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_EventManager\OS_EventManager.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_EventManager\OS_EventManager.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_States\OS_State_Main.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\HAL_IO.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_System\HAL_System.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Regulation.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_State_Root.c" />
-<name v=".\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\Pin_PWM_EN_aliases.h" />
-<name v=".\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\cypins.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Watchdog\Cypress_PSoC4100S_Plus\HAL_Watchdog.c" />
-<name v=".\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\CyLFClk.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_StateManager\OS_StateManager.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SelfTest\OS_SelfTest.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_State_Init.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_Data.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\BaseTypes.h" />
-<name v=".\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\CyLib.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Timer\HAL_Timer.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer\OS_SoftwareTimer.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Measure\DR_Measure.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Measure\DR_CapSense.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.h" />
 <name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Decoder.c" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Decoder.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Regulation.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_System.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Time.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Time.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_System.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Regulation.h" />
 <name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Commands.h" />
-<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Commands.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageHandler.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageHandler.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Messages.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\States\State_Active.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Flash\OS_Flash.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Flash\OS_Flash.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_State_Init.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Project\States\AutomaticMode\AutomaticMode.c" />
+<name v=".\WIFI_Control_Master.cydsn\Source\Config\HAL_Config.h" />
+<name v=".\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\HAL_IO.h" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -613,7 +569,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Vertical"><TabbedMdiContainer Size="648, 1012" SelectedTabbedMdiWindow="b4051bbe-ca58-4898-afb5-757867d2e762"><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Communication.c" Guid="810b1ecc-c8b5-4a27-b4c3-13a302ead84c" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Serial_UART.c" Guid="077c2296-03c9-411d-aafe-f7e215ca1548" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageHandler.c" Guid="0dae9376-995e-4f22-905a-48579ca5f453" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.c" Guid="cb4cf4fa-fe93-4426-8c84-9fd663778604" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.c" Guid="8b1bcdb8-8fbe-4c7d-aeed-8080745ed12b" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\Cm0plusStart.c" Guid="d7910d4b-ab96-4fb5-bbeb-2a49e0ba73ca" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\TopDesign\TopDesign.cysch" Guid="db8f4a24-488b-4838-bb77-129ff44cc3e9" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\WIFI_Control_Master.cydwr" Guid="f8701c29-02ea-4133-9328-da331cef48af" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\SelfTest_Config.h" Guid="7ecc6ee3-c38e-4dda-9074-1d7a2b911c5f" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\StateList.h" Guid="80d08da8-03ba-410b-91f7-8f98d7b579b0" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\TargetConfig.h" Guid="8aff84af-8077-40be-829d-e822b09564dc" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\HAL_Config.h" Guid="f5c3008d-e65e-4ee9-99cb-fd8dabf86744" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\OS_Config.h" Guid="9a4a5224-877b-48c4-9faf-3e1f3629e8d0" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\Project_Config.h" Guid="fc931e18-5661-43c5-b5ff-2828d63793da" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Measure\Measure_Voltage.h" Guid="4c981def-d75d-4e90-b86f-1f81f52b53bb" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Measure\Measure_Voltage.c" Guid="8ad40d81-36d2-4d89-a294-bebc1d2ce177" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_ErrorHandling\OS_ErrorHandler.c" Guid="3c06d4d1-65fc-47d3-83a8-b8f71cc498d3" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Flash\OS_Flash.c" Guid="8a2fda57-132d-429f-a1ff-b4a8482a7b1b" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\main.c" Guid="aa0edfda-90d4-475f-ab4d-7295c52ca5df" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.c" Guid="e4476228-80a2-4783-8bf1-b13d361a592a" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Flash\Cypress_PSoC4100S_Plus\HAL_Flash.c" Guid="95eddffc-456d-4fc1-92bd-ab495676f472" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Communication.h" Guid="1275c8a0-18ef-4760-8cc7-eef9fe2afac0" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\OS_FIFO.c" Guid="4e2a3fe3-f033-454e-ab49-79e6a96bef7e" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_ErrorHandling\OS_Faults.c" Guid="2948bc5f-cfc4-4ca8-b12f-9e05e85b41bc" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_ErrorHandling\OS_Faults.h" Guid="777f3f7c-a3af-40dc-9b03-eb2218e937c9" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_CRC\OS_CRC.c" Guid="19bdfe0f-a68a-499b-b9eb-ff02815a0181" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Timer\Cypress_PSoC4100S_Plus\HAL_Timer.c" Guid="9d4b5bee-3dae-4ac1-a8d5-bae28bbfb378" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Messages.h" Guid="9fa6927b-c059-47e5-b74c-582bba8245fb" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Serial_UART.h" Guid="799b3672-7e7a-40e4-b0ac-d06ce5d2f818" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\OS_FIFO.h" Guid="e3421884-2f36-4dc9-bb35-f0e93ceb59e8" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\OS_Memory.c" Guid="17b73d1e-2392-428d-9f49-0cd6a78a4a61" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\ErrorHandler\ErrorHandler.h" Guid="29f179ae-2168-4936-80c6-fbcabbfe7731" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Serial\HAL_Serial_UART.h" Guid="93869efc-f821-449f-bc82-f8ffd698b248" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Serial\Cypress_PSoC4100S_Plus\HAL_Serial_UART.c" Guid="0032b795-e5e2-4e71-8130-6db7007b2466" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Flash\HAL_Flash.h" Guid="bfd14ebd-bc1a-41a3-925d-daeee6744ae7" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_System\Cypress_PSoC4100S_Plus\HAL_System.c" Guid="7773404f-9993-487a-96c4-79089953246a" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_System.c" Guid="53c349ae-9647-4b1a-ab6f-2418fa739b97" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\States\State_Active.c" Guid="38b8efad-39fe-4978-b3a3-88cc29434f6c" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\ErrorHandler\ErrorHandler.c" Guid="323f5608-6cdd-4ce8-a1e6-140f3cd4fe6b" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.c" Guid="11ee861f-7ac1-4a2f-ae65-ea1dc15472b7" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SystemTimers\OS_Watchdog\OS_Watchdog.h" Guid="97f524ae-3538-44e9-9239-262fc0e99532" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_EventManager\OS_EventManager.h" Guid="0f03f89b-072c-44d2-bd5c-97a4121bf9e1" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_EventManager\OS_EventManager.c" Guid="eef89e5c-95c1-4a4f-8226-49f4f0dad215" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_States\OS_State_Main.c" Guid="c312a207-4592-4cf4-95c4-c8f98af6fdd8" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" Guid="db67e1f2-d8f9-4eb9-8ab7-f68188abb7c2" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\HAL_IO.h" Guid="ba9c87cb-846b-4bfd-9469-ac891b16727e" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_System\HAL_System.h" Guid="e69ce1d1-40c1-4308-b2f2-113aee990748" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Regulation.c" Guid="32f50abc-f08f-45d9-bdb6-1e109328df4e" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.h" Guid="1855dd78-a782-4b36-a1fb-3996c3fb8bb2" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_State_Root.c" Guid="d7ee3db2-39cf-451b-bd1f-b4a86a271eb1" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\Pin_PWM_EN_aliases.h" Guid="47651828-1fb4-410c-88db-f2fe92eff5a2" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\cypins.h" Guid="372eeddb-c80f-42dc-91de-f3cbd395a5d2" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Watchdog\Cypress_PSoC4100S_Plus\HAL_Watchdog.c" Guid="6949f786-958c-4976-956e-3b77fed80c88" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\CyLFClk.c" Guid="587a492f-2a27-40a8-b11c-3933c6cfdc6a" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_StateManager\OS_StateManager.c" Guid="ee556267-9c42-4a22-a0fb-fba68523a6bb" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SelfTest\OS_SelfTest.c" Guid="be3af293-7d8e-412c-8205-15c1e7ccd34d" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom.c" Guid="335ad1d9-d907-4905-b992-84742c56a23a" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_State_Init.c" Guid="e727781a-d8f0-41c9-9980-bdab22e77d2d" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_Data.h" Guid="039dfff3-44c0-4288-a732-430dcf4e91c9" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="25635e1b-334b-4829-ae0e-709dc4b34524" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\BaseTypes\BaseTypes.h" Guid="cfca32d8-c829-45b6-bf2d-b26e61853e15" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Generated_Source\PSoC4\CyLib.c" Guid="2ae3e0ac-1088-4f04-a466-7185aaaa51d9" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_Timer\HAL_Timer.h" Guid="bc2fb5d0-b649-4750-be86-b3edd1aa2696" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_SystemTimers\OS_SoftwareTimer\OS_SoftwareTimer.c" Guid="dd57e914-24b4-4272-9cdb-caf3d0b3cc0d" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" Guid="3bc116b2-b234-46f0-8835-bafa4d17d966" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Measure\DR_ErrorDetection.c" Guid="d8962d0b-a33f-4957-8eec-b7ba2ac5fcb4" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Measure\DR_Measure.c" Guid="9ad98c2c-80c8-4a40-b947-1bafa7daf8ac" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Measure\DR_CapSense.c" Guid="080ee81d-b26c-4639-9213-a1f495f0299f" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.h" Guid="ad1b89bd-4bc9-4068-8407-d60c17da3a2e" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.c" Guid="b4051bbe-ca58-4898-afb5-757867d2e762" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Decoder.c" Guid="033a5f89-b66f-4fb8-a45e-78dca54ad5b1" /></TabbedMdiContainer><TabbedMdiContainer Size="648, 1012" SelectedTabbedMdiWindow="65361998-c3fc-44f9-9a23-01b2ae933da8"><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Decoder.h" Guid="87387d21-c8bc-42c1-a765-ba00b0faacb5" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Commands.h" Guid="130a6c86-29ad-4b59-8a64-d855a43db614" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Commands.c" Guid="65361998-c3fc-44f9-9a23-01b2ae933da8" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Vertical"><TabbedMdiContainer Size="1300, 1012" SelectedTabbedMdiWindow="9bdd2d0e-f559-4a8c-86db-807a472d21d0"><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.c" Guid="07b98fd4-b299-43da-91c5-a7241ba83e17" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.c" Guid="9bdd2d0e-f559-4a8c-86db-807a472d21d0" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Regulation.c" Guid="86470fa7-f1e5-442d-9680-801e21f79f68" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\Cypress_PSoC4100S_Plus\HAL_IO.c" Guid="b2f2bca1-3d74-419e-bfdd-e5ac723a50df" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_UserInterface\DR_UserInterface.h" Guid="53c32aca-23b8-4006-a769-800ff48e2270" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.h" Guid="67f238f0-da9d-4c60-9266-a24f1705e3f6" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Flash.c" Guid="af446726-8bb1-47d9-a657-71402600e6ab" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_System.c" Guid="57d4c0e4-0856-4dec-91f8-c010c0e1ea5d" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Time.c" Guid="3e1ff782-32ac-4661-8823-e60dc4189b14" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Time.h" Guid="bbb48383-559d-4804-a153-93b35c5e45d7" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_System.h" Guid="ac5b2521-850e-4f3b-8477-3a44a9e2fde9" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom_Regulation.h" Guid="edd23d62-811b-494a-8152-36fd5cbfe680" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\FW_Infrared\IR_Commands.h" Guid="21ba5646-05c4-4440-a464-96787cbcd8ce" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageHandler.c" Guid="e2a8fab4-5ed3-4ab7-a8b7-d642b9547224" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageHandler.h" Guid="44310d95-b927-4478-94d7-9f27a2eee19b" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Communication\OS_Messages.h" Guid="827285dc-9e80-443d-8119-c2e1023598e7" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.c" Guid="5bfd8100-fb69-4ff9-9c16-8249211b07f0" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\States\State_Active.c" Guid="0af3dc2e-2a50-44d8-a164-1bde07e88300" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="25635e1b-334b-4829-ae0e-709dc4b34524" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Flash\OS_Flash.h" Guid="dd812df1-7b92-4755-b9b2-10e3badb9644" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\BasicOS\OS_Flash\OS_Flash.c" Guid="84109c1e-fb2c-4800-ab8f-da74154dc864" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\Regulation_State_Init.c" Guid="1e51cbb1-7db0-4858-9aeb-b65abe96aa31" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom.h" Guid="03cf9f46-8523-4147-a1f0-4625eb689aa7" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Driver\Driver_Regulation\DR_Regulation.h" Guid="501406fc-ccce-48e8-b38a-9021bb2f0337" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Communication\MessageTypesHandler\RequestResponseHandler.h" Guid="06d900d0-393b-497c-8a38-a2e62113f969" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\Application\Aom\Aom.c" Guid="13190759-f9ce-486f-845b-dbf91ec2a0ef" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Project\States\AutomaticMode\AutomaticMode.c" Guid="9b7b4914-b1d3-4c10-b140-b334f61297ef" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\Config\HAL_Config.h" Guid="de322b4e-2218-43bc-8551-f3e33ca220d0" /><DocumentWindow Key="C:\Users\kraemere\Desktop\Projects\WIFI_Control_Master\WIFI_Control_Master.cydsn\Source\HAL\FW_HAL_IO\HAL_IO.h" Guid="283184d4-ff50-4066-a51b-6c7ddc0feb3f" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
