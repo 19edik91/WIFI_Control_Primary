@@ -31,6 +31,8 @@
 #define LeaveCritical(x)  CyExitCriticalSection(x)
 #endif
     
+#define USE_OS_COMMUNICATION 1
+
 //#define TMGR_PostEvent(param1,param2) EVT_PostEvent(eEvtTimer,(uiEventParam1)param1,(ulEventParam2)param2)
 
 #endif /* OS_CONFIG_H_ */

@@ -1,0 +1,9 @@
+[submodule "WIFI_Control_Master.cydsn/Source/BasicOS"]
+	path = WIFI_Control_Master.cydsn/Source/BasicOS
+	url = git@bitbucket.org:dot-home/basicos.git
+[submodule "WIFI_Control_Master.cydsn/Source/FW_HAL"]
+	path = WIFI_Control_Master.cydsn/Source/FW_HAL
+	url = git@bitbucket.org:dot-home/fw_hal.git
+[submodule "WIFI_Control_Master.cydsn/Source/Project/Application/FW_Infrared"]
+	path = WIFI_Control_Master.cydsn/Source/Project/Application/FW_Infrared
+	url = git@bitbucket.org:dot-home/fw_infrared.git
