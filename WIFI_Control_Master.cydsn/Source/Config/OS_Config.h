@@ -31,7 +31,19 @@
 #define LeaveCritical(x)  CyExitCriticalSection(x)
 #endif
     
-#define USE_OS_COMMUNICATION 1
+#define CRC_INITIAL_VALUE   (0xFFFFFFFF)
+
+/****** Create define switches for OS-Respositories which are enabled/disabled *******/
+#define USE_OS_COMMUNICATION    1
+#define USE_OS_SERIAL_UART      1
+#define USE_OS_CRC              1 
+#define USE_OS_ERROR_HANDLING   1
+#define USE_OS_FLASH            1
+#define USE_OS_SELF_TEST        1
+#define USE_OS_SYSTEM_FAULTS    1
+#define USE_OS_REAL_TIME_CLOCK  1
+#define USE_OS_WATCHDOG         1
+
 
 //#define TMGR_PostEvent(param1,param2) EVT_PostEvent(eEvtTimer,(uiEventParam1)param1,(ulEventParam2)param2)
 
