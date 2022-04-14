@@ -303,11 +303,8 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     /* Set new values in AOM */
                     Aom_Regulation_CheckRequestValues(psMsgReqOutputState->ucBrightness, 
                                        psMsgReqOutputState->ucLedStatus, 
-                                       psMsgReqOutputState->ucNightModeOnOff,
-                                       psMsgReqOutputState->ucMotionDetectionOnOff,
                                        psMsgReqOutputState->ucBurnTime,
                                        psMsgReqOutputState->ucInitMenuActive, 
-                                       psMsgReqOutputState->ucAutomaticModeActive,
                                        psMsgReqOutputState->ucOutputIndex);          
                                         
                     /* Set system started information */
@@ -477,19 +474,24 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
         
         case eMsgEnableNightMode:
         {
-            
+            /* Cast payload first */
+            tsMsgEnableNightMode* psNightMode = (tsMsgEnableNightMode*)psMsgFrame->sPayload.pucData;            
+            Aom_Regulation_SetNightModeStatus(psNightMode->ucNightModeStatus);
             break;
         }
         
         case eMsgEnableAutomaticMode:
         {
-            
+            /* Cast payload first */
+            tsMsgEnableAutomaticMode* psAutoMode = (tsMsgEnableAutomaticMode*)psMsgFrame->sPayload.pucData;            
+            Aom_Regulation_SetAutomaticModeStatus(psAutoMode->ucAutomaticModeStatus);
             break;
         }
         
         case eMsgEnableMotionDetect:
         {
-            
+            tsMsgEnableMotionDetectStatus* psMotionDetect = (tsMsgEnableMotionDetectStatus*)psMsgFrame->sPayload.pucData;            
+            Aom_Regulation_SetMotionDectionStatus(psMotionDetect->ucMotionDetectStatus, psMotionDetect->ucBurnTime);
             break;
         }
         
