@@ -302,8 +302,7 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                                                                    
                     /* Set new values in AOM */
                     Aom_Regulation_CheckRequestValues(psMsgReqOutputState->ucBrightness, 
-                                       psMsgReqOutputState->ucLedStatus, 
-                                       psMsgReqOutputState->ucBurnTime,
+                                       psMsgReqOutputState->ucLedStatus,
                                        psMsgReqOutputState->ucInitMenuActive, 
                                        psMsgReqOutputState->ucOutputIndex);          
                                         
