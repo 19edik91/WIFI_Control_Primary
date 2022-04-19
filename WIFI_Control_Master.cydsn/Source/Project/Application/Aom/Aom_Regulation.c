@@ -21,8 +21,8 @@
 /****************************************** Variables ****************************************************/
 
 /****************************************** Function prototypes ******************************************/
-bool ValidatePercentValue(u8* pucValue);
-
+static bool ValidatePercentValue(u8* pucValue);
+static void SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenuActive, u8 ucOutputIdx);
 
 /****************************************** loacl functiones *********************************************/
 #if (WITHOUT_REGULATION == false)
@@ -35,7 +35,7 @@ bool ValidatePercentValue(u8* pucValue);
 \return     bValid - true when valid value was set.
 \param      pucValue - Pointer to the value which should be checked.
 ***********************************************************************************/
-bool ValidatePercentValue(u8* pucValue)
+static bool ValidatePercentValue(u8* pucValue)
 {
     bool bValid = false;    
     if(pucValue)
@@ -58,8 +58,6 @@ bool ValidatePercentValue(u8* pucValue)
 }
 #endif
 
-
-/****************************************** External visible functiones **********************************/
 //********************************************************************************
 /*!
 \author     Kraemer E.
@@ -68,7 +66,7 @@ bool ValidatePercentValue(u8* pucValue)
 \return     none
 \param      ucBrightnessValue - Value with the saved brightness percentage
 ***********************************************************************************/
-void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenuActive, bool bAutomaticModeStatus, u8 ucOutputIdx)
+static void SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenuActive, u8 ucOutputIdx)
 {   
     /* Check first if output index is valid */
     if(ucOutputIdx < DRIVE_OUTPUTS)
@@ -77,19 +75,15 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
         tLedValue* psLedVal = Aom_GetOutputsSettingsEntry(ucOutputIdx);
         
         /* Save LED status */
-        //teRegulationState eActualState = DR_Regulation_GetActualState(ucOutputIdx);
+        psLedVal->bStatus = bLedStatus;
         
-        //if(DR_Regulation_GetHardwareEnabledStatus(ucOutputIdx) != bLedStatus)
-        {
-            psLedVal->bStatus = bLedStatus;
-            
-            //Get the parameter in dependency of the led status
-            teEventParam eParam = (bLedStatus == OFF) ? eEvtParam_RegulationStop : eEvtParam_RegulationStart;
+        //Get the parameter in dependency of the led status
+        teEventParam eParam = (bLedStatus == OFF) ? eEvtParam_RegulationStop : eEvtParam_RegulationStart;
 
-            /* Request a regulation state-change */
-            OS_EVT_PostEvent(eEvtNewRegulationValue, eParam, ucOutputIdx);
-        }
-    
+        /* Request a regulation state-change */
+        OS_EVT_PostEvent(eEvtNewRegulationValue, eParam, ucOutputIdx);
+        
+        
         /* Check first if values are new values */
         if(ucBrightnessValue != psLedVal->ucPercentValue)
         {
@@ -108,17 +102,11 @@ void Aom_Regulation_SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool b
                 OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, ucOutputIdx);
             }
         }
-
-        /* Check if automatic mode has been enabled or disabled */
-        if(bAutomaticModeStatus != psRegVal->sUserTimerSettings.bAutomaticModeActive)
-        {
-            psRegVal->sUserTimerSettings.bAutomaticModeActive = bAutomaticModeStatus;
-
-            /* Start with event */
-            OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, ucOutputIdx);
-        }
     }
 }
+
+/****************************************** External visible functiones **********************************/
+
 
 //********************************************************************************
 /*!
@@ -156,8 +144,7 @@ bool Aom_Regulation_CompareCustomValue(u8 ucBrightnessValue, bool bLedStatus, u8
 \return     none
 \param      ucBrightnessValue - Value with the saved brightness percentage
 ***********************************************************************************/
-void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bool bNightModeOnOff, bool bMotionDetectionOnOff,
-                            u8 ucBurnTime, bool bInitMenuActive, bool bAutomaticModeStatus, u8 ucOutputIdx)
+void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenuActive, u8 ucOutputIdx)
 {   
     tsAutomaticModeValues* psAutomaticModeVal = Aom_GetAutomaticModeSettingsPointer();
     tRegulationValues* psRegVal = Aom_GetRegulationSettings();
@@ -171,18 +158,19 @@ void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bo
     
     /* Get new automatic mode state according to the set modes */
     teAutomaticState eAutoState = eStateDisabled;    
-    if(bMotionDetectionOnOff == ON && bAutomaticModeStatus == ON)
+    if(psRegVal->sUserTimerSettings.bMotionDetectOnOff == ON && psRegVal->sUserTimerSettings.bAutomaticModeActive == ON)
     {
         eAutoState = eStateAutomaticMode_2;
     }
-    else if(bMotionDetectionOnOff == ON && bAutomaticModeStatus == OFF)
+    else if(psRegVal->sUserTimerSettings.bMotionDetectOnOff == ON && psRegVal->sUserTimerSettings.bAutomaticModeActive == OFF)
     {
         eAutoState = eStateAutomaticMode_3;
     }
-    else if(bMotionDetectionOnOff == OFF && bAutomaticModeStatus == ON)
+    else if(psRegVal->sUserTimerSettings.bMotionDetectOnOff == OFF && psRegVal->sUserTimerSettings.bAutomaticModeActive == ON)
     {
         eAutoState = eStateAutomaticMode_1;
     }
+    //Update state machine of the automatic state
     AutomaticMode_ChangeState(eAutoState);
     
     /* Get automatic mode LED status dependent of the automatic mode */
@@ -195,18 +183,77 @@ void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bo
     }
     
     /* Reduce brightness when night mode time slot is active */
-    ucBrightnessValue = (psAutomaticModeVal->bInNightModeTimeSlot == true) ? PERCENT_LOW : ucBrightnessValue;
-        
-    /* Save requested night mode */
-    psRegVal->bNightModeOnOff = bNightModeOnOff;    
-    
-    /* Save motion detection status */
-    psRegVal->sUserTimerSettings.bMotionDetectOnOff = bMotionDetectionOnOff;
-    psRegVal->sUserTimerSettings.ucBurningTime = ucBurnTime;
+    ucBrightnessValue = (psAutomaticModeVal->bInNightModeTimeSlot == true) ? PERCENT_LOW : ucBrightnessValue;   
     
     /* Set changed customer values */
-    Aom_Regulation_SetCustomValue(ucBrightnessValue, bLedStatus, bInitMenuActive, bAutomaticModeStatus, ucOutputIdx);
+    SetCustomValue(ucBrightnessValue, bLedStatus, bInitMenuActive, ucOutputIdx);
 }
+
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       14.04.2022
+\brief      Set automatic mode for regulation
+\return     none
+\param      bAutomaticModeStatus - True when automatic mode shall be enabled
+***********************************************************************************/
+void Aom_Regulation_SetAutomaticModeStatus(bool bAutomaticModeStatus)
+{   
+    tRegulationValues* psRegVal = Aom_GetRegulationSettings();
+    
+    if(bAutomaticModeStatus != psRegVal->sUserTimerSettings.bAutomaticModeActive)
+    {
+        psRegVal->sUserTimerSettings.bAutomaticModeActive = bAutomaticModeStatus;
+        
+        /* Post event to start the timer for saving the new regulation value into the flash */
+        OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, eEvtParam_None);
+    }
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       14.04.2022
+\brief      Set night mode for regulation
+\return     none
+\param      bNightModeOnOff - True when night mode shall be enabled
+***********************************************************************************/
+void Aom_Regulation_SetNightModeStatus(bool bNightModeOnOff)
+{   
+    tRegulationValues* psRegVal = Aom_GetRegulationSettings();
+    
+    if(psRegVal->bNightModeOnOff != bNightModeOnOff)
+    {
+        psRegVal->bNightModeOnOff = bNightModeOnOff;
+    
+        /* Post event to start the timer for saving the new regulation value into the flash */
+        OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, eEvtParam_None);
+    }
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       14.04.2022
+\brief      Set motion detection status for regulation
+\return     none
+\param      bMotionDetectionOnOff - True when motion detection shall be enabled.
+***********************************************************************************/
+void Aom_Regulation_SetMotionDectionStatus(bool bMotionDetectionOnOff, u8 ucBurnTime)
+{
+    tRegulationValues* psRegVal = Aom_GetRegulationSettings();
+    
+    if( psRegVal->sUserTimerSettings.bMotionDetectOnOff != bMotionDetectionOnOff
+     || psRegVal->sUserTimerSettings.ucBurningTime != ucBurnTime)
+    {
+        psRegVal->sUserTimerSettings.bMotionDetectOnOff = bMotionDetectionOnOff;
+        psRegVal->sUserTimerSettings.ucBurningTime = ucBurnTime;
+    
+        /* Post event to start the timer for saving the new regulation value into the flash */
+        OS_EVT_PostEvent(eEvtNewRegulationValue, eEvtParam_RegulationValueStartTimer, eEvtParam_None);
+    }
+}
+
 
 //********************************************************************************
 /*!
