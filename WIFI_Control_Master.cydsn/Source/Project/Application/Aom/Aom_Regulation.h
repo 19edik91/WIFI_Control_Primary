@@ -24,6 +24,8 @@ extern "C"
 const tRegulationValues* Aom_Regulation_GetRegulationValuesPointer(void);
 
 
+void Aom_Regulation_ChangeValueRelative(s8 scChangeValue, u8 ucOutputIdx);
+void Aom_Regulation_ChangeValueAbsolute(u8 ucNewValue, u8 ucOutputIdx);
 void Aom_Regulation_CheckRequestValues(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenuActive, u8 ucOutputIdx);
 bool Aom_Regulation_CompareCustomValue(u8 ucBrightnessValue, bool bLedStatus, u8 ucOutputIdx);
 void Aom_Regulation_SetCalculatedVoltageValue(tRegulationValues* psRegulationValues);

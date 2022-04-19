@@ -115,6 +115,71 @@ static void EnableSlaveTimeout(void)
 }
 
 
+static void SetNewRegulationValue(teEventParam eEvtParam, ulEventParam2 ulParam2)
+{
+    switch(eEvtParam)
+    {
+        case eEvtParam_RegulationValueStartTimer:
+        {
+            /* Restart the flash timeout */
+            OS_SW_Timer_SetTimerState(ucSW_Timer_FlashWrite, eSwTimer_StatusRunning);
+            break;
+        }
+        
+        case eEvtParam_RegulationStart:
+        {
+            DR_Regulation_ChangeState(eStateActiveR, (u8)ulParam2);
+            break;
+        }
+        
+        case eEvtParam_RegulationStop:
+        {
+            DR_Regulation_ChangeState(eStateOff, (u8)ulParam2);
+            break;
+        }
+        
+        case eEvtParam_Plus:
+        {
+            int outputIdx;
+            for(outputIdx = ulParam2; outputIdx--;)
+            {
+                Aom_Regulation_ChangeValueRelative(PERCENT_STEPS, outputIdx);
+            }
+        }
+        
+        case eEvtParam_Minus:
+        {
+            int outputIdx;
+            for(outputIdx = ulParam2; outputIdx--;)
+            {
+                Aom_Regulation_ChangeValueRelative(-PERCENT_STEPS, outputIdx);
+            }
+        }
+        
+        case eEvtParam_FullDrive:
+        {
+            int outputIdx;
+            for(outputIdx = ulParam2; outputIdx--;)
+            {
+                Aom_Regulation_ChangeValueAbsolute(PERCENT_HIGH, outputIdx);
+            }
+        }
+        
+        case eEvtParam_LowDrive:
+        {
+            int outputIdx;
+            for(outputIdx = ulParam2; outputIdx--;)
+            {
+                Aom_Regulation_ChangeValueAbsolute(PERCENT_LOW, outputIdx);
+            }
+        }
+        
+        default:
+        break;
+    }
+    
+}
+
 /************************ externally visible functions ***********************/
 //***************************************************************************
 /*!
@@ -272,21 +337,8 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
         
         case eEvtNewRegulationValue:
         {
-            /* Start the timeout for saving the requested values into flash */
-            if(uiParam1 == eEvtParam_RegulationValueStartTimer)
-            {
-                /* Restart the flash timeout */
-                OS_SW_Timer_SetTimerState(ucSW_Timer_FlashWrite, eSwTimer_StatusRunning);
-            }
-            else if(uiParam1 == eEvtParam_RegulationStart)
-            {
-                DR_Regulation_ChangeState(eStateActiveR, (u8)ulParam2);
-            }
-            else if(uiParam1 == eEvtParam_RegulationStop)
-            {
-                DR_Regulation_ChangeState(eStateOff, (u8)ulParam2);
-            }
-            break;
+            SetNewRegulationValue(uiParam1, ulParam2);
+            break;            
         }
         
         //Handles new received infrared commands
