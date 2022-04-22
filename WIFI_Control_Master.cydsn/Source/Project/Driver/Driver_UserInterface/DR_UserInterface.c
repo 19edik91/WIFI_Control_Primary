@@ -143,6 +143,7 @@ void DR_UI_Init(void)
     
     //Initialize the IR decoder
     IR_Decoder_Init();
+    IR_Decoder_Clear();
     
     //Link the IR-Decoder Timer with the IR-Decoder module
     Timer_IR_ISR_StartEx(IR_Decoder_TimerIRQ);

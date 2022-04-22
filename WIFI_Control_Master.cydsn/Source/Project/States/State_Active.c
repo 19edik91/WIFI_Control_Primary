@@ -145,6 +145,7 @@ static void SetNewRegulationValue(teEventParam eEvtParam, ulEventParam2 ulParam2
             {
                 Aom_Regulation_ChangeValueRelative(PERCENT_STEPS, outputIdx);
             }
+            break;
         }
         
         case eEvtParam_Minus:
@@ -154,6 +155,7 @@ static void SetNewRegulationValue(teEventParam eEvtParam, ulEventParam2 ulParam2
             {
                 Aom_Regulation_ChangeValueRelative(-PERCENT_STEPS, outputIdx);
             }
+            break;
         }
         
         case eEvtParam_FullDrive:
@@ -163,6 +165,7 @@ static void SetNewRegulationValue(teEventParam eEvtParam, ulEventParam2 ulParam2
             {
                 Aom_Regulation_ChangeValueAbsolute(PERCENT_HIGH, outputIdx);
             }
+            break;
         }
         
         case eEvtParam_LowDrive:
@@ -172,6 +175,7 @@ static void SetNewRegulationValue(teEventParam eEvtParam, ulEventParam2 ulParam2
             {
                 Aom_Regulation_ChangeValueAbsolute(PERCENT_LOW, outputIdx);
             }
+            break;
         }
         
         default:
@@ -226,6 +230,7 @@ u8 State_Active_Entry(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 
         MessageHandler_Init();
         DR_Measure_Init();
         DR_Regulation_Init();
+        DR_UI_Init();
                 
         bModulesInit = true;
     }
