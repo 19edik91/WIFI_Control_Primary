@@ -117,69 +117,67 @@ static void EnableSlaveTimeout(void)
 
 static void SetNewRegulationValue(teEventParam eEvtParam, ulEventParam2 ulParam2)
 {
-    switch(eEvtParam)
+    
+    int OutputIdx = 0;
+    int OutputIdxEnd = DRIVE_OUTPUTS;
+    
+    //Check if not all outputs shall be used.
+    if(ulParam2 != DRIVE_OUTPUTS)
     {
-        case eEvtParam_RegulationValueStartTimer:
+        OutputIdx = ulParam2;
+        OutputIdxEnd = ulParam2 + 1;
+    }
+    
+    for(; OutputIdx < OutputIdxEnd; OutputIdx++)
+    {    
+        switch(eEvtParam)
         {
-            /* Restart the flash timeout */
-            OS_SW_Timer_SetTimerState(ucSW_Timer_FlashWrite, eSwTimer_StatusRunning);
-            break;
-        }
-        
-        case eEvtParam_RegulationStart:
-        {
-            DR_Regulation_ChangeState(eStateActiveR, (u8)ulParam2);
-            break;
-        }
-        
-        case eEvtParam_RegulationStop:
-        {
-            DR_Regulation_ChangeState(eStateOff, (u8)ulParam2);
-            break;
-        }
-        
-        case eEvtParam_Plus:
-        {
-            int outputIdx;
-            for(outputIdx = ulParam2; outputIdx--;)
+            case eEvtParam_RegulationValueStartTimer:
             {
-                Aom_Regulation_ChangeValueRelative(PERCENT_STEPS, outputIdx);
+                /* Restart the flash timeout */
+                OS_SW_Timer_SetTimerState(ucSW_Timer_FlashWrite, eSwTimer_StatusRunning);
+                break;
             }
-            break;
-        }
-        
-        case eEvtParam_Minus:
-        {
-            int outputIdx;
-            for(outputIdx = ulParam2; outputIdx--;)
+            
+            case eEvtParam_RegulationStart:
             {
-                Aom_Regulation_ChangeValueRelative(-PERCENT_STEPS, outputIdx);
+                DR_Regulation_ChangeState(eStateActiveR, (u8)OutputIdx);
+                break;
             }
-            break;
-        }
-        
-        case eEvtParam_FullDrive:
-        {
-            int outputIdx;
-            for(outputIdx = ulParam2; outputIdx--;)
+            
+            case eEvtParam_RegulationStop:
             {
-                Aom_Regulation_ChangeValueAbsolute(PERCENT_HIGH, outputIdx);
+                DR_Regulation_ChangeState(eStateOff, (u8)OutputIdx);
+                break;
             }
-            break;
-        }
-        
-        case eEvtParam_LowDrive:
-        {
-            int outputIdx;
-            for(outputIdx = ulParam2; outputIdx--;)
+            
+            case eEvtParam_Plus:
             {
-                Aom_Regulation_ChangeValueAbsolute(PERCENT_LOW, outputIdx);
+                Aom_Regulation_ChangeValueRelative(PERCENT_STEPS, OutputIdx);
+                break;
             }
+            
+            case eEvtParam_Minus:
+            {
+                Aom_Regulation_ChangeValueRelative(-PERCENT_STEPS, OutputIdx);
+                break;
+            }
+            
+            case eEvtParam_FullDrive:
+            {
+                Aom_Regulation_ChangeValueAbsolute(PERCENT_HIGH, OutputIdx);
+                break;
+            }
+            
+            case eEvtParam_LowDrive:
+            {
+                Aom_Regulation_ChangeValueAbsolute(PERCENT_LOW, OutputIdx);
+                break;
+            }
+            
+            default:
             break;
         }
-        
-        default:
-        break;
     }
     
 }
