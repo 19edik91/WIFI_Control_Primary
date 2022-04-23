@@ -143,6 +143,7 @@ void DR_UI_Init(void)
     
     //Initialize the IR decoder
     IR_Decoder_Init();
+    IR_Decoder_Clear();
     
     //Link the IR-Decoder Timer with the IR-Decoder module
     Timer_IR_ISR_StartEx(IR_Decoder_TimerIRQ);
@@ -268,6 +269,7 @@ void DR_UI_InfraredInputIRQ(void)
 void DR_UI_InfraredCmd(uint8_t uiIrCmd)
 {
     uiEventParam1 uiParam = eEvtParam_None;
+    ulEventParam2 ulParam = DRIVE_OUTPUTS;
     
     switch((teNEC_Commands)uiIrCmd)
     {        
@@ -285,51 +287,34 @@ void DR_UI_InfraredCmd(uint8_t uiIrCmd)
         
         case eNEC_Cmd_Plus:
         {
-            uint32_t ulCompVal = PWM_ReadCompare();
-            
-            if((ulCompVal + CHANGE_VAL) > PERIOAD_VAL)
-            {
-                ulCompVal = PERIOAD_VAL;
-            }
-            else
-            {
-                ulCompVal += CHANGE_VAL;
-            }
-            
-            PWM_WriteCompare(ulCompVal);                    
+            uiParam = eEvtParam_Plus;
             break;
         }
         
         case eNEC_Cmd_Minus:
         {
-            uint32_t ulCompVal = PWM_ReadCompare();
-            
-            if((int32_t)(ulCompVal - CHANGE_VAL) < 0)
-            {
-                ulCompVal = 0;
-            }
-            else
-            {
-                ulCompVal -= CHANGE_VAL;
-            }
-            
-            PWM_WriteCompare(ulCompVal);                    
+            uiParam = eEvtParam_Minus;
             break;
         }
         
         case eNEC_Cmd_Full:
         {
-            PWM_WriteCompare(PERIOAD_VAL);
+            uiParam = eEvtParam_FullDrive;
             break;
         }
         
         case eNEC_Cmd_Night:
         {
-            PWM_WriteCompare(CHANGE_VAL);
+            uiParam = eEvtParam_LowDrive;
             break;
         }
         
         default:
             break;
+    }
+    
+    if(uiParam != eEvtParam_None)
+    {
+        OS_EVT_PostEvent(eEvtNewRegulationValue, uiParam, ulParam);
     }
 }

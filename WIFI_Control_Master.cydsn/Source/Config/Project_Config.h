@@ -75,14 +75,20 @@
    ERROR(   eMuxInvalid                              ,    0xA015      ,       1     ,      1                           )
 
 #define USER_EVENT_LIST \
-    EVT( eEvtAutomaticMode_ResetBurningTimeout )\
-    EVT( eEvtCommTimeout )\
-    EVT( eEvtTimeReceived )\
-    EVT( eEvtStandby )\
-    EVT( eEvtNewRegulationValue )\
-    EVT( eEvtInitRegulationValue )\
-    EVT( eEvtStandby_WakeUpReceived )\
-    EVT( eEvtStandby_RxToggled )\
-    EVT( eEvtIR_CmdReceived )
+    eEvtAutomaticMode_ResetBurningTimeout,\
+    eEvtCommTimeout,\
+    eEvtTimeReceived,\
+    eEvtStandby,\
+    eEvtNewRegulationValue,\
+    eEvtInitRegulationValue,\
+    eEvtStandby_WakeUpReceived,\
+    eEvtStandby_RxToggled,\
+    eEvtIR_CmdReceived,
+    
+#define USER_EVENTPARAM_LIST \
+    eEvtParam_Plus,\
+    eEvtParam_Minus,\
+    eEvtParam_FullDrive,\
+    eEvtParam_LowDrive,
     
 #endif /* PROJECT_CONFIG_H_ */

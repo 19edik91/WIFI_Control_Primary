@@ -71,7 +71,6 @@ static void SetCustomValue(u8 ucBrightnessValue, bool bLedStatus, bool bInitMenu
     /* Check first if output index is valid */
     if(ucOutputIdx < DRIVE_OUTPUTS)
     {        
-        tRegulationValues* psRegVal = Aom_GetRegulationSettings();
         tLedValue* psLedVal = Aom_GetOutputsSettingsEntry(ucOutputIdx);
         
         /* Save LED status */
@@ -134,6 +133,70 @@ bool Aom_Regulation_CompareCustomValue(u8 ucBrightnessValue, bool bLedStatus, u8
     }
     
     return bDifferentValue;
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       19.04.2022
+\brief      Change the current value of the output index by the requested change value.
+\return     none
+\param      scChangeValue - Signed value to change the current value in percent,
+            relative to the current value
+\param      ucOutputIdx - The output which shall be changed
+***********************************************************************************/
+void Aom_Regulation_ChangeValueRelative(s8 scChangeValue, u8 ucOutputIdx)
+{
+    tRegulationValues* psRegVal = Aom_GetRegulationSettings();
+    
+    if(ucOutputIdx < DRIVE_OUTPUTS)
+    {
+        //Allow changes only for active outputs
+        if(psRegVal->sLedValue[ucOutputIdx].bStatus == true)
+        {        
+            //Add the signed change value to the current value.
+            s8 scValue = psRegVal->sLedValue[ucOutputIdx].ucPercentValue + scChangeValue;
+            
+            //Normalize to percent 
+            if(scValue < PERCENT_LOW)
+            {
+                scValue = PERCENT_LOW;
+            }
+            else if(scValue > PERCENT_HIGH)
+            {
+                scValue = PERCENT_HIGH;
+            }
+            
+            //Save new values
+            SetCustomValue(scValue, true, false, ucOutputIdx);
+        }
+    }
+}
+
+//********************************************************************************
+/*!
+\author     Kraemer E.
+\date       19.04.2022
+\brief      Change the current value of the output index by the requested change value.
+\return     none
+\param      ucNewValue - Absolute value which is set directly
+\param      ucOutputIdx - The output which shall be changed
+***********************************************************************************/
+void Aom_Regulation_ChangeValueAbsolute(u8 ucNewValue, u8 ucOutputIdx)
+{
+    tRegulationValues* psRegVal = Aom_GetRegulationSettings();
+    
+    if(ucOutputIdx < DRIVE_OUTPUTS)
+    {
+        //Allow changes only for active outputs
+        if(psRegVal->sLedValue[ucOutputIdx].bStatus == true)
+        {        
+            ValidatePercentValue(&ucNewValue);
+            
+            //Save new values
+            SetCustomValue(ucNewValue, true, false, ucOutputIdx);
+        }
+    }
 }
 
 //********************************************************************************

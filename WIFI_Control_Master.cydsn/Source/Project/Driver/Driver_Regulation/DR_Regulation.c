@@ -469,8 +469,11 @@ void DR_Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx
     //    sRegulationHandler[ucOutputIdx].sRegAdcVal.bInitialized = false;
     //}
     
-    /* Save requested state */
-     sRegulationHandler[ucOutputIdx].sRegState.eReqState = eRequestedState;
+    if(ucOutputIdx < _countof(sRegulationHandler))
+    {
+        /* Save requested state */
+         sRegulationHandler[ucOutputIdx].sRegState.eReqState = eRequestedState;
+    }
 }
 
 //********************************************************************************
@@ -484,7 +487,8 @@ void DR_Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutputIdx
 ***********************************************************************************/
 void DR_Regulation_ChangeStateMachine(teRegulationStateMachine eStateMachine, u8 ucOutputIdx)
 {
-    if(eStateMachine == eStateMachine_Init)
+    if(eStateMachine == eStateMachine_Init
+        && ucOutputIdx < _countof(sRegulationHandler))
     {
         sRegulationHandler[ucOutputIdx].sRegAdcVal.bInitialized = false;
     }
