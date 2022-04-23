@@ -28,7 +28,12 @@
 #if (WITHOUT_REGULATION == false)
 /****************************************** Defines ******************************************************/
 #define AVG_BUFFER_SIZE     2
-
+    
+    
+//Calculated by the period value of the PWM is 160. A second are 1000ms so to normalize the PWM period over
+//the second I've calculated 1000ms/160 = 6.25ms.
+#define REGULATION_CYCLES_MS    7  //Every 7 milliseconds a regulation cycle shall be handled.
+    
 typedef struct
 {
     s16  siBuffer[AVG_BUFFER_SIZE];
@@ -409,12 +414,16 @@ void DR_Regulation_Init(void)
 \author  KraemerE
 \date    18.02.2019
 \brief   Calls the linked regulation-function. Checks afterwards for the next state.
-\param   none
+\param   uiMilliSecElapsed - The time since the last call.
 \return  ucIsAnyOutputActive - Zero when no output is active otherwise each bit represents
                                an output.
 ***********************************************************************************/
-u8 DR_Regulation_Handler(void)
+u8 DR_Regulation_Handler(u16 uiMilliSecElapsed)
 {       
+    static uint16 uiMilliSecCnt = 0;
+    
+    uiMilliSecCnt += uiMilliSecElapsed;
+    
     u8 ucIsAnyOutputActive = 0;
     
     u8 ucOutputIdx;    
@@ -442,14 +451,20 @@ u8 DR_Regulation_Handler(void)
         /* Get the next state */
         CheckForNextState(ucOutputIdx);
         
+        
         /* Regulate PWM */
-        RegulatePWM(ucOutputIdx);
+        if(uiMilliSecCnt >= REGULATION_CYCLES_MS)
+        {
+            RegulatePWM(ucOutputIdx);
+            uiMilliSecCnt = 0;
+        }
         
         if(psRegState->eRegulationState != eStateOff)
         {
             ucIsAnyOutputActive |= (0x01 << ucOutputIdx);
         }
-    }
+    }   
+    
     return ucIsAnyOutputActive;
 }
 

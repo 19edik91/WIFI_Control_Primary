@@ -270,7 +270,7 @@ u8 State_Active_Root(teEventID eEventID, uiEventParam1 uiParam1, ulEventParam2 u
             if(ulParam2 == EVT_SW_TIMER_2MS)
             {
                 DR_Measure_Tick();
-                ucActiveOutputs = DR_Regulation_Handler();
+                ucActiveOutputs = DR_Regulation_Handler(SW_TIMER_2MS);
             }
             
             /******* 10ms-Tick **********/

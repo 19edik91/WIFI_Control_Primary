@@ -35,7 +35,7 @@ void    DR_Regulation_ChangeState(teRegulationState eRequestedState, u8 ucOutput
 bool    DR_Regulation_GetEspResetStatus(void);
 void    DR_Regulation_SetEspResetStatus(bool bReset);
 
-u8      DR_Regulation_Handler(void);
+u8      DR_Regulation_Handler(u16 uiMilliSecElapsed);
 teRegulationState DR_Regulation_GetActualState(u8 ucOutputIdx);
 teRegulationState DR_Regulation_GetRequestedState(u8 ucOutputIdx);
 bool DR_Regulation_GetHardwareEnabledStatus(u8 ucOutputIdx);
