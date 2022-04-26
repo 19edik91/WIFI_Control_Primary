@@ -128,12 +128,20 @@ static void SendUserOutputSettings(void)
     /* Clear the structures */
     memset(&sMsgUserOutput, 0, sizeof(sMsgUserOutput));
 
+    /* Initialize output arrays with invalid values */
+    u8 ucOutputIdx;
+    for(ucOutputIdx = 0; ucOutputIdx < _countof(sMsgUserOutput.asOutputs); ucOutputIdx++)
+    {
+        sMsgUserOutput.asOutputs[ucOutputIdx].ucBrightness = 0xFF;
+        sMsgUserOutput.asOutputs[ucOutputIdx].ucLedStatus = 0xFF;
+        sMsgUserOutput.asOutputs[ucOutputIdx].ucOutputIndex = 0xFF;
+    }
+    
     /* Get the regulation values */
     tRegulationValues sRegulationValues;
     memset(&sRegulationValues, 0, sizeof(sRegulationValues));    
     Aom_Regulation_GetRegulationValues(&sRegulationValues);
         
-    u8 ucOutputIdx;    
     for(ucOutputIdx = 0; ucOutputIdx < DRIVE_OUTPUTS; ucOutputIdx++)
     {
         sMsgUserOutput.asOutputs[ucOutputIdx].ucBrightness = sRegulationValues.sLedValue[ucOutputIdx].ucPercentValue;
