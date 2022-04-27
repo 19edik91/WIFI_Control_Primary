@@ -31,8 +31,8 @@ bool Aom_Regulation_CompareCustomValue(u8 ucBrightnessValue, bool bLedStatus, u8
 void Aom_Regulation_SetCalculatedVoltageValue(tRegulationValues* psRegulationValues);
 void Aom_Regulation_GetRegulationValues(tRegulationValues* psRegulationValues);
               
-void Aom_Regulation_SetMinSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16 uiCompVal, u8 ucOutputIdx);
-void Aom_Regulation_SetMaxSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16 uiCompVal, u8 ucOutputIdx);
+void Aom_Regulation_SetMinSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u8 ucOutputIdx);
+void Aom_Regulation_SetMaxSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u8 ucOutputIdx);
               
 void Aom_Regulation_SetAutomaticModeStatus(bool bAutomaticModeStatus);
 void Aom_Regulation_SetNightModeStatus(bool bNightModeOnOff);

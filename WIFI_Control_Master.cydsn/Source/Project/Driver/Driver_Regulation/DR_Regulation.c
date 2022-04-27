@@ -705,4 +705,21 @@ void DR_Regulation_RxInterruptOnSleep(void)
 }
 
 
+//********************************************************************************
+/*!
+\author  KraemerE
+\date    27.04.2022
+\brief   Reads the PWM module data and copies it into the given structure
+\param   none
+\return  none
+***********************************************************************************/
+void DR_Regulation_GetPWMData(uint8_t ucOutputIdx, tsPwmData* psPwmData)
+{
+    if(psPwmData)
+    {
+        HAL_IO_PWM_ReadPeriod(ucOutputIdx, &psPwmData->uiPeriodValue);        
+        HAL_IO_PWM_ReadCompare(ucOutputIdx, &psPwmData->uiCompareValue);
+        psPwmData->bStatus = HAL_IO_GetPwmStatus(ucOutputIdx);
+    }
+}
 #endif
