@@ -373,12 +373,15 @@ const tRegulationValues* Aom_Regulation_GetRegulationValuesPointer(void)
 \brief      Sets the minimum values of the system
 \return     none
 ***********************************************************************************/
-void Aom_Regulation_SetMinSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16 uiCompVal, u8 ucOutputIdx)
+void Aom_Regulation_SetMinSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u8 ucOutputIdx)
 {
     tsSystemSettings* psSystemSettings = Aom_GetSystemSettingsEntry(ucOutputIdx);    
     psSystemSettings->uiMinAdcCurrent = uiCurrentAdc;
     psSystemSettings->uiMinAdcVoltage = uiVoltageAdc;
-    psSystemSettings->uiMinCompVal = uiCompVal;
+    
+    tsPwmData sPwmData; 
+    DR_Regulation_GetPWMData(ucOutputIdx, &sPwmData);
+    psSystemSettings->uiMinCompVal = sPwmData.uiCompareValue;
 }
 
 
@@ -389,12 +392,15 @@ void Aom_Regulation_SetMinSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16
 \brief      Sets the maximum values of the system
 \return     none
 ***********************************************************************************/
-void Aom_Regulation_SetMaxSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u16 uiCompVal, u8 ucOutputIdx)
+void Aom_Regulation_SetMaxSystemSettings(u16 uiCurrentAdc, u16 uiVoltageAdc, u8 ucOutputIdx)
 {
     tsSystemSettings* psSystemSettings = Aom_GetSystemSettingsEntry(ucOutputIdx);
     psSystemSettings->uiMaxAdcCurrent = uiCurrentAdc;
     psSystemSettings->uiMaxAdcVoltage = uiVoltageAdc;
-    psSystemSettings->uiMaxCompVal = uiCompVal;
+    
+    tsPwmData sPwmData; 
+    DR_Regulation_GetPWMData(ucOutputIdx, &sPwmData);
+    psSystemSettings->uiMaxCompVal = sPwmData.uiCompareValue;
 }
 
 #endif

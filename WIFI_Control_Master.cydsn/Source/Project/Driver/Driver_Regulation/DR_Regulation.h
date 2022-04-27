@@ -26,6 +26,13 @@ extern "C"
 #define PWM_ISR_ENABLE               0
 
 /****************************** type definitions *****************************/    
+typedef struct
+{
+    uint16_t uiPeriodValue;     //The period value of the chosen PWM module
+    uint16_t uiCompareValue;    //The compare value of the chosen PWM module
+    bool     bStatus;           //The running status of the chosen PWM module
+}tsPwmData;
+
 /***************************** global variables ******************************/
 
 /************************ externally visible functions ***********************/
@@ -46,6 +53,8 @@ void DR_Regulation_SetWakeupInterrupts(void);
 void DR_Regulation_DeleteWakeupInterrupts(void);
 void DR_Regulation_EnterDeepSleepMode(void);
 void DR_Regulation_RxInterruptOnSleep(void);
+
+void DR_Regulation_GetPWMData(uint8_t ucOutputIdx, tsPwmData* psPwmData);
 
 #ifdef __cplusplus
 }

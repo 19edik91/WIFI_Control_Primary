@@ -9,17 +9,19 @@
 ***********************************************************************************/
 #include "BaseTypes.h"
 #include "MessageHandler.h"
+
 #include "OS_Serial_UART.h"
 #include "OS_ErrorDebouncer.h"
 #include "OS_Communication.h"
+
 #include "RequestResponseHandler.h"
+
 #include "Aom_Regulation.h"
 #include "Aom_System.h"
 #include "Aom_Time.h"
 #include "Aom_Measure.h"
 #include "Aom_Flash.h"
-#include "HAL_IO.h"
-//#include "Version\Version.h"
+
 /****************************************** Defines ******************************************************/
 
 /****************************************** Function prototypes ******************************************/
@@ -368,16 +370,14 @@ teMessageType ReqResMsg_Handler(tsMessageFrame* psMsgFrame)
                     /* Read the current values */
                     u16 uiVoltageAdc = Aom_Measure_GetAdcIsValue(eMeasureChVoltage, psMsgManualInit->ucOutputIndex);
                     u16 uiCurrentAdc = Aom_Measure_GetAdcIsValue(eMeasureChCurrent, psMsgManualInit->ucOutputIndex);
-                    u16 uiPwmCompVal = 0; 
-                    HAL_IO_PWM_ReadCompare(psMsgManualInit->ucOutputIndex, &uiPwmCompVal);
                     
                     if(psMsgManualInit->ucSetMaxValue)
                     {
-                        Aom_Regulation_SetMaxSystemSettings(uiCurrentAdc, uiVoltageAdc, uiPwmCompVal, psMsgManualInit->ucOutputIndex);
+                        Aom_Regulation_SetMaxSystemSettings(uiCurrentAdc, uiVoltageAdc, psMsgManualInit->ucOutputIndex);
                     }
                     else if(psMsgManualInit->ucSetMinValue)
                     {
-                        Aom_Regulation_SetMinSystemSettings(uiCurrentAdc, uiVoltageAdc, uiPwmCompVal, psMsgManualInit->ucOutputIndex);
+                        Aom_Regulation_SetMinSystemSettings(uiCurrentAdc, uiVoltageAdc, psMsgManualInit->ucOutputIndex);
                     }
                 }
             }
