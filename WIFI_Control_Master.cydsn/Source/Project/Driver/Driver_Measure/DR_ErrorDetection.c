@@ -54,10 +54,10 @@ static bool ValidateOutputPorts(tsFaultOutputPortValues* psFaultOutputPortValues
             const u8* pucOutputPortMask = HAL_IO_GetOutputPinMask();
             
             /* Get interrupt save port register */
-            CyGlobalIntDisable;
+            HAL_System_EnterCriticalSection();
                 ucPortOutputDataRegVal = HAL_IO_ReadPortDataRegister(ucPortIdx);
                 ucPortOutputStatusRegVal = HAL_IO_ReadPortStateRegister(ucPortIdx);
-            CyGlobalIntEnable;
+            HAL_System_LeaveCriticalSection();
 
             /* Mask both register */
             ucPortOutputDataRegVal &= pucOutputPortMask[ucPortIdx];
